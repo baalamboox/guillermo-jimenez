@@ -1,0 +1,168 @@
+.gj\:lm\:wrapper {
+    display: flex;
+    align-items: center;
+    background-color: var(--gj-main-bg);
+    flex-direction: column;
+    justify-content: center;
+    left: 0;
+    min-height: 100vh;
+    opacity: 1;
+    position: absolute;
+    padding: 24px;
+    top: 0;
+    transition: all 1s ease-in-out;
+    width: 100%;
+}
+
+.gj\:lm\:section {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    opacity: 1;
+    row-gap: 50px;
+    transition: opacity 2s ease-in-out;
+}
+
+.gj\:lm\:complete-name {
+    color: var(--gj-fonts-light);
+    font-size: 64px;
+    text-align: center;
+}
+
+.gj\:lm\:logo {
+    height: 100%;
+    max-height: 223px;
+    max-width: 320px;
+    min-height: 174px;
+    min-width: 250px;
+    padding-inline: 48px;
+    width: 100%;
+}
+
+.gj\:lm\:bullets {
+    display: flex;
+    align-items: center;
+    background-color: var(--gj-second-bg);
+    border-radius: 100px;
+    column-gap: 11px;
+    justify-content: center;
+    padding-block: 7px;
+    padding-inline: 14px;
+}
+
+.gj\:lm\:bullet {
+    background-color: var(--gj-fonts-light);
+    border-radius: 100%;
+}
+
+.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(1) {
+    background-color: #707070;
+    height: 4px;
+    width: 4px;
+}
+
+.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(2) {
+    background-color: #707070;
+    height: 6px;
+    width: 6px;
+}
+
+.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(3) {
+    background-color: #707070;
+    height: 8px;
+    width: 8px;
+}
+
+.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(4) {
+    background-color: #707070;
+    height: 10px;
+    width: 10px;
+}
+
+.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(5) {
+    height: 10px;
+    width: 10px;
+}
+
+.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(6) {
+    height: 10px;
+    width: 10px;
+}
+.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(7) {
+    height: 10px;
+    width: 10px;
+}
+.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(8) {
+    height: 10px;
+    width: 10px;
+}
+.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(9) {
+    height: 10px;
+    width: 10px;
+}
+.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(10) {
+    height: 10px;
+    width: 10px;
+}
+.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(11) {
+    height: 10px;
+    width: 10px;
+}
+.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(12) {
+    height: 10px;
+    width: 10px;
+}
+.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(13) {
+    background-color: #707070;
+    height: 10px;
+    width: 10px;
+}
+.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(14) {
+    background-color: #707070;
+    height: 8px;
+    width: 8px;
+}
+.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(15) {
+    background-color: #707070;
+    height: 6px;
+    width: 6px;
+}
+.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(16) {
+    background-color: #707070;
+    height: 4px;
+    width: 4px;
+}
+
+.gj\:content-loaded
+.gj\:lm\:section {
+    opacity: 0;
+}
+
+.gj\:lm\:hidden
+.gj\:lm\:wrapper {
+    opacity: 0;
+}
+
+.gj\:lm\:remove
+.gj\:lm\:wrapper {
+    display: none;
+}
+
+@media only screen and (max-height: 480px) {
+    .gj\:lm\:complete-name {
+        font-size: 36px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .gj\:lm\:complete-name {
+        font-size: 36px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .gj\:lm\:section {
+        row-gap: 25px;
+    }
+}
