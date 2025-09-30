@@ -1,7 +1,62 @@
 ---
 import Layout from "./src/layouts/Layout.astro"
+import "./src/css/skills.css";
+import data from "./src/data/data.js";
+
+const { skills } = data;
+
+const randomClass = () => {
+    const comboClass = ["gj:skills:grid:span-col-2", "gj:skills:grid:span-row-2", "gj:skills:grid:span-col-2 gj:skills:grid:span-row-2", ""];
+    console.log( Math.round(Math.random() * (5 - 1)) );
+}
 ---
 
-<Layout>
-    <h1>Habilidades</h1>
+<Layout title="Habilidades">
+    <h1 class="gj:skills:title">Habilidades</h1>
+    <div class="gj:skills:wrapper">
+        <div class="gj:skills:menu">
+            <div class="gj:skills:nav">
+                <ul class="gj:skills:nav-list">
+                    <li class="gj:skills:nav-button gj:skills:nav-button-active">
+                        <span class="gj:layout:svg-wrapper">
+                            <svg class="gj:skills:icon-selected" xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12s4.477 10 10 10"/></svg>
+                            <svg class="gj:skills:icon-no-selected" xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10m0-2a8 8 0 1 0 0-16a8 8 0 0 0 0 16"/></svg>
+                        </span>
+                        Habilidades ténicas
+                    </li>
+                    <li class="gj:skills:nav-button">
+                        <span class="gj:layout:svg-wrapper">
+                            <svg class="gj:skills:icon-selected" xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12s4.477 10 10 10"/></svg>
+                            <svg class="gj:skills:icon-no-selected" xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10m0-2a8 8 0 1 0 0-16a8 8 0 0 0 0 16"/></svg>
+                        </span>
+                        Habilidades blandas
+                    </li>
+                </ul>
+            </div>
+            <div class="gj:skills:menubox">
+                <ul class="gj:skills:menubox-list">
+                    {
+                        Object.keys(skills.technical).map((technical) => (
+                            randomClass(),
+                            <li class="gj:skills:menubox-list-item">
+                                <span class="gj:layout:svg-wrapper">
+                                    <svg class="gj:skills:menubox-icon" style={ "--gj-emphasis-color:" + skills.technical[technical].emphasis_color + ";"}><use href={ "./src/assets/icons/gj.svg#" + skills.technical[technical].icon }></use></svg>
+                                </span>
+                            </li>
+                        ))
+                    }
+                </ul>
+                
+                <div class="gj:skills:corner">
+                    <span class="gj:skills:corner-circle"></span>
+                </div>
+            </div>
+        </div>
+        <div class="gj:skills:menu-content">
+            <div class="gj:skills:gost-nav"></div>
+            <div class="gj:skills:content">
+                Example
+            </div>
+        </div>
+    </div>
 </Layout>

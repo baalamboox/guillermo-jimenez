@@ -1,6 +1,8 @@
 ---
 import "./src/css/layout.css";
 import LoaderMask from "./src/components/LoaderMask.astro";
+
+const { title } = Astro.props;
 ---
 
 
@@ -11,7 +13,7 @@ import LoaderMask from "./src/components/LoaderMask.astro";
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>GJ | { title }</title>
 	</head>
 	<body>
 		<div class="gj:layout:base" id="gjLayoutBase">

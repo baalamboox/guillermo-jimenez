@@ -251,10 +251,3 @@ body {
     background-color: rgba(16, 16, 16, 0.5);
     backdrop-filter: blur(16px);
 }
-
-.gj\:path\:skills
-h1 {
-    transition: transform 2s ease;
-    transform: rotateY(180deg);
-    color: red;
-}

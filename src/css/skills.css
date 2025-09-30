@@ -1,0 +1,144 @@
+.gj\:skills\:title {
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.gj\:skills\:wrapper {
+    display: flex;
+    align-items: flex-start;
+    height: 680px;
+    max-width: 1220px;
+    margin-inline: auto;
+    margin-block: 80px;
+    width: 100%;
+
+    background-color: black;
+}
+
+.gj\:skills\:menu,
+.gj\:skills\:menu-content {
+    height: 100%;
+    max-width: 50%;
+    width: 100%;
+}
+
+.gj\:skills\:nav {
+    position: relative;
+    background-color: var(--gj-main-bg);
+    border-radius: 0 0 16px 0;
+    padding: 8px;
+    /* bottom: -6px;
+    left: 6px; */
+}
+
+.gj\:skills\:nav-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.gj\:skills\:nav-button {
+    display: flex;
+    align-items: center;
+    border-radius: 100px;
+    column-gap: 4px;
+    color: var(--gj-fonts-light);
+    cursor: pointer;
+    flex-direction: row;
+    flex-grow: 1;
+    background-color: var(--gj-second-bg);
+    padding-block: 8px;
+    padding-inline: 16px;
+}
+
+.gj\:skills\:icon-selected,
+.gj\:skills\:icon-no-selected {
+    display: block;
+    height: 24px;
+    max-height: 24px;
+    max-width: 24px;
+    min-height: 24px;
+    min-width: 24px;
+    width: 24px;
+}
+
+.gj\:skills\:icon-selected {
+    display: none;
+}
+
+.gj\:skills\:menubox {
+    position: relative;
+    background-color: var(--gj-second-bg);
+    border-radius: 16px 0px 0px 16px;
+    padding: 24px;
+}
+
+.gj\:skills\:content {
+    background-color: var(--gj-second-bg);
+    border-radius: 16px 16px 16px 0;
+    padding: 24px;
+}
+
+.gj\:skills\:corner {
+    background-color: var(--gj-second-bg);
+    position: absolute;
+    height: 16px;
+    overflow: hidden;
+    right: 0;
+    top: -16px;
+    width: 16px;
+    z-index: -1;
+}
+
+.gj\:skills\:corner-circle {
+    display: block;
+    background-color: var(--gj-main-bg);
+    border-radius: 100%;
+    content: "";
+    height: 25px;
+    left: -50%;
+    position: relative;
+    top: -50%;
+    width: 25px;
+}
+
+.gj\:skills\:nav-button-active {
+    background-color: var(--gj-black);
+}
+
+.gj\:skills\:menubox-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    list-style: none;
+    padding-inline: 0;
+}
+
+.gj\:skills\:menubox-list-item {
+    background-color: var(--gj-main-bg);
+    border-radius: 16px;
+}
+
+.gj\:skills\:grid\:span-col-2 {
+    aspect-ratio: 16/9;
+    grid-column: span 2;
+}
+
+.gj\:skills\:grid\:span-row-2 {
+    aspect-ratio: 16/9;
+    grid-row: span 2;
+}
+
+.gj\:skills\:menubox-icon {
+    display: block;
+    color: var(--gj-emphasis-color);
+    height: 120px;
+    min-height: 120px;
+    min-width: 120px;
+    margin-inline: auto;
+    width: 120px;
+}
