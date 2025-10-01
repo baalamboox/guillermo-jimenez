@@ -3,7 +3,7 @@ const gjLoaderMask = document?.querySelector("#gjLoderMask");
 const gjLoaderMaskSection = document?.querySelector("#gjLoaderMaskSection");
 
 const indexView = () => {
-    console.log(document.querySelector("#gjLayoutBase"));
+    // console.log(document.querySelector("#gjLayoutBase"));
 }
 
 window.addEventListener("load", () => {

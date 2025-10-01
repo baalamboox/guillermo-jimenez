@@ -1,7 +1,11 @@
 ---
-import Layout from "./src/layouts/Layout.astro"
+import Layout from "./src/layouts/Layout.astro";
+import "./src/css/experience.css";
 ---
 
-<Layout>
-    <h1>Experiencia</h1>
+<Layout title="Experiencia">
+    <h1>Canvas JS</h1>
+    <canvas class="gj:experience:canvas" id="experienceCanvas" width="300" height="150"></canvas>
 </Layout>
+
+<script src="./src/js/experience.js" is:inline></script>

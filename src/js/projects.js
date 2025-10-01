@@ -36,5 +36,3 @@ gjCarouselNextButton.addEventListener("click", () => {
     carouselItems.style.transform = `translateX(${ mc.decrement() }px)`;
     console.log(mc.decrement());
 });
-
-// setInterval(() => console.log(mc.value()), 2000);
