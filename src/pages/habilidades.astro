@@ -5,9 +5,17 @@ import data from "./src/data/data.js";
 
 const { skills } = data;
 
-const randomClass = () => {
-    const comboClass = ["gj:skills:grid:span-col-2", "gj:skills:grid:span-row-2", "gj:skills:grid:span-col-2 gj:skills:grid:span-row-2", ""];
-    console.log( Math.round(Math.random() * (5 - 1)) );
+// const randomClass = () => {
+//     const comboClass = ["", "gj:skills:grid:span-col-2", "gj:skills:grid:span-row-2", "gj:skills:grid:span-row-col-2", "gj:skills:grid:span-row-col-1", ""];
+//     return comboClass[Math.round(Math.random() * (5 - 1) + 1) - 1];
+// }
+
+const commasToArray = ({ stringCommas }) => {
+    return stringCommas.split(",");
+}
+
+const xitems = () => {
+    console.log("adios");
 }
 ---
 
@@ -34,11 +42,10 @@ const randomClass = () => {
                 </ul>
             </div>
             <div class="gj:skills:menubox">
-                <ul class="gj:skills:menubox-list">
+                <ul class="gj:skills:menubox-list" onclick="xitems()">
                     {
                         Object.keys(skills.technical).map((technical) => (
-                            randomClass(),
-                            <li class="gj:skills:menubox-list-item">
+                            <li class={ "gj:skills:menubox-list-item "} style={ "--gj-emphasis-color:" + skills.technical[technical].emphasis_color + ";"}>
                                 <span class="gj:layout:svg-wrapper">
                                     <svg class="gj:skills:menubox-icon" style={ "--gj-emphasis-color:" + skills.technical[technical].emphasis_color + ";"}><use href={ "./src/assets/icons/gj.svg#" + skills.technical[technical].icon }></use></svg>
                                 </span>
@@ -55,7 +62,33 @@ const randomClass = () => {
         <div class="gj:skills:menu-content">
             <div class="gj:skills:gost-nav"></div>
             <div class="gj:skills:content">
-                Example
+                <p class="gj:skills:content-title">{ skills.technical["bootstrap"].title }</p>
+                <div class="gj:skills:content-load-bar">
+                    <span class="gj:skills:content-load-bar-status" style={ "--gj-percentage:" + skills.technical["bootstrap"].percentage_experience + "%;--gj-percentage-color:" + skills.technical["bootstrap"].emphasis_color + ";" }></span>
+                </div>
+                <div class="gj:skills:content-list-wrapper">
+                    <ul class="gj:skills:content-list">
+                        {
+                            commasToArray({ stringCommas : skills.technical["bootstrap"].mastered_topics }).map((mastered_topic) => (
+                                <li style={ "--gj-marker-color:" + skills.technical["bootstrap"].emphasis_color + ";" }>{ mastered_topic }</li>
+                            ))
+                        }
+                    </ul>
+                </div>
+                <div class="gj:skills:nav-footer-buttons-wrapper" style={ "--gj-icon-color:" + skills.technical["bootstrap"].emphasis_color + ";" }>
+                    <div class="gj:skills:nav-footer-buttons">
+                        <button class="gj:skills:nav-footer-button" type="button">
+                            <span class="gj:layout:svg-wrapper">
+                                <svg width="8" height="16"><use href="./src/assets/icons/gj.svg#iconArrowLeft"></use></svg>
+                            </span>
+                        </button>
+                        <button class="gj:skills:nav-footer-button" type="button">
+                            <span class="gj:layout:svg-wrapper">
+                                <svg width="8" height="16"><use href="./src/assets/icons/gj.svg#iconArrowRight"></use></svg>
+                            </span>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

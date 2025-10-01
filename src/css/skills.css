@@ -13,9 +13,10 @@
     max-width: 1220px;
     margin-inline: auto;
     margin-block: 80px;
+    overflow: hidden;
     width: 100%;
 
-    background-color: black;
+    /* background-color: black; */
 }
 
 .gj\:skills\:menu,
@@ -119,18 +120,39 @@
 }
 
 .gj\:skills\:menubox-list-item {
+    display: flex;
+    align-items: center;
     background-color: var(--gj-main-bg);
     border-radius: 16px;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.gj\:skills\:menubox-list-item:hover {
+    cursor: pointer;
+    box-shadow: 0 0 8px var(--gj-emphasis-color);
 }
 
 .gj\:skills\:grid\:span-col-2 {
-    aspect-ratio: 16/9;
+    /* aspect-ratio: 16/9; */
     grid-column: span 2;
 }
 
 .gj\:skills\:grid\:span-row-2 {
-    aspect-ratio: 16/9;
+    /* aspect-ratio: 16/9; */
     grid-row: span 2;
+}
+
+.gj\:skills\:grid\:span-row-col-2 {
+    /* aspect-ratio: 1/1; */
+    grid-row: span 2;
+    grid-column: span 2;
+}
+
+.gj\:skills\:grid\:span-row-col-1 {
+    /* aspect-ratio: 1/1; */
+    grid-row: span 2;
+    grid-column: span 2;
 }
 
 .gj\:skills\:menubox-icon {
@@ -141,4 +163,76 @@
     min-width: 120px;
     margin-inline: auto;
     width: 120px;
+}
+
+.gj\:skills\:content-title {
+    color: var(--gj-fonts-light);
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 32px;
+    margin-bottom: 24px;
+}
+
+.gj\:skills\:content-load-bar {
+    background-color: var(--gj-main-bg);
+    border-radius: 100px;
+    height: 4px;
+    margin-inline: auto;
+    max-width: 400px;
+    width: 100%;
+}
+
+.gj\:skills\:content-load-bar-status {
+    display: block;
+    background-color: var(--gj-percentage-color);
+    border-radius: inherit;
+    height: 100%;
+    width: var(--gj-percentage);
+}
+
+.gj\:skills\:content-list {
+    columns: 2;
+    line-height: 24px;
+    margin-block: 80px;
+    padding-inline: 48px;
+}
+
+.gj\:skills\:content-list > li::marker {
+    color: var(--gj-marker-color);
+}
+
+.gj\:skills\:content-list > li {
+    color: var(--gj-fonts-light);
+    font-size: 16px;
+}
+
+.gj\:skills\:nav-footer-buttons-wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.gj\:skills\:nav-footer-buttons {
+    display: flex;
+    align-items: center;
+    column-gap: 16px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+.gj\:skills\:nav-footer-button {
+    background-color: var(--gj-main-bg);
+    border: none;
+    border-radius: 100%;
+    cursor: pointer;
+    color: var(--gj-icon-color);
+    height: 100%;
+    max-width: 48px;
+    max-height: 48px;
+    min-height: 48px;
+    min-width: 48px;
+    width: 100%;
 }

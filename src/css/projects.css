@@ -1,0 +1,100 @@
+.gj\:projects\:wrapper {
+    max-width: 1220px;
+    margin-inline: auto;
+    margin-top: 80px;
+    width: 100%;;
+}
+
+.gj\:projects\:carousel {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.gj\:projects\:carousel-items {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    column-gap: 16px;
+    padding: 16px;
+    transition: transform 0.75s ease-in-out;
+    width: fit-content;
+}
+
+.gj\:projects\:carousel-card {
+    background-color: var(--gj-black);
+    border-radius: 16px;
+    cursor: pointer;
+    height: 480px;
+    min-width: 320px;
+    overflow: hidden;
+}
+
+.gj\:projects\:carousel-card-img {
+    display: block;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+}
+
+.gj\:projects\:carousel-nav {
+    display: flex;
+    align-items: center;
+    background-color: var(--gj-black);
+    border-radius: 100px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 8px;
+    justify-content: center;
+    margin-block: 24px;
+    margin-inline: auto;
+    padding-inline: 16px;
+    padding-block: 6px;
+    width: fit-content;
+}
+
+.gj\:projects\:carousel-nav-bullet {
+    background-color: var(--gj-light-bg);
+    border-radius: 100%;
+    height: 100%;
+    max-height: 12px;
+    max-width: 12px;
+    min-height: 12px;
+    min-width: 12px;
+    width: 100%;
+}
+
+.gj\:projects\:carousel-control-wrapper {
+    margin-block: 80px;
+}
+
+
+.gj\:projects\:carousel-control {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    column-gap: 16px;
+    justify-content: center;
+    margin-inline: auto;
+    width: fit-content;
+}
+
+.gj\:projects\:carousel-control-button {
+    background-color: transparent;
+    border: none;
+    height: 100%;
+    max-height: 48px;
+    max-width: 48px;
+    min-height: 48px;
+    min-width: 48px;
+    width: 100%;
+}
+
+.gj\:projects\:carousel-control-button-play-pause {
+    border: 2px solid var(--gj-light-bg);
+    border-radius: 100%;
+}
