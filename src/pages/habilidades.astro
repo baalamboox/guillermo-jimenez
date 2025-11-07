@@ -24,8 +24,8 @@ const xitems = () => {
     <div class="gj:skills:wrapper">
         <div class="gj:skills:menu">
             <div class="gj:skills:nav">
-                <ul class="gj:skills:nav-list">
-                    <li class="gj:skills:nav-button gj:skills:nav-button-active">
+                <ul class="gj:skills:nav-list" id="gjSkillsNavList">
+                    <li class="gj:skills:nav-button gj:skills:nav-button-active" data-target="#">
                         <span class="gj:layout:svg-wrapper">
                             <svg class="gj:skills:icon-selected" xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12s4.477 10 10 10"/></svg>
                             <svg class="gj:skills:icon-no-selected" xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10m0-2a8 8 0 1 0 0-16a8 8 0 0 0 0 16"/></svg>
@@ -93,3 +93,5 @@ const xitems = () => {
         </div>
     </div>
 </Layout>
+
+<script src="/src/js/skills.js" is:inline></script>

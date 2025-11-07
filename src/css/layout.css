@@ -46,6 +46,14 @@
     --gj-black: #000000;
 }
 
+:root[dark-mode="true"] {
+    --gj-main-bg: #ffffff;
+    --gj-light-bg: #fffff;
+    --gj-second-bg: #a8a8a8;
+    --gj-fonts-light: #000000;
+    --gj-black: #000000;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -68,9 +76,26 @@ h1 {
 }
 
 .gj\:layout\:base {
-    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
     position: relative;
     padding: 24px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.gj\:layout\:base-main {
+    flex-grow: 1;
+}
+
+.gj\:layout\:container {
+    height: 100%;
+    overflow-y: auto;
+    max-width: 1280px;
+    margin-inline: auto;
+    position: relative;
+    width: 100%;
 }
 
 .gj\:layout\:svg-wrapper {
@@ -82,6 +107,7 @@ h1 {
     align-items: center;
     flex-direction: row;
     justify-content: space-between;
+    padding-block: 24px;
 }
 
 .gj\:layout\:header-menu-button,
@@ -175,6 +201,44 @@ h1 {
     background-color: var(--gj-second-bg);
     padding-block: 8px;
     padding-inline: 16px;
+    position: relative;
+}
+
+.gj\:layout\:header-switch-theme {
+    height: 1px;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    width: 1px;
+}
+
+.gj\:layout\:header-theme-icon-light {
+    display: none;
+}
+
+.gj\:layout\:header-theme-status-light {
+    display: none;
+}
+
+.gj\:layout\:header-switch-theme:checked ~ .gj\:layout\:header-theme-button
+.gj\:layout\:header-theme-icon-dark {
+    display: none;
+}
+
+.gj\:layout\:header-switch-theme:checked ~ .gj\:layout\:header-theme-button
+.gj\:layout\:header-theme-icon-light {
+    display: block;
+}
+
+.gj\:layout\:header-switch-theme:checked ~ .gj\:layout\:header-theme-button
+.gj\:layout\:header-theme-status-dark {
+    display: none;
+}
+
+.gj\:layout\:header-switch-theme:checked ~ .gj\:layout\:header-theme-button
+.gj\:layout\:header-theme-status-light {
+    display: block;
 }
 
 .gj\:layout\:header-theme-icon {
@@ -192,11 +256,9 @@ h1 {
 }
 
 .gj\:layout\:footer {
-    bottom: 0;
-    left: 50%;
-    position: absolute;
-    padding: 24px;
-    transform: translateX(-50%);
+    width: fit-content;
+    margin-inline: auto;
+    padding-block: 24px;
 }
 
 .gj\:layout\:footer-menu-list {
@@ -238,13 +300,13 @@ h1 {
     z-index: 2;
 }
 
-.gj\:path\:home
+/* .gj\:path\:home
 body {
     background-color: var(--gj-main-bg);
     background-image: url("./src/assets/img/base-background.jpg");
     background-position: center;
     background-size: cover;
-}
+} */
 
 .gj\:path\:home
 .gj\:layout\:base {

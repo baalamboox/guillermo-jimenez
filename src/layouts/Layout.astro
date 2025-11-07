@@ -5,7 +5,6 @@ import LoaderMask from "./src/components/LoaderMask.astro";
 const { title } = Astro.props;
 ---
 
-
 <!doctype html>
 <html lang="en">
 	<head>
@@ -78,23 +77,30 @@ const { title } = Astro.props;
 						</ul>
 					</div>
 					<div class="gj:layout:header-themes">
-						<button class="gj:layout:header-theme-button" type="button">
+						<input class="gj:layout:header-switch-theme" type="checkbox" id="gjSwitchTheme" />
+						<label class="gj:layout:header-theme-button" for="gjSwitchTheme">
 							<span class="gj:layout:svg-wrapper">
-								<svg class="gj:layout:header-theme-icon" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M15.644 4.476C14.1044 7.81812 13.6261 11.5518 14.2734 15.1741C14.9208 18.7964 16.6628 22.1333 19.2648 24.7352C21.8667 27.3372 25.2036 29.0792 28.8259 29.7266C32.4482 30.3739 36.1819 29.8956 39.524 28.356C37.536 37.308 29.55 44 20 44C8.954 44 0 35.046 0 24C0 14.45 6.692 6.464 15.644 4.476ZM32.328 4.582L34 5V7L32.328 7.418C31.6248 7.59387 30.9826 7.95751 30.4701 8.47006C29.9575 8.98261 29.5939 9.6248 29.418 10.328L29 12H27L26.582 10.328C26.4061 9.6248 26.0425 8.98261 25.5299 8.47006C25.0174 7.95751 24.3752 7.59387 23.672 7.418L22 7V5L23.672 4.582C24.3748 4.40582 25.0166 4.04203 25.5288 3.5295C26.041 3.01698 26.4043 2.37495 26.58 1.672L27 0H29L29.418 1.672C29.5939 2.3752 29.9575 3.01739 30.4701 3.52994C30.9826 4.04249 31.6248 4.40613 32.328 4.582ZM42.328 14.582L44 15V17L42.328 17.418C41.6248 17.5939 40.9826 17.9575 40.4701 18.4701C39.9575 18.9826 39.5939 19.6248 39.418 20.328L39 22H37L36.582 20.328C36.4061 19.6248 36.0425 18.9826 35.5299 18.4701C35.0174 17.9575 34.3752 17.5939 33.672 17.418L32 17V15L33.672 14.582C34.3752 14.4061 35.0174 14.0425 35.5299 13.5299C36.0425 13.0174 36.4061 12.3752 36.582 11.672L37 10H39L39.418 11.672C39.5939 12.3752 39.9575 13.0174 40.4701 13.5299C40.9826 14.0425 41.6248 14.4061 42.328 14.582Z" fill="white"/>
+								<svg class="gj:layout:header-theme-icon gj:layout:header-theme-icon-dark" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M15.644 4.476C14.1044 7.81812 13.6261 11.5518 14.2734 15.1741C14.9208 18.7964 16.6628 22.1333 19.2648 24.7352C21.8667 27.3372 25.2036 29.0792 28.8259 29.7266C32.4482 30.3739 36.1819 29.8956 39.524 28.356C37.536 37.308 29.55 44 20 44C8.954 44 0 35.046 0 24C0 14.45 6.692 6.464 15.644 4.476ZM32.328 4.582L34 5V7L32.328 7.418C31.6248 7.59387 30.9826 7.95751 30.4701 8.47006C29.9575 8.98261 29.5939 9.6248 29.418 10.328L29 12H27L26.582 10.328C26.4061 9.6248 26.0425 8.98261 25.5299 8.47006C25.0174 7.95751 24.3752 7.59387 23.672 7.418L22 7V5L23.672 4.582C24.3748 4.40582 25.0166 4.04203 25.5288 3.5295C26.041 3.01698 26.4043 2.37495 26.58 1.672L27 0H29L29.418 1.672C29.5939 2.3752 29.9575 3.01739 30.4701 3.52994C30.9826 4.04249 31.6248 4.40613 32.328 4.582ZM42.328 14.582L44 15V17L42.328 17.418C41.6248 17.5939 40.9826 17.9575 40.4701 18.4701C39.9575 18.9826 39.5939 19.6248 39.418 20.328L39 22H37L36.582 20.328C36.4061 19.6248 36.0425 18.9826 35.5299 18.4701C35.0174 17.9575 34.3752 17.5939 33.672 17.418L32 17V15L33.672 14.582C34.3752 14.4061 35.0174 14.0425 35.5299 13.5299C36.0425 13.0174 36.4061 12.3752 36.582 11.672L37 10H39L39.418 11.672C39.5939 12.3752 39.9575 13.0174 40.4701 13.5299C40.9826 14.0425 41.6248 14.4061 42.328 14.582Z" fill="white" />
+								</svg>
+								<svg class="gj:layout:header-theme-icon gj:layout:header-theme-icon-light" xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24">
+									<path fill="currentColor" d="M7.941 18c-.297-1.273-1.637-2.314-2.187-3a8 8 0 1 1 12.49.002c-.55.685-1.888 1.726-2.185 2.998zM16 20v1a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-1zm-3-9.995V6l-4.5 6.005H11v4l4.5-6z" fill="white" />
 								</svg>
 							</span>
-							<span class="gj:layout:header-theme-status">Obscuro</span>
+							<span class="gj:layout:header-theme-status gj:layout:header-theme-status-dark">Obscuro</span>
+							<span class="gj:layout:header-theme-status gj:layout:header-theme-status-light">Claro</span>
 							<span class="gj:layout:svg-wrapper">
 								<svg class="gj:layout:header-theme-flag" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
 									<path d="M23.9999 38.328L36.4139 25.914L33.5859 23.086L23.9999 32.672L14.4139 23.086L11.5859 25.914L23.9999 38.328ZM23.9999 27.028L36.4139 14.614L33.5859 11.786L23.9999 21.372L14.4139 11.786L11.5859 14.614L23.9999 27.028Z" fill="#484848"/>
 								</svg>
 							</span>
-						</button>
+						</label>
 					</div>
 				</div>
 			</header>
-			<slot />
+			<main class="gj:layout:base-main">
+				<slot />
+			</main>
 			<footer class="gj:layout:footer">
 				<div class="gj:layout:footer-menu-wrapper">
 					<ul class="gj:layout:footer-menu-list">
@@ -147,7 +153,7 @@ const { title } = Astro.props;
 				</div>
 			</footer>
 		</div>
-		<LoaderMask />
-		<script src="./src/js/main.js" is:inline></script>
+		<!-- <LoaderMask /> -->
+		<script src="./src/js/main.js" is:inline type="module"></script>
 	</body>
 </html>

@@ -1,68 +1,133 @@
-.gj\:home\:container {
+.gj\:home\:shining {
+    background: linear-gradient(to right, #9028FF 0%, #FF74ED 50%, #4059FF 100%);
+    filter: blur(256px);
     height: 100%;
-    left: 0;
+    left: 50%;
+    max-height: 256px;
+    max-width: 512px;
     position: absolute;
-    top: 0;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    z-index: -1;
+}
+
+.gj\:home\:container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 100%;
+    justify-content: center;
+}
+
+.gj\:home\:section-left,
+.gj\:home\:section-right {
+    height: 100%;
+    max-width: 50%;
     width: 100%;
 }
 
-.gj\:home\:me {
-    display: block;
-    bottom: 0;
-    left: 100px;
-    max-height: 1000px;
-    position: absolute;
-    width: auto;
-}
-
-.gj\:home\:complete-name {
+.gj\:home\:section-left {
     display: flex;
-    align-items: flex-end;
-    bottom: 80px;
+    align-items: center;
     flex-direction: column;
-    justify-content: flex-end;
-    position: absolute;
-    right: 80px;
+    justify-content: center;
 }
 
-.gj\:home\:names {
-    font-size: 128px;
-    font-family: "Comfortaa";
+.gj\:home\:profile-gost-circle-1,
+.gj\:home\:profile-gost-circle-2 {
+    backdrop-filter: blur(16px);
+}
+
+.gj\:home\:profile-gost-circle-1 {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 100%;
+    height: 500px;
+    position: absolute;
+    width: 500px;
+    z-index: -1;
+}
+
+.gj\:home\:profile-gost-circle-2 {
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 100%;
+    height: 520px;
+    position: absolute;
+    top: 150px;
+    width: 520px;
+    z-index: -2;
+}
+
+.gj\:home\:profile {
+    width: 100%;
+}
+
+.gj\:home\:profile-me {
+    background-color: var(--gj-second-bg);
+    border-radius: 100%;
+    border: 8px solid #ffffff77;
+    height: 100%;
+    max-height: 480px;
+    max-width: 480px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.gj\:home\:profile-me img {
+    display: block;
+    height: 100%;
+    max-height: 480px;
+    max-width: 480px;
+    object-fit: contain;
+    object-position: center center;
+    width: 100%;
+}
+
+.gj\:home\:swiper-card\:names {
+    display: flex;
+    align-items: center;
+    color: var(--gj-fonts-light);
+    font-size: 100px;
     font-weight: 300;
+    flex-direction: column;
+    justify-content: center;
+    margin-inline: auto;
+    margin-bottom: 80px;
+    width: fit-content;
 }
 
-.gj\:home\:surname {
-    font-size: 96px;
-    font-family: "Comfortaa";
-    font-weight: 700;
+.gj\:home\:swiper-card\:surname {
+    display: block;
+    font-size: 50px;
+    font-weight: 900;
+    margin-left: auto;
 }
 
-.gj\:home\:info {
-    left: 36%;
-    position: absolute;
-    top: 24%;
+.gj\:home\:swiper-card\:cite {
+    color: var(--gj-fonts-light);
+}
+
+.gj\:home-swiper-text {
+    color: var(--gj-fonts-light);
+    font-size: 24px;
     max-width: 600px;
     width: 100%;
 }
 
-.gj\:home\:info-text {
-    color: var(--gj-fonts-light);
-    font-size: 28px;
-}
-
-.gj\:home\:info-link {
-    display: flex;
-    align-items: center;
-    border: 2px dashed var(--gj-fonts-light);
+.gj\:home\:swiper-card\:button {
+    background-color: transparent;
     border-radius: 16px;
-    column-gap: 8px;
+    border: 2px dashed var(--gj-fonts-light);
     color: var(--gj-fonts-light);
-    flex-direction: row;
-    flex-wrap: nowrap;
-    font-size: 16px;
-    margin-top: 50px;
     padding-inline: 48px;
     padding-block: 8px;
-    text-decoration: none;
-    width: fit-content;
+}
+
+.gj\:home\:swiper-card\:button-text {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+    font-size: 16px;
+    justify-content: center;
 }

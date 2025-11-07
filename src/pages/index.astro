@@ -1,42 +1,57 @@
 ---
-import Layout from "./src/layouts/Layout.astro"
+import Layout from "/src/layouts/Layout.astro"
 import "./src/css/home.css";
+import "swiper/css/bundle";
 ---
 
 <Layout title="Inicio">
-    <div class="gj:home:container">
-        <img class="gj:home:me" src="./src/assets/img/me.png" alt="Me" width="1314" height="1984" loading="lazy">
-        <h1 class="gj:home:complete-name">
-            <span class="gj:home:names">Guillermo</span>
-            <span class="gj:home:surname">Jiménez</span>
-        </h1>
-        <div class="gj:home:info">
-            <p class="gj:home:info-text">¡Hola! Soy desarrollador frontend con pasión por crear experiencias web atractivas, funcionales y accesibles.</p>
-            <a class="gj:home:info-link" href="#">
-                <span class="gj:layout:svg-wrapper">
-                    <svg class="gj:home:info-link-icon" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M19.5001 19.5V27.8775L22.2421 25.1355L24.3646 27.258L18.0001 33.621L11.6356 27.258L13.7581 25.1355L16.5001 27.8775V19.5H19.5001ZM18.0001 3C20.5757 2.99979 23.0615 3.94623 24.9847 5.6593C26.908 7.37237 28.1345 9.73257 28.4311 12.291C30.2975 12.8001 31.9257 13.9489 33.031 15.5367C34.1364 17.1244 34.6486 19.0501 34.4781 20.9772C34.3076 22.9043 33.4653 24.7102 32.0984 26.0793C30.7315 27.4483 28.9269 28.2935 27.0001 28.467V25.5C27.0025 23.1407 26.0783 20.8748 24.4266 19.1902C22.7749 17.5055 20.5277 16.5368 18.1689 16.4925C15.81 16.4483 13.5281 17.3321 11.8144 18.9536C10.1006 20.5752 9.09219 22.8048 9.00609 25.1625L9.00009 25.5V28.467C7.07326 28.2935 5.26869 27.4483 3.90179 26.0793C2.53488 24.7102 1.69258 22.9043 1.5221 20.9772C1.35162 19.0501 1.8638 17.1244 2.96914 15.5367C4.07447 13.9489 5.70265 12.8001 7.56909 12.291C7.86564 9.73257 9.0922 7.37237 11.0155 5.6593C12.9387 3.94623 15.4245 2.99979 18.0001 3Z" fill="white"/>
-                    </svg>
-                </span>
-                Descargar C.V
-            </a>
-        </div>
-        <div class="">
-            <button class="">
-                <span class="">
-                    <svg class="" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 24L28 32V16L20 24Z" fill="#484848"/>
-                    </svg>
-                </span>
-            </button>
-            <div class="">
-                <ul class="">
-                    <li>
-                        <a class="" href="#"></a>
-                    </li>
-                </ul>
+    <div class="gj:layout:container">
+        <div class="gj:home:shining"></div>
+        <div class="gj:home:container">
+            <div class="gj:home:section-left">
+                <div class="gj:home:profile">
+                    <div class="gj:home:profile-gost-circle-1"></div>
+                    <div class="gj:home:profile-gost-circle-2"></div>
+                    <div class="gj:home:profile-me">
+                        <picture>
+                            <source srcset="/src/assets/img/circle-me.jpg">
+                            <img src="/src/assets/img/circle-me.jpg" alt="Me" width="1000" height="1000" loading="lazy" />
+                        </picture>
+                    </div>
+                </div>
+            </div>
+            <div class="gj:home:section-right">
+                <div class="">
+                    <div class="swiper gj-swiper-home-profile">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="gj:home:swiper-card">
+                                    <p class="gj:home:swiper-card:names">MacStore <span class="gj:home:swiper-card:surname">Sendero</span></p>
+                                    <cite class="gj:home:swiper-card:cite">"Some short phrase goes here" <span class="gj:home:swiper-card:cite-autor">Written by someone</span></cite>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="gj:home:swiper-card">
+                                    <p class="gj:home-swiper-text">¡Hola! Soy desarrollador frontend con pasión por crear experiencias web atractivas, funcionales y accesibles.</p>
+                                    <button class="gj:home:swiper-card:button" type="button">
+                                        <p class="gj:home:swiper-card:button-text">
+                                            <span class="gj:layout:svg-wrapper">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M13 13v5.585l1.828-1.828l1.415 1.415L12 22.414l-4.243-4.242l1.415-1.415L11 18.585V13zM12 2a7 7 0 0 1 6.954 6.194A5.5 5.5 0 0 1 18 18.978V17a6 6 0 0 0-11.996-.225L6 17v1.978a5.5 5.5 0 0 1-.954-10.784A7 7 0 0 1 12 2" /></svg>
+                                            </span>
+                                            Descargar C.V
+                                        </p>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-pagination gj-home-swiper-pagination"></div>
+                        <div class="swiper-button-prev gj-home-swiper-prev"></div>
+                        <div class="swiper-button-next gj-home-swiper-next"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </Layout>
 
+<script src="/src/js/home.js" is:inline type="module"></script>

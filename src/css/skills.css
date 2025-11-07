@@ -236,3 +236,13 @@
     min-width: 48px;
     width: 100%;
 }
+
+.gj\:skills\:nav-button-active
+.gj\:layout\:svg-wrapper > .gj\:skills\:icon-selected {
+    display: block;
+}
+
+.gj\:skills\:nav-button-active
+.gj\:layout\:svg-wrapper > .gj\:skills\:icon-no-selected {
+    display: none;
+}
