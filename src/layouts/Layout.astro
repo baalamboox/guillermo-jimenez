@@ -37,7 +37,7 @@ const { title } = Astro.props;
 								</svg>
 							</span>
 						</button>
-						<ul class="gj:layout:header-share-list">
+						<ul class="gj:layout:header-share-list" id="headerShareList">
 							<li>
 								<a class="gj:layout:header-share-list-button" href="#facebook">
 									<span class="gj:layout:svg-wrapper">
@@ -103,7 +103,7 @@ const { title } = Astro.props;
 			</main>
 			<footer class="gj:layout:footer">
 				<div class="gj:layout:footer-menu-wrapper">
-					<ul class="gj:layout:footer-menu-list">
+					<ul class="gj:layout:footer-menu-list" id="footerMenuList">
 						<li>
 							<a class="gj:layout:footer-menu-button" href="/">
 								<span class="gj:layout:svg-wrapper">
@@ -112,6 +112,7 @@ const { title } = Astro.props;
 									</svg>
 								</span>
 							</a>
+							<span class="gj:layout:footer-menu-label">Inicio</span>
 						</li>
 						<li>
 							<a class="gj:layout:footer-menu-button" href="habilidades">
@@ -121,6 +122,7 @@ const { title } = Astro.props;
 									</svg>
 								</span>
 							</a>
+							<span class="gj:layout:footer-menu-label">Habilidades</span>
 						</li>
 						<li>
 							<a class="gj:layout:footer-menu-button" href="proyectos">
@@ -130,6 +132,7 @@ const { title } = Astro.props;
 									</svg>
 								</span>
 							</a>
+							<span class="gj:layout:footer-menu-label">Proyectos</span>
 						</li>
 						<li>
 							<a class="gj:layout:footer-menu-button" href="experiencia">
@@ -139,6 +142,7 @@ const { title } = Astro.props;
 									</svg>
 								</span>
 							</a>
+							<span class="gj:layout:footer-menu-label">Experiencia</span>
 						</li>
 						<li>
 							<a class="gj:layout:footer-menu-button" href="acerca-de-mi">
@@ -148,10 +152,28 @@ const { title } = Astro.props;
 									</svg>
 								</span>
 							</a>
+							<span class="gj:layout:footer-menu-label">Un poco de mi</span>
 						</li>
 					</ul>
 				</div>
 			</footer>
+		</div>
+		<div class="gj:home:shining"></div>
+		<div class="gj:layout:left-post:wrapper">
+			<div class="gj:layout:left-post">
+				<div class="gj:layout:post:bar-dotted">
+					<div class="gj:layout:post:bar-solid"></div>
+				</div>
+				<p class="gj:layout:post:text">Guillermo Jimenez</p>
+			</div>
+		</div>
+		<div class="gj:layout:right-post:wrapper">
+			<div class="gj:layout:right-post">
+				<div class="gj:layout:post:bar-dotted">
+					<div class="gj:layout:post:bar-solid"></div>
+				</div>
+				<p class="gj:layout:post:text">Desarrollador Web</p>
+			</div>
 		</div>
 		<!-- <LoaderMask /> -->
 		<script src="./src/js/main.js" is:inline type="module"></script>

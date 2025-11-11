@@ -41,16 +41,21 @@
 :root {
     --gj-main-bg: #161616;
     --gj-light-bg: #ffffff;
+    --gj-dark-bg: #000000;
     --gj-second-bg: #242424;
     --gj-fonts-light: #ffffff;
+    --gj-fonts-dark: #000000;
     --gj-black: #000000;
+    --gj-gray: #707070;
 }
 
 :root[dark-mode="true"] {
     --gj-main-bg: #ffffff;
-    --gj-light-bg: #fffff;
+    --gj-light-bg: #ffffff;
+    --gj-dark-bg: #000000;
     --gj-second-bg: #a8a8a8;
     --gj-fonts-light: #000000;
+    --gj-fonts-light: #ffffff;
     --gj-black: #000000;
 }
 
@@ -75,6 +80,21 @@ h1 {
     color: var(--gj-fonts-light);
 }
 
+.gj\:home\:shining {
+    background: linear-gradient(to right, #9028FF 0%, #FF74ED 50%, #4059FF 100%);
+    filter: blur(256px);
+    height: 100%;
+    left: 50%;
+    max-height: 256px;
+    max-width: 512px;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 1s ease;
+    width: 100%;
+    z-index: 1;
+}
+
 .gj\:layout\:base {
     display: flex;
     flex-direction: column;
@@ -83,10 +103,12 @@ h1 {
     padding: 24px;
     padding-top: 0;
     padding-bottom: 0;
+    z-index: 2;
 }
 
 .gj\:layout\:base-main {
     flex-grow: 1;
+    overflow: auto;
 }
 
 .gj\:layout\:container {
@@ -100,6 +122,7 @@ h1 {
 
 .gj\:layout\:svg-wrapper {
     display: block;
+    pointer-events: none;
 }
 
 .gj\:layout\:header {
@@ -169,6 +192,9 @@ h1 {
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: center;
+    overflow: hidden;
+    position: relative;
+    transition: all 1s ease-in-out;
 }
 
 .gj\:layout\:header-share-list {
@@ -180,6 +206,12 @@ h1 {
     justify-content: center;
     list-style: none;
     padding-inline: 8px;
+    transition: all 1s ease-in-out;
+}
+
+.menu-closex
+.gj\:layout\:header-share-list {
+    transform: translateX(-100%);
 }
 
 .gj\:layout\:header-share-list-icon {
@@ -194,6 +226,13 @@ h1 {
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: center;
+}
+
+.menu-closex
+.gj\:layout\:header-share-button {
+    transform: translateX(200%);
+    transition: all 1s ease-in-out;
+    position: absolute;
 }
 
 .gj\:layout\:header-themes {
@@ -269,9 +308,13 @@ h1 {
     list-style: none;
 }
 
+.gj\:layout\:footer-menu-list > li {
+    position: relative;
+}
+
 .gj\:layout\:footer-menu-button {
     display: block;
-    background-color: var(--gj-second-bg);
+    background-color: var(--gj-light-bg);
     border-radius: 16px;
     padding: 8px;
     position: relative;
@@ -279,16 +322,128 @@ h1 {
 
 .gj\:layout\:footer-menu-icon {
     display: block;
-    color: var(--gj-fonts-light);
+    color: var(--gj-fonts-dark);
     height: 36px;
+    position: relative;
+    transition: all 0.5s ease-in-out;
     width: 36px;
-}
-
-.gj\:layout\:footer-menu-button:hover {
-    background-color: var(--gj-light-bg);
+    z-index: 2;
+    pointer-events: none;
 }
 
 .gj\:layout\:footer-menu-button:hover
+.gj\:layout\:footer-menu-icon {
+    color: var(--gj-fonts-light);
+    transform: scale(80%);
+}
+
+.gj\:layout\:footer-menu-button::after {
+    display: block;
+    content: "";
+    background-color: var(--gj-light-bg);
+    border-radius: 100%;
+    height: 80%;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.5s ease-in-out;
+    width: 80%;
+}
+
+.gj\:layout\:footer-menu-button:hover::after {
+    background-color: var(--gj-dark-bg);
+}
+
+.gj\:layout\:footer-menu-label {
+    display: none;
+    border-radius: 100px;
+    background-color: var(--gj-light-bg);
+    color: var(--gj-fonts-dark);
+    font-size: 14px;
+    font-weight: 700;
+    left: 50%;
+    padding-inline: 16px;
+    padding-block: 8px;
+    position: absolute;
+    top: -75%;
+    transform: translateX(-50%);
+    text-align: center;
+    text-wrap: nowrap;
+}
+
+.gj\:layout\:footer-menu-label::after {
+    display: block;
+    background-color: inherit;
+    border-radius: 4px;
+    content: "";
+    height: 12px;
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%) rotate(45deg);
+    width: 12px;
+}
+
+.gj\:layout\:footer-menu-button:hover ~ .gj\:layout\:footer-menu-label {
+    display: block;
+}
+
+.gj\:path\:home
+.gj\:layout\:footer-menu-button[href="/"]::after {
+    background-color: var(--gj-dark-bg);
+}
+
+.gj\:path\:home
+.gj\:layout\:footer-menu-button[href="/"]
+.gj\:layout\:footer-menu-icon {
+    color: var(--gj-fonts-light);
+}
+
+.gj\:path\:skills
+.gj\:layout\:footer-menu-button[href="habilidades"]::after {
+    background-color: var(--gj-dark-bg);
+}
+
+.gj\:path\:skills
+.gj\:layout\:footer-menu-button[href="habilidades"]
+.gj\:layout\:footer-menu-icon {
+    color: var(--gj-fonts-light);
+}
+
+.gj\:path\:projects
+.gj\:layout\:footer-menu-button[href="proyectos"]::after {
+    background-color: var(--gj-dark-bg);
+}
+
+.gj\:path\:projects
+.gj\:layout\:footer-menu-button[href="proyectos"]
+.gj\:layout\:footer-menu-icon {
+    color: var(--gj-fonts-light);
+}
+
+.gj\:path\:experience
+.gj\:layout\:footer-menu-button[href="experiencia"]::after {
+    background-color: var(--gj-dark-bg);
+}
+
+.gj\:path\:experience
+.gj\:layout\:footer-menu-button[href="experiencia"]
+.gj\:layout\:footer-menu-icon {
+    color: var(--gj-fonts-light);
+}
+
+.gj\:path\:about-me
+.gj\:layout\:footer-menu-button[href="acerca-de-mi"]::after {
+    background-color: var(--gj-dark-bg);
+}
+
+.gj\:path\:about-me
+.gj\:layout\:footer-menu-button[href="acerca-de-mi"]
+.gj\:layout\:footer-menu-icon {
+    color: var(--gj-fonts-light);
+}
+
+/* .gj\:layout\:footer-menu-button:hover
 .gj\:layout\:footer-menu-button::before {
     display: block;
     background-color: var(--gj-black);
@@ -298,7 +453,7 @@ h1 {
     position: absolute;
     width: 100px;
     z-index: 2;
-}
+} */
 
 /* .gj\:path\:home
 body {
@@ -308,8 +463,77 @@ body {
     background-size: cover;
 } */
 
-.gj\:path\:home
+/* .gj\:path\:home
 .gj\:layout\:base {
     background-color: rgba(16, 16, 16, 0.5);
     backdrop-filter: blur(16px);
+} */
+
+.gj\:layout\:left-post\:wrapper,
+.gj\:layout\:right-post\:wrapper {
+    position: fixed;
+    width: fit-content;
+}
+
+.gj\:layout\:left-post\:wrapper {
+    left: calc(((100% - 1280px) / 2) / 2);
+}
+
+.gj\:layout\:right-post\:wrapper {
+    right: calc(((100% - 1280px) / 2) / 2);
+    transform: rotateY(180deg);
+}
+
+.gj\:layout\:left-post,
+.gj\:layout\:right-post {
+    display: flex;
+    align-items: center;
+    column-gap: 4px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.gj\:layout\:left-post {
+    transform: rotate(-90deg);
+    transform-box: stroke-box;
+}
+
+.gj\:layout\:right-post {
+    transform: rotate(-90deg);
+    transform-box: stroke-box;
+}
+
+.gj\:layout\:post\:bar-dotted {
+    border-top: 4px dotted var(--gj-light-bg);
+    width: 250px;
+}
+
+.gj\:layout\:post\:bar-solid {
+    border-top: 4px solid var(--gj-light-bg);
+    border-radius: 0 100px 100px 0;
+    margin-top: -4px;
+    width: 76%;
+}
+
+.gj\:layout\:post\:text {
+    color: var(--gj-fonts-light);
+}
+
+.gj\:layout\:right-post
+.gj\:layout\:post\:text {
+    transform: rotateX(-180deg);
+}
+
+@media only screen and (max-width: 1366px) {
+    .gj\:layout\:base {
+        padding-inline: 16px;
+    }
+
+    .gj\:layout\:header {
+        padding-top: 16px;
+    }
+
+    .gj\:layout\:footer {
+        padding-bottom: 16px;
+    }
 }

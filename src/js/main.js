@@ -1,10 +1,18 @@
 import $ from "jquery";
 
-$(document).ready(() => console.log("Adios"));
+$(document).ready(() => {
+    setTimeout(() => {
+        document.documentElement.classList.add("menu-closex");
+    }, 2000);
+
+    $(".gj\\:layout\\:footer-menu-button").map((_, link) => {
+        $(link).click(() =>  console.log("GEnial"));
+    });;
+});
 
 const body = document.querySelector("body");
 const gjLoaderMask = document?.querySelector("#gjLoderMask");
-const gjLoaderMaskSection = document?.querySelector("#gjLoaderMaskSection");
+// const gjLoaderMaskSection = document?.querySelector("#gjLoaderMaskSection");
 
 // const bottonTheme = document?.querySelector("#buttonTheme");
 
@@ -67,15 +75,15 @@ window.addEventListener("load", () => {
             break;
     }
     document.documentElement.classList.add(currentView);
-    gjLoaderMaskSection.addEventListener("transitionend", () => {
-        body.classList.add("gj:lm:hidden");
-    });
-    gjLoaderMask.addEventListener("transitionend", () => {
-        setTimeout(() => {
-            body.classList.add("gj:lm:remove");
-        }, 1000);
+    // gjLoaderMaskSection.addEventListener("transitionend", () => {
+    //     body.classList.add("gj:lm:hidden");
+    // });
+    // gjLoaderMask.addEventListener("transitionend", () => {
+    //     setTimeout(() => {
+    //         body.classList.add("gj:lm:remove");
+    //     }, 1000);
         
-    });
+    // });
     changeTheme();
     indexView();
 });

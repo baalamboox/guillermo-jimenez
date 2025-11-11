@@ -1,9 +1,157 @@
-.gj\:experience\:canvas {
-    display: block;
-    border: 1px solid white;
-    border: transparent;
-    height: auto;
-    max-width: 1220px;
+.gj\:experience\:container {
+    padding-top: 128px;
+    padding-bottom: 64px;
     margin-inline: auto;
+    max-width: 996px;
     width: 100%;
+}
+
+.gj\:experience\:list {
+    display: flex;
+    align-items: center;
+    border-left: 2px dashed var(--gj-gray);
+    border-radius: 16px;
+    flex-direction: column;
+    row-gap: 64px;
+    justify-content: center;
+    padding-inline: 0;
+}
+
+.gj\:experience\:list-item {
+    display: flex;
+    align-items: center;
+    border-radius: 16px;
+    border: 2px dashed;
+    border-color: transparent;
+    cursor: pointer;
+    flex-direction: row;
+    left: -2px;
+    justify-content: space-between;
+    position: relative;
+    padding-inline: 48px;
+    padding-block: 16px;
+    width: 100%;
+}
+
+.gj\:experience\:list-item.gj\:experience\:list-item\:active {
+    border-color: var(--gj-light-bg);
+    background-color: var(--gj-second-bg);
+}
+
+.gj\:experience\:list-item::before {
+    display: block;
+    background-color: var(--gj-gray);
+    border-radius: 100%;
+    content: "";
+    height: 24px;
+    left: -12px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) scale(75%);
+    transition: all 0.5s ease;
+    width: 24px;
+}
+
+.gj\:experience\:list-item.gj\:experience\:list-item\:active::before {
+    background-color: var(--gj-light-bg);
+    transform: translateY(-50%) scale(100%);
+}
+
+.gj\:experience\:list-item\:left,
+.gj\:experience\:list-item\:right {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+}
+
+.gj\:experience\:business-name-wrapper {
+    color: var(--gj-fonts-light);
+    font-size: 24px;
+    line-height: 24px;
+    padding-bottom: 4px;
+    position: relative;
+    width: fit-content;
+}
+
+.gj\:experience\:business-name-underline {
+    display: block;
+    background-color: transparent;
+    height: 100%;
+    position: absolute;
+    transition: width 0.5s ease-in-out;
+    width: 0%;
+    z-index: 1;
+}
+
+.gj\:experience\:list-item.gj\:experience\:list-item\:active
+.gj\:experience\:business-name-underline {
+    background-color: var(--gj-light-bg);
+    width: 100%;
+}
+
+.gj\:experience\:list-item.gj\:experience\:list-item\:active
+.gj\:experience\:business-name {
+    background-color: var(--gj-second-bg);
+    position: relative;
+    z-index: 2;
+}
+
+.gj\:experience\:position {
+    color: var(--gj-gray);
+}
+
+.gj\:experience\:location,
+.gj\:experience\:location:link,
+.gj\:experience\:location:visited,
+.gj\:experience\:location:active {
+    display: flex;
+    align-items: center;
+    border-radius: 100px;
+    column-gap: 4px;
+    color: var(--gj-fonts-light);
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding-inline: 8px;
+    padding-block: 4px;
+    pointer-events: none;
+    text-decoration: none;
+    transition: all 0.75s ease;
+}
+
+.gj\:experience\:date {
+    color: var(--gj-gray);
+}
+
+.gj\:experience\:list-item\:link {
+    display: flex;
+    align-items: center;
+    background-color: var(--gj-light-bg);
+    border-radius: 100%;
+    color: var(--gj-fonts-dark);
+    height: 36px;
+    justify-content: center;
+    right: -18px;
+    opacity: 0;
+    position: absolute;
+    pointer-events: none;
+    transform: scale(200%);
+    transition: transform 0.25s ease;
+    width: 36px;
+}
+
+.gj\:experience\:list-item\:link svg {
+    display: block;
+}
+
+.gj\:experience\:list-item.gj\:experience\:list-item\:active
+.gj\:experience\:list-item\:link  {
+    opacity: 1;
+    pointer-events: all;
+    transform: scale(100%);
+}
+
+.gj\:experience\:list-item.gj\:experience\:list-item\:active
+.gj\:experience\:location {
+    background-color: var(--gj-dark-bg);
+    pointer-events: all;
 }

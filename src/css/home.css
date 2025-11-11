@@ -1,17 +1,3 @@
-.gj\:home\:shining {
-    background: linear-gradient(to right, #9028FF 0%, #FF74ED 50%, #4059FF 100%);
-    filter: blur(256px);
-    height: 100%;
-    left: 50%;
-    max-height: 256px;
-    max-width: 512px;
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    z-index: -1;
-}
-
 .gj\:home\:container {
     display: flex;
     align-items: center;
@@ -60,7 +46,7 @@
 }
 
 .gj\:home\:profile {
-    width: 100%;
+    /* width: 100%; */
 }
 
 .gj\:home\:profile-me {

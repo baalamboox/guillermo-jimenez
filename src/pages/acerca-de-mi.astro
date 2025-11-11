@@ -1,7 +1,48 @@
 ---
-import Layout from "./src/layouts/Layout.astro"
+import Layout from "/src/layouts/Layout.astro";
+
+import "/src/css/about-me.css";
 ---
 
-<Layout>
-    <h1>Acerca de mi</h1>
+<Layout title="Un poco de mi">
+    <div class="gj:layout:container">
+        <div class="gj:about-me:container">
+            <div class="gj:about-me:header">
+                <picture>
+                    <img class="gj:about-me:header-splash" src="/src/assets/img/banner-about-me.jpg" alt="Banner About Me" width="1000" height="1000" loading="lazy" />
+                </picture>
+                <div class="gj:about-me:header-wrapper">
+                    <div class="gj:about-me:header:profile-wrapper">
+                        <div class="gj:about-me:header-profile-circle">
+                            <picture>
+                                <img class="gj:about-me:header-profile-img" src="/src/assets/img/beach-me.jpg" alt="Profile Image" width="1000" height="1000" loading="lazy">
+                            </picture>
+                        </div>
+                    </div>
+                    <div class="gj:about-me:header-details-wrapper">
+                        <div class="gj:about-me:header-details-main">
+                            <p class="gj:about-me:header:names">Guillermo Jimenez</p>
+                            <p class="gj:about-me:header:career">Ingeniero en Sistemas Computacionales</p>
+                            <span class="gj:about-me:header:birthday">20 de octubre de 1998</span>
+                        </div>
+                        <div class="gj:about-me:header-details-main">
+                            <span class="gj:about-me:header:years">27 años</span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <section class="gj:about-me:section">
+                <p class="gj:about-me:section-title">Hobbies</p>
+                <div class="gj:about-me:section:carousel-section">
+                    <div class=""></div>
+                    <div class="">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni recusandae, iusto amet tenetur sint at deleniti architecto, dolorum omnis repellat libero explicabo vel minus accusamus doloremque, distinctio maiores vitae. Laborum.
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
 </Layout>
+
+<script  src="/src/js/about-me.js" is:inline type="module"></script>
