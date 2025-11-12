@@ -1,3 +1,9 @@
+import $ from "jquery";
+
+$(document).ready(() => {
+    console.log("GEnial");
+});
+
 const carouselItems = document?.querySelector("#carouselItems");
 const gjCarouselPrevButton = document?.querySelector("#gjCarouselPrevButton");
 const gjCarouselNextButton = document?.querySelector("#gjCarouselNextButton");
@@ -25,14 +31,14 @@ carouselItems.addEventListener("touchmove", (event) => console.log(event), false
 
 const mc = moveCaraousel();
 
-console.log(carouselItems.childElementCount * 320 + (carouselItems.childElementCount - 1) * 16);
+// console.log(carouselItems.childElementCount * 320 + (carouselItems.childElementCount - 1) * 16);
 
 gjCarouselPrevButton.addEventListener("click", () => {
     carouselItems.style.transform = `translateX(${ mc.increment() }px)`;
-    console.log(mc.increment());
+    // console.log(mc.increment());
 });
 
 gjCarouselNextButton.addEventListener("click", () => {
     carouselItems.style.transform = `translateX(${ mc.decrement() }px)`;
-    console.log(mc.decrement());
+    // console.log(mc.decrement());
 });

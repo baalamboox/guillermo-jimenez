@@ -3,7 +3,14 @@
     padding-bottom: 64px;
     margin-inline: auto;
     max-width: 996px;
+    transition: transform 1.5s ease-in-out;
+    transform: translateY(-100%);
     width: 100%;
+}
+
+.gj\:path\:experience
+.gj\:experience\:container {
+    transform: translateY(0);
 }
 
 .gj\:experience\:list {

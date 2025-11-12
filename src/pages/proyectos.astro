@@ -1,16 +1,35 @@
 ---
-import Layout from "./src/layouts/Layout.astro";
+import Layout from "/src/layouts/Layout.astro";
 import "./src/css/projects.css";
 
-import data from "./src/data/data.js";
+import data from "/src/data/data.js";
 
 const { projects } = data;
 
-console.log(projects);
 ---
 
 <Layout title="Proyectos">
-    <div class="gj:projects:wrapper">
+    <div class="gj:layout:container">
+        <div class="gj:projects:container">
+            <div class="gj:swiper:projects-wrapper">
+                <div class="swiper-pagination"></div>
+                <div class="swiper gj:swiper:projects">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="gj:swiper:projects-controllers">
+                    <div class="swiper-prev-button gj:swiper:projects-prev"></div>
+                    <div class="gj:swiper:projects-play-pause"></div>
+                    <div class="swiper-next-button gj:swiper:projects-next"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="gj:projects:wrapper">
         <div class="gj:projects:carousel-wrapper">
             <div class="gj:projects:carousel">
                 <div class="gj:projects:carousel-items" id="carouselItems">
@@ -56,7 +75,7 @@ console.log(projects);
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </Layout>
 
-<script src="./src/js/projects.js" is:inline></script>
+<script src="/src/js/projects.js" is:inline type="module"></script>

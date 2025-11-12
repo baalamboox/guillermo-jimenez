@@ -6,6 +6,7 @@
 .gj\:about-me\:container {
     margin-inline: auto;
     max-width: 1220px;
+    overflow: hidden;
     width: 100%;
 }
 
@@ -13,10 +14,13 @@
     height: 320px;
     margin-top: 100px;
     position: relative;
+    transition: transform 1s ease-in-out;
+    transform: translateX(100%);
     width: 100%;
 }
 
 .gj\:about-me\:header-splash {
+    animation: splash 4s cubic-bezier(1, 0, 0, 1) alternate-reverse infinite;
     filter: blur(48px);
     height: 100%;
     object-fit: cover;
@@ -113,6 +117,8 @@
 
 .gj\:about-me\:section {
     margin-top: 80px;
+    transform: translateX(-100%);
+    transition: transform 1s ease-in-out;
 }
 
 .gj\:about-me\:section-title {
@@ -122,8 +128,159 @@
     margin-bottom: 24px;
 }
 
-.gj:about-me:section:carousel-section {
+.gj\:about-me\:section\:left,
+.gj\:about-me\:section\:right {
+    margin-inline: auto;
+    max-width: 50%;
+    width: 100%;
+}
+
+.gj\:about-me\:swiper-wrapper {
+    position: relative;
+}
+
+.gj\:about-me\:section\:carousel-section {
     display: flex;
     align-items: center;
     flex-direction: row;
+    margin-bottom: 80px;
+}
+
+.gj\:about-me\:card-hobbie {
+    height: 320px;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.gj\:about-me\:card-image {
+    display: block;
+    aspect-ratio: 16/9;
+    height: 320px;
+    max-width: 100%;
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+}
+
+.gj\:swiper\:hobbies-pagination {
+    background-color: var(--gj-light-bg);
+    border-radius: 100px;
+    bottom: -16px !important;
+    height: 32px;
+    left: 50% !important;
+    padding-inline: 16px;
+    padding-block: 8px;
+    transform: translateX(-50%) !important;
+    width: fit-content !important;
+}
+
+.gj\:swiper\:hobbies-pagination
+.swiper-pagination-bullet {
+    height: 12px !important;
+    width: 12px !important;
+}
+
+.gj\:swiper\:hobbies-prev,
+.gj\:swiper\:hobbies-next {
+    background-color: var(--gj-light-bg);
+    border-radius: 100%;
+    height: 40px;
+    max-height: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    min-width: 40px;
+    width: 40px;
+}
+
+.gj\:swiper\:hobbies-prev
+.swiper-navigation-icon,
+.gj\:swiper\:hobbies-next
+.swiper-navigation-icon {
+    display: block;
+    color: var(--gj-fonts-dark);
+    height: 20px;
+    max-height: 20px;
+    max-width: 20px;
+    min-height: 20px;
+    min-width: 20px;
+    width: 20px;
+}
+
+.gj\:swiper\:hobbies-prev {
+    left: -20px !important;
+}
+
+.gj\:swiper\:hobbies-next {
+    right: -20px !important;
+}
+
+.gj\:swiper\:hobbies-prev.swiper-button-disabled,
+.gj\:swiper\:hobbies-next.swiper-button-disabled {
+    opacity: 0;
+    transition: all 1s ease-in-out;
+}
+
+.gj\:swiper\:hobbies-pagination
+.swiper-pagination-bullet-active {
+    background-color: var(--gj-dark-bg) !important;
+}
+
+.gj\:about-me\:hobbie\:descriptions {
+    color: var(--gj-fonts-light);
+    padding: 64px;
+}
+
+.gj\:about-me\:hobbie\:title {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    column-gap: 4px;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+
+.gj\:about-me\:hobbie\:title::before {
+    display: block;
+    background-color: var(--gj-light-bg);
+    border-radius: 100px;
+    content: "";
+    height: 2px;
+    width: 24px;
+}
+
+.gj\:about-me\:hobbie\:title::after {
+    display: block;
+    background-color: var(--gj-light-bg);
+    border-radius: 100px;
+    content: "";
+    height: 2px;
+    width: 24px;
+}
+
+.gj\:about-me\:hobbie\:text {
+    font-size: 16px;
+    line-height: 24px;
+    text-align: justify;
+}
+
+.gj\:path\:about-me
+.gj\:about-me\:section {
+    transform: translate(0);
+}
+
+.gj\:path\:about-me
+.gj\:about-me\:header {
+    transform: translate(0);
+}
+
+@keyframes splash {
+    from {
+        top: 20%;
+    }
+
+    to {
+        top: -20%;
+    }
 }

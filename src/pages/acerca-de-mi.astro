@@ -1,6 +1,6 @@
 ---
 import Layout from "/src/layouts/Layout.astro";
-
+import "swiper/css/bundle";
 import "/src/css/about-me.css";
 ---
 
@@ -21,12 +21,12 @@ import "/src/css/about-me.css";
                     </div>
                     <div class="gj:about-me:header-details-wrapper">
                         <div class="gj:about-me:header-details-main">
-                            <p class="gj:about-me:header:names">Guillermo Jimenez</p>
-                            <p class="gj:about-me:header:career">Ingeniero en Sistemas Computacionales</p>
-                            <span class="gj:about-me:header:birthday">20 de octubre de 1998</span>
+                            <p class="gj:about-me:header:names">Your name goes here</p>
+                            <p class="gj:about-me:header:career">Your career goes here</p>
+                            <span class="gj:about-me:header:birthday">1998-10-20</span>
                         </div>
                         <div class="gj:about-me:header-details-main">
-                            <span class="gj:about-me:header:years">27 años</span>
+                            <span class="gj:about-me:header:years">27 years old</span>
                         </div>
                     </div>
                     
@@ -35,9 +35,43 @@ import "/src/css/about-me.css";
             <section class="gj:about-me:section">
                 <p class="gj:about-me:section-title">Hobbies</p>
                 <div class="gj:about-me:section:carousel-section">
-                    <div class=""></div>
-                    <div class="">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni recusandae, iusto amet tenetur sint at deleniti architecto, dolorum omnis repellat libero explicabo vel minus accusamus doloremque, distinctio maiores vitae. Laborum.
+                    <div class="gj:about-me:section:left">
+                        <div class="gj:about-me:swiper-wrapper">
+                            <div class="swiper gj:swiper:hobbies">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <div class="gj:about-me:card-hobbie">
+                                            <picture>
+                                                <img class="gj:about-me:card-image" src="/src/assets/img/hobbies/hobbie-01.jpg" alt="Image hobbie 1" width="1920" height="1080" loading="lazy" />
+                                            </picture>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="gj:about-me:card-hobbie">
+                                            <picture>
+                                                <img class="gj:about-me:card-image" src="/src/assets/img/hobbies/hobbie-02.jpg" alt="Image hobbie 2" width="1920" height="1080" loading="lazy" />
+                                            </picture>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="gj:about-me:card-hobbie">
+                                            <picture>
+                                                <img class="gj:about-me:card-image" src="/src/assets/img/hobbies/hobbie-03.jpg" alt="Image hobbie 3" width="1920" height="1080" loading="lazy" />
+                                            </picture>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-pagination gj:swiper:hobbies-pagination"></div>
+                            <div class="swiper-button-prev gj:swiper:hobbies-prev"></div>
+                            <div class="swiper-button-next gj:swiper:hobbies-next"></div>
+                        </div>
+                    </div>
+                    <div class="gj:about-me:section:right">
+                        <div class="gj:about-me:hobbie:descriptions">
+                            <p class="gj:about-me:hobbie:title">Your title goes here</p>
+                            <p class="gj:about-me:hobbie:text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni recusandae, iusto amet tenetur sint at deleniti architecto, dolorum omnis repellat libero explicabo vel minus accusamus doloremque, distinctio maiores vitae. Laborum.</p> 
+                        </div>
                     </div>
                 </div>
             </section>
