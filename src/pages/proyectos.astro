@@ -1,81 +1,55 @@
 ---
 import Layout from "/src/layouts/Layout.astro";
-import "./src/css/projects.css";
-
+import "swiper/css/bundle";
+import "/src/css/projects.css";
 import data from "/src/data/data.js";
-
 const { projects } = data;
-
 ---
 
 <Layout title="Proyectos">
     <div class="gj:layout:container">
         <div class="gj:projects:container">
             <div class="gj:swiper:projects-wrapper">
-                <div class="swiper-pagination"></div>
+                <div class="swiper-pagination gj:swiper:projects-pagination"></div>
                 <div class="swiper gj:swiper:projects">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-
-                        </div>
+                        {
+                            Object.keys(projects).map((project) => (
+                                <div class="swiper-slide">
+                                    <div class="gj:swiper:projects-card">
+                                        <picture>
+                                            <source srcset={ "./src/assets/img/projects/" + project + "/" + projects[project].screenshot + ".png"} />
+                                            <img class="gj:swiper:projects-card-image" src={ "./src/assets/img/projects/" + project + "/" + projects[project].screenshot + ".png"} alt="" width="" height="" loading="lazy" />
+                                        </picture>
+                                    </div>
+                                </div>
+                            ))
+                        }
                     </div>
                 </div>
                 <div class="gj:swiper:projects-controllers">
-                    <div class="swiper-prev-button gj:swiper:projects-prev"></div>
-                    <div class="gj:swiper:projects-play-pause"></div>
-                    <div class="swiper-next-button gj:swiper:projects-next"></div>
+                    <div class="swiper-button-prev gj:swiper:projects-prev">
+                        <span class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M7 6a1 1 0 0 1 1 1v10a1 1 0 1 1-2 0V7a1 1 0 0 1 1-1m2.079 6.409a.5.5 0 0 1 0-.818l7.133-5.035a.5.5 0 0 1 .788.409v10.07a.5.5 0 0 1-.788.409z" /></svg>
+                        </span>
+                    </div>
+                    <div class="gj:swiper:projects-play-pause">
+                        <span class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M15 7a1 1 0 1 1 2 0v10a1 1 0 1 1-2 0zM7 7a1 1 0 0 1 2 0v10a1 1 0 1 1-2 0z" /></svg>
+                        </span>
+                        <span class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M19.376 12.416L8.777 19.482A.5.5 0 0 1 8 19.066V4.934a.5.5 0 0 1 .777-.416l10.599 7.066a.5.5 0 0 1 0 .832" /></svg>
+                        </span>
+                    </div>
+                    <div class="swiper-button-next gj:swiper:projects-next">
+                        <span class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M7.788 17.444A.5.5 0 0 1 7 17.035V6.965a.5.5 0 0 1 .788-.409l7.133 5.036a.5.5 0 0 1 0 .816zM16 7a1 1 0 1 1 2 0v10a1 1 0 1 1-2 0z" /></svg>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- <div class="gj:projects:wrapper">
-        <div class="gj:projects:carousel-wrapper">
-            <div class="gj:projects:carousel">
-                <div class="gj:projects:carousel-items" id="carouselItems">
-                    {
-                        Object.keys(projects).map((project) => (
-                            <div class="gj:projects:carousel-card">
-                                <picture>
-                                    <source srcset={ "./src/assets/img/projects/" + project + "/" + projects[project].screenshot + ".png"} />
-                                    <img class="gj:projects:carousel-card-img" src={ "./src/assets/img/projects/" + project + "/" + projects[project].screenshot + ".png"} alt="" width="1920" height="1080" loading="lazy">
-                                </picture>
-                            </div>
-                        ))
-                    }
-                </div>
-            </div>
-            
-            <div class="gj:projects:carousel-nav" id="gjProjectsCarouselNav">
-                
-            </div>
-            <div class="gj:projects:carousel-control-wrapper">
-                <div class="gj:projects:carousel-control">
-                    <button class="gj:projects:carousel-control-button" type="button" id="gjCarouselPrevButton">
-                        <span class="gj:layout:svg-wrapper">
-                            <svg width="30" height="32" viewBox="0 0 30 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M2.66667 0C3.37391 0 4.05219 0.280952 4.55228 0.781049C5.05238 1.28115 5.33333 1.95942 5.33333 2.66667V29.3333C5.33333 30.0406 5.05238 30.7189 4.55228 31.219C4.05219 31.7191 3.37391 32 2.66667 32C1.95942 32 1.28115 31.7191 0.781049 31.219C0.280952 30.7189 0 30.0406 0 29.3333V2.66667C0 1.95942 0.280952 1.28115 0.781049 0.781049C1.28115 0.280952 1.95942 0 2.66667 0ZM8.21067 17.0907C8.0357 16.9676 7.8929 16.8043 7.79433 16.6145C7.69575 16.4247 7.64429 16.2139 7.64429 16C7.64429 15.7861 7.69575 15.5753 7.79433 15.3855C7.8929 15.1957 8.0357 15.0324 8.21067 14.9093L27.232 1.48267C27.4317 1.34194 27.6663 1.25879 27.91 1.24231C28.1538 1.22582 28.3974 1.27662 28.6142 1.38918C28.8311 1.50173 29.0128 1.6717 29.1397 1.88053C29.2665 2.08936 29.3335 2.32902 29.3333 2.57333V29.4267C29.3335 29.671 29.2665 29.9106 29.1397 30.1195C29.0128 30.3283 28.8311 30.4983 28.6142 30.6108C28.3974 30.7234 28.1538 30.7742 27.91 30.7577C27.6663 30.7412 27.4317 30.6581 27.232 30.5173L8.21067 17.0907Z" fill="white"/>
-                            </svg>
-                        </span>
-                    </button>
-                    <button class="gj:projects:carousel-control-button gj:projects:carousel-control-button-play-pause" type="button">
-                        <span class="gj:layout:svg-wrapper">
-                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M20.0002 9.33333C20.0002 8.97971 20.1406 8.64057 20.3907 8.39052C20.6407 8.14048 20.9799 8 21.3335 8C21.6871 8 22.0263 8.14048 22.2763 8.39052C22.5264 8.64057 22.6668 8.97971 22.6668 9.33333V22.6667C22.6668 23.0203 22.5264 23.3594 22.2763 23.6095C22.0263 23.8595 21.6871 24 21.3335 24C20.9799 24 20.6407 23.8595 20.3907 23.6095C20.1406 23.3594 20.0002 23.0203 20.0002 22.6667V9.33333ZM9.3335 9.33333C9.3335 8.97971 9.47397 8.64057 9.72402 8.39052C9.97407 8.14048 10.3132 8 10.6668 8C11.0205 8 11.3596 8.14048 11.6096 8.39052C11.8597 8.64057 12.0002 8.97971 12.0002 9.33333V22.6667C12.0002 23.0203 11.8597 23.3594 11.6096 23.6095C11.3596 23.8595 11.0205 24 10.6668 24C10.3132 24 9.97407 23.8595 9.72402 23.6095C9.47397 23.3594 9.3335 23.0203 9.3335 22.6667V9.33333Z" fill="white"/>
-                            </svg>
-                        </span>
-                    </button>
-                    <button class="gj:projects:carousel-control-button" type="button" id="gjCarouselNextButton">
-                        <span class="gj:layout:svg-wrapper">
-                            <svg width="30" height="32" viewBox="0 0 30 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M27.3333 0C26.6261 0 25.9478 0.280952 25.4477 0.781049C24.9476 1.28115 24.6667 1.95942 24.6667 2.66667V29.3333C24.6667 30.0406 24.9476 30.7189 25.4477 31.219C25.9478 31.7191 26.6261 32 27.3333 32C28.0406 32 28.7189 31.7191 29.219 31.219C29.719 30.7189 30 30.0406 30 29.3333V2.66667C30 1.95942 29.719 1.28115 29.219 0.781049C28.7189 0.280952 28.0406 0 27.3333 0ZM21.7893 17.0907C21.9643 16.9676 22.1071 16.8043 22.2057 16.6145C22.3042 16.4247 22.3557 16.2139 22.3557 16C22.3557 15.7861 22.3042 15.5753 22.2057 15.3855C22.1071 15.1957 21.9643 15.0324 21.7893 14.9093L2.768 1.48267C2.56828 1.34194 2.33374 1.25879 2.08998 1.24231C1.84621 1.22582 1.60261 1.27662 1.38576 1.38918C1.16891 1.50173 0.98716 1.6717 0.860346 1.88053C0.733532 2.08936 0.666531 2.32902 0.666666 2.57333V29.4267C0.666531 29.671 0.733532 29.9106 0.860346 30.1195C0.98716 30.3283 1.16891 30.4983 1.38576 30.6108C1.60261 30.7234 1.84621 30.7742 2.08998 30.7577C2.33374 30.7412 2.56828 30.6581 2.768 30.5173L21.7893 17.0907Z" fill="white"/>
-                            </svg>
-                        </span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div> -->
 </Layout>
 
 <script src="/src/js/projects.js" is:inline type="module"></script>
