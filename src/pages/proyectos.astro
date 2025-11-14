@@ -15,13 +15,11 @@ const { projects } = data;
                     <div class="swiper-wrapper">
                         {
                             Object.keys(projects).map((project) => (
-                                <div class="swiper-slide">
-                                    <div class="gj:swiper:projects-card">
-                                        <picture>
-                                            <source srcset={ "./src/assets/img/projects/" + project + "/" + projects[project].screenshot + ".png"} />
-                                            <img class="gj:swiper:projects-card-image" src={ "./src/assets/img/projects/" + project + "/" + projects[project].screenshot + ".png"} alt="" width="" height="" loading="lazy" />
-                                        </picture>
-                                    </div>
+                                <div class="swiper-slide gj:swiper:projects-card">
+                                    <picture>
+                                        <source srcset={ "./src/assets/img/projects/" + project + "/" + projects[project].screenshot + ".png"} />
+                                        <img class="gj:swiper:projects-card-image" src={ "./src/assets/img/projects/" + project + "/" + projects[project].screenshot + ".png"} alt="" width="" height="" loading="lazy" />
+                                    </picture>
                                 </div>
                             ))
                         }
@@ -29,20 +27,20 @@ const { projects } = data;
                 </div>
                 <div class="gj:swiper:projects-controllers">
                     <div class="swiper-button-prev gj:swiper:projects-prev">
-                        <span class="">
+                        <span class="gj:layout:svg-wrapper">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M7 6a1 1 0 0 1 1 1v10a1 1 0 1 1-2 0V7a1 1 0 0 1 1-1m2.079 6.409a.5.5 0 0 1 0-.818l7.133-5.035a.5.5 0 0 1 .788.409v10.07a.5.5 0 0 1-.788.409z" /></svg>
                         </span>
                     </div>
-                    <div class="gj:swiper:projects-play-pause">
-                        <span class="">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M15 7a1 1 0 1 1 2 0v10a1 1 0 1 1-2 0zM7 7a1 1 0 0 1 2 0v10a1 1 0 1 1-2 0z" /></svg>
+                    <button class="gj:swiper:projects-play-pause gj:swiper:projects-played" type="button">
+                        <span class="gj:layout:svg-wrapper">
+                            <svg class="gj:swiper:projects-pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M15 7a1 1 0 1 1 2 0v10a1 1 0 1 1-2 0zM7 7a1 1 0 0 1 2 0v10a1 1 0 1 1-2 0z" /></svg>
                         </span>
-                        <span class="">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M19.376 12.416L8.777 19.482A.5.5 0 0 1 8 19.066V4.934a.5.5 0 0 1 .777-.416l10.599 7.066a.5.5 0 0 1 0 .832" /></svg>
+                        <span class="gj:layout:svg-wrapper">
+                            <svg class="gj:swiper:projects-play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M19.376 12.416L8.777 19.482A.5.5 0 0 1 8 19.066V4.934a.5.5 0 0 1 .777-.416l10.599 7.066a.5.5 0 0 1 0 .832" /></svg>
                         </span>
-                    </div>
+                    </button>
                     <div class="swiper-button-next gj:swiper:projects-next">
-                        <span class="">
+                        <span class="gj:layout:svg-wrapper">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M7.788 17.444A.5.5 0 0 1 7 17.035V6.965a.5.5 0 0 1 .788-.409l7.133 5.036a.5.5 0 0 1 0 .816zM16 7a1 1 0 1 1 2 0v10a1 1 0 1 1-2 0z" /></svg>
                         </span>
                     </div>

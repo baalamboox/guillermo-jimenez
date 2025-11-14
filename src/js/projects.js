@@ -3,10 +3,10 @@ import Swiper from "swiper/bundle";
 
 $(document).ready(() => {
     const swiperProjects = new Swiper(".gj\\:swiper\\:projects", {
-        slidesPerView: 5,
-        loop: true,
-        freeMode: true,
+        slidesPerView: "auto",
         centeredSlides: true,
+        // centeredSlidesBounds: true,
+        init: false,
         navigation: {
             prevEl: ".gj\\:swiper\\:projects-prev",
             nextEl: ".gj\\:swiper\\:projects-next"
@@ -17,7 +17,18 @@ $(document).ready(() => {
         }
     });
 
-    swiperProjects.autoplay.start();
+    swiperProjects.on("init", () => {
+        console.log("Adios");
+        $(".gj\\:layout\\:shining").css("background-image", `url("${ $(swiperProjects.slides[swiperProjects.activeIndex].children[0].lastElementChild).attr("src") }")`);
+    })
 
+    swiperProjects.on("slideChange", () => {
+        $(".gj\\:layout\\:shining").css("background-image", `url("${ $(swiperProjects.slides[swiperProjects.activeIndex].children[0].lastElementChild).attr("src") }")`);
+    });
 
+    swiperProjects.init();
+    
+    swiperProjects.slideTo(swiperProjects.slides.length / 2);
+
+    // swiperProjects.autoplay.start();
 });

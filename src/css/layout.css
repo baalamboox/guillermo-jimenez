@@ -71,7 +71,7 @@ body {
     font-weight: 400;
     letter-spacing: -0.02em;
     position: relative;
-    transition: background 4s ease-in-out;
+    transition: all 1s ease-in-out;
 }
 
 h1 {

@@ -1,3 +1,10 @@
+.gj\:path\:projects
+.gj\:layout\:shining {
+    max-height: 50%;
+    max-width: 50%;
+    opacity: 1;
+}
+
 .gj\:projects\:container {
 
 }
@@ -6,12 +13,46 @@
     position: relative;
 }
 
+.gj\:swiper\:projects-pagination {
+    position: static !important;
+    margin: 0 !important;
+    padding-block: 48px;
+}
+
+.gj\:swiper\:projects-pagination
+.swiper-pagination-bullet {
+    background-color: var(--gj-gray);
+    height: 12px !important;
+    transition: transform 0.5s ease-in-out !important;
+    width: 12px !important;
+}
+
+.gj\:swiper\:projects-pagination
+.swiper-pagination-bullet-active {
+    background-color: var(--gj-light-bg);
+    transform: scale(1.4) !important;
+}
 
 .gj\:swiper\:projects-card {
     border-radius: 16px;
+    filter: grayscale() opacity(0.25) blur(2px);
     height: 420px;
     overflow: hidden;
+    margin-right: 32px;
+    transform: scale(0.8) !important;
+    transition: all 1s ease;
     width: 250px;
+}
+
+.gj\:swiper\:projects-card.swiper-slide-active {
+    filter: none;
+    transform: scale(1) !important;
+}
+
+.gj\:swiper\:projects-card.swiper-slide-prev,
+.gj\:swiper\:projects-card.swiper-slide-next {
+    transform: scale(0.9) !important;
+    filter: grayscale() opacity(1);
 }
 
 .gj\:swiper\:projects-card-image {
@@ -22,13 +63,61 @@
     width: 100%;
 }
 
+.gj\:swiper\:projects-controllers {
+    display: flex;
+    align-items: center;
+    column-gap: 36px;
+    flex-direction: row;
+    justify-content: center;
+    position: relative;
+    padding-block: 64px;
+}
+
+.gj\:swiper\:projects-prev,
+.gj\:swiper\:projects-next {
+    margin: 0 !important;
+    position: static !important;
+}
+
+.gj\:swiper\:projects-prev
+.gj\:layout\:svg-wrapper > svg,
+.gj\:swiper\:projects-next
+.gj\:layout\:svg-wrapper > svg {
+    color: var(--gj-light-bg);
+    min-height: 48px;
+    min-width: 48px;
+}
+
 .gj\:swiper\:projects-play-pause {
     display: flex;
     align-items: center;
     border: 2px solid var(--gj-light-bg);
     border-radius: 100%;
+    background-color: transparent;
     flex-direction: column;
     height: 48px;
     justify-content: center;
     width: 48px;
+}
+
+.gj\:swiper\:projects-play-pause
+.gj\:layout\:svg-wrapper > svg {
+    color: var(--gj-light-bg);
+    min-height: 32px;
+    min-width: 32px;
+}
+
+.gj\:swiper\:projects-pause-icon,
+.gj\:swiper\:projects-play-icon {
+    display: none;
+}
+
+.gj\:swiper\:projects-played
+.gj\:swiper\:projects-pause-icon {
+    display: block;
+}
+
+.gj\:swiper\:projects-paused
+.gj\:swiper\:projects-play-icon {
+    display: block;
 }
