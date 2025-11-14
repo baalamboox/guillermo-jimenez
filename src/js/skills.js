@@ -1,8 +1,18 @@
-const gjSkillsNavList = document?.querySelector("#gjSkillsNavList");
+import $ from "jquery";
+import data from "/src/data/data.js";
 
-gjSkillsNavList.addEventListener("click", (event) => {
-    gjSkillsNavList.children.map(element => {
-       console.log(element); 
+$(document).ready(() => {
+    let currentNavLink = $(".gj\\:skills\\:nav-button-active");
+    
+    let itemsSkills = "";
+
+    Object.keys(data.skills["technical"]).map((item) => {
+        console.log(item);
     });
-    event.target.classList.add("gj:skills:nav-button-active");
+
+    $("#gjSkillsNavList").delegate("li", "click", (event) => {
+        $(currentNavLink).removeClass("gj:skills:nav-button-active");
+        $(event.target).addClass("gj:skills:nav-button-active");
+        currentNavLink = event.target;
+    });
 });
