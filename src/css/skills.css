@@ -188,6 +188,13 @@
     background-color: var(--gj-percentage-color);
     border-radius: inherit;
     height: 100%;
+    transition: width 1s ease-in-out;
+    width: 0;
+    
+}
+
+.gj\:skills\:blink
+.gj\:skills\:content-load-bar-status {
     width: var(--gj-percentage);
 }
 
@@ -198,6 +205,12 @@
     padding-inline: 48px;
 }
 
+.gj\:skills\:content-list > li::marker {
+    color: var(--gj-second-bg);
+    transition: color 0.5s ease-in-out;
+}
+
+.gj\:skills\:blink
 .gj\:skills\:content-list > li::marker {
     color: var(--gj-marker-color);
 }

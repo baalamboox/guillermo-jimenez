@@ -1,14 +1,6 @@
 ---
 import Layout from "./src/layouts/Layout.astro"
 import "./src/css/skills.css";
-import data from "./src/data/data.js";
-
-const { skills } = data;
-
-const commasToArray = ({ stringCommas }) => {
-    return stringCommas.split(",");
-}
-
 ---
 
 <Layout title="Habilidades">
@@ -17,14 +9,14 @@ const commasToArray = ({ stringCommas }) => {
         <div class="gj:skills:menu">
             <div class="gj:skills:nav">
                 <ul class="gj:skills:nav-list" id="gjSkillsNavList">
-                    <li class="gj:skills:nav-button gj:skills:nav-button-active" data-target="#">
+                    <li class="gj:skills:nav-button gj:skills:nav-button-active" data-nav-item="technical-skills">
                         <span class="gj:layout:svg-wrapper">
                             <svg class="gj:skills:icon-selected" xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12s4.477 10 10 10"/></svg>
                             <svg class="gj:skills:icon-no-selected" xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10m0-2a8 8 0 1 0 0-16a8 8 0 0 0 0 16"/></svg>
                         </span>
                         Habilidades ténicas
                     </li>
-                    <li class="gj:skills:nav-button">
+                    <li class="gj:skills:nav-button" data-nav-item="soft-skills">
                         <span class="gj:layout:svg-wrapper">
                             <svg class="gj:skills:icon-selected" xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12s4.477 10 10 10"/></svg>
                             <svg class="gj:skills:icon-no-selected" xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10m0-2a8 8 0 1 0 0-16a8 8 0 0 0 0 16"/></svg>
@@ -34,18 +26,7 @@ const commasToArray = ({ stringCommas }) => {
                 </ul>
             </div>
             <div class="gj:skills:menubox">
-                <ul class="gj:skills:menubox-list">
-                    {
-                        Object.keys(skills.technical).map((technical) => (
-                            <li class={ "gj:skills:menubox-list-item "} style={ "--gj-emphasis-color:" + skills.technical[technical].emphasis_color + ";"}>
-                                <span class="gj:layout:svg-wrapper">
-                                    <svg class="gj:skills:menubox-icon" style={ "--gj-emphasis-color:" + skills.technical[technical].emphasis_color + ";"}><use href={ "./src/assets/icons/gj.svg#" + skills.technical[technical].icon }></use></svg>
-                                </span>
-                            </li>
-                        ))
-                    }
-                </ul>
-                
+                <ul class="gj:skills:menubox-list" id="gjSkillsMenuboxList"></ul>
                 <div class="gj:skills:corner">
                     <span class="gj:skills:corner-circle"></span>
                 </div>
@@ -53,35 +34,7 @@ const commasToArray = ({ stringCommas }) => {
         </div>
         <div class="gj:skills:menu-content">
             <div class="gj:skills:gost-nav"></div>
-            <div class="gj:skills:content">
-                <p class="gj:skills:content-title">{ skills.technical["bootstrap"].title }</p>
-                <div class="gj:skills:content-load-bar">
-                    <span class="gj:skills:content-load-bar-status" style={ "--gj-percentage:" + skills.technical["bootstrap"].percentage_experience + "%;--gj-percentage-color:" + skills.technical["bootstrap"].emphasis_color + ";" }></span>
-                </div>
-                <div class="gj:skills:content-list-wrapper">
-                    <ul class="gj:skills:content-list">
-                        {
-                            commasToArray({ stringCommas : skills.technical["bootstrap"].mastered_topics }).map((mastered_topic) => (
-                                <li style={ "--gj-marker-color:" + skills.technical["bootstrap"].emphasis_color + ";" }>{ mastered_topic }</li>
-                            ))
-                        }
-                    </ul>
-                </div>
-                <div class="gj:skills:nav-footer-buttons-wrapper" style={ "--gj-icon-color:" + skills.technical["bootstrap"].emphasis_color + ";" }>
-                    <div class="gj:skills:nav-footer-buttons">
-                        <button class="gj:skills:nav-footer-button" type="button">
-                            <span class="gj:layout:svg-wrapper">
-                                <svg width="8" height="16"><use href="./src/assets/icons/gj.svg#iconArrowLeft"></use></svg>
-                            </span>
-                        </button>
-                        <button class="gj:skills:nav-footer-button" type="button">
-                            <span class="gj:layout:svg-wrapper">
-                                <svg width="8" height="16"><use href="./src/assets/icons/gj.svg#iconArrowRight"></use></svg>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <div class="gj:skills:content" id="gjSkillsContent"></div>
         </div>
     </div>
 </Layout>

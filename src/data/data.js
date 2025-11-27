@@ -60,14 +60,21 @@ const data = {
             },
             "tailwind" : {
                 "icon" : "iconTailwind",
-                "title" : "JavaScript",
+                "title" : "Tailwind",
                 "percentage_experience" : 80,
                 "emphasis_color" : "#3EBFF8",
                 "mastered_topics" : "Callbacks,Async/Await,Funciones flecha,Desestructuración,Modulos,Import,Export,POO,Programación funcional"
             }
         },
         "soft" : {
-
+            "memonk" : {
+                "icon" : "iconHappyFace",
+                "title" : "Bootstrap Framework",
+                "percentage_experience" : 80,
+                "emphasis_color" : "#7110F4",
+                "mastered_topics" : "Diseños responsivos,Modelo Grid y Flex,UI/UX,Gaps,Diseños intuitivos y fáciles de usar,Consumo de iconos,Manejo de breakpoints,Migración a nuevas versiones,Completo manejo de SASS",
+                "position_grid" : "span-col-2,span-row-2"
+            }
         },
     },
     "projects" : {
