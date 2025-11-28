@@ -64,7 +64,21 @@ const data = {
                 "percentage_experience" : 80,
                 "emphasis_color" : "#3EBFF8",
                 "mastered_topics" : "Callbacks,Async/Await,Funciones flecha,Desestructuración,Modulos,Import,Export,POO,Programación funcional"
-            }
+            },
+            "SQL Lite" : {
+                "icon" : "iconGitLab",
+                "title" : "SQL Lite",
+                "percentage_experience" : 10,
+                "emphasis_color" : "#AF4335",
+                "mastered_topics" : "Callbacks,Async/Await,Funciones flecha,Desestructuración,Modulos,Import,Export,POO,Programación funcional"
+            },
+            "MongoDB" : {
+                "icon" : "iconTailwind",
+                "title" : "MongoDB",
+                "percentage_experience" : 45,
+                "emphasis_color" : "#FF152F",
+                "mastered_topics" : "Callbacks,Async/Await,Funciones flecha,Desestructuración,Modulos,Import,Export,POO,Programación funcional"
+            },
         },
         "soft" : {
             "memonk" : {

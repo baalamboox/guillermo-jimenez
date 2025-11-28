@@ -1,13 +1,19 @@
 import $ from "jquery";
 
 $(document).ready(() => {
-    setTimeout(() => {
-        document.documentElement.classList.add("menu-closex");
-    }, 2000);
 
-    $(".gj\\:layout\\:footer-menu-button").map((_, link) => {
-        $(link).click(() =>  console.log("GEnial"));
-    });;
+    setTimeout(() => {
+        $(".gj\\:layout\\:header-share").addClass("gj:layout:header-share-close");
+    }, 1000);
+
+    $("#gjShareButton").click((event) => {
+        $(".gj\\:layout\\:header-share").toggleClass("gj:layout:header-share-close");
+        $(".gj\\:layout\\:header-share").toggleClass("gj:layout:header-share-close-blink");
+    });
+    
+    $("#headerShareList").on("transitionend", (event) => {
+        $(".gj\\:layout\\:header-share").addClass("gj:layout:header-share-close-blink");
+    });
 });
 
 const body = document.querySelector("body");

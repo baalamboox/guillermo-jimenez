@@ -180,6 +180,12 @@ h1 {
     background-color: var(--gj-black);
     border-radius: 16px;
     padding: 8px;
+    z-index: 1;
+}
+
+.gj\:layout\:header-share-close-blink
+.gj\:layout\:header-share-button {
+    background-color: var(--gj-light-bg);
 }
 
 .gj\:layout\:header-share-icon {
@@ -213,11 +219,14 @@ h1 {
     list-style: none;
     padding-inline: 8px;
     transition: all 1s ease-in-out;
+    width: 150px;
 }
 
-.menu-closex
+.gj\:layout\:header-share-close
 .gj\:layout\:header-share-list {
-    transform: translateX(-100%);
+    overflow: hidden;
+    padding-inline: 0;
+    width: 0px;
 }
 
 .gj\:layout\:header-share-list-icon {
@@ -232,13 +241,6 @@ h1 {
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: center;
-}
-
-.menu-closex
-.gj\:layout\:header-share-button {
-    transform: translateX(200%);
-    transition: all 1s ease-in-out;
-    position: absolute;
 }
 
 .gj\:layout\:header-themes {
@@ -553,7 +555,7 @@ body {
 }
 
 @media only screen and (max-width: 1366px) {
-    .gj\:layout\:base {
+    /* .gj\:layout\:base {
         padding-inline: 16px;
     }
 
@@ -563,5 +565,32 @@ body {
 
     .gj\:layout\:footer {
         padding-bottom: 16px;
+    } */
+}
+
+@media only screen and (max-height: 768px) {
+    .gj\:layout\:base {
+        padding-inline: 16px;
+    }
+
+    .gj\:layout\:header {
+        padding-block: 16px;
+    }
+    
+    .gj\:layout\:footer-menu-list {
+        gap: 24px;
+    }
+
+    .gj\:layout\:footer-menu-icon {
+        height: 24px;
+        width: 24px;
+    }
+
+    .gj\:layout\:footer {
+        padding-block: 16px;
+    }
+
+    .gj\:layout\:footer-menu-label {
+        top: -100%;
     }
 }
