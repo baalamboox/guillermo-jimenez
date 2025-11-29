@@ -85,8 +85,8 @@ h1 {
     filter: blur(256px);
     height: 100%;
     left: 50%;
-    max-height: 256px;
-    max-width: 512px;
+    max-height: calc(100% - 320px);
+    max-width: calc(100% - 320px);
     opacity: 0;
     position: absolute;
     top: 50%;
@@ -185,7 +185,24 @@ h1 {
 
 .gj\:layout\:header-share-close-blink
 .gj\:layout\:header-share-button {
-    background-color: var(--gj-light-bg);
+    animation: buttonShareBlink 2s ease-in-out alternate infinite;
+    box-shadow: 0px 0px 0px 0px var(--gj-light-bg) inset;
+    -webkit-box-shadow: 0px 0px 0px 0px var(--gj-light-bg) inset;
+    -moz-box-shadow: 0px 0px 0px 0px var(--gj-light-bg) inset;
+}
+
+@keyframes buttonShareBlink {
+    0% {
+        box-shadow: 0px 0px 0px 0px var(--gj-light-bg) inset;
+        -webkit-box-shadow: 0px 0px 0px 0px var(--gj-light-bg) inset;
+        -moz-box-shadow: 0px 0px 0px 0px var(--gj-light-bg) inset;
+    }
+
+    100% {
+        box-shadow: 0px 0px 0px 2px var(--gj-light-bg) inset;
+        -webkit-box-shadow: 0px 0px 0px 2px var(--gj-light-bg) inset;
+        -moz-box-shadow: 0px 0px 0px 2px var(--gj-light-bg) inset;
+    }
 }
 
 .gj\:layout\:header-share-icon {

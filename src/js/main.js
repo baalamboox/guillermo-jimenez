@@ -4,7 +4,7 @@ $(document).ready(() => {
 
     setTimeout(() => {
         $(".gj\\:layout\\:header-share").addClass("gj:layout:header-share-close");
-    }, 1000);
+    }, 2000);
 
     $("#gjShareButton").click((event) => {
         $(".gj\\:layout\\:header-share").toggleClass("gj:layout:header-share-close");

@@ -1,18 +1,19 @@
 import $ from "jquery";
-import Swiper from "swiper";
+import Swiper from "swiper/bundle";
 
 $(document).ready(() => {
-    const swiperHomeProfile = new Swiper(".gj-swiper-home-profile", {
+    const swiperHomeProfile = new Swiper(".gj\\:swiper\\:home-profile", {
         loop: true,
-        autoplay: {
-            delay: 2000,
-        },
+        // autoplay: {
+        //     // delay: 4000,
+        // },
         navigation: {
-            prevEl: ".gj-home-swiper-prev",
-            nextEl: ".gj-home-swiper-next",
+            prevEl: ".gj\\:home\\:swiper-prev",
+            nextEl: ".gj\\:home\\:swiper-next",
         },
         pagination: {
-            el: ".gj-home-swiper-pagination"
+            el: ".gj\\:home\\:swiper-pagination",
+            clickable: true,
         }
     });
 });
