@@ -101,6 +101,11 @@ h1 {
     opacity: 1;
 }
 
+.gj\:layout\:change-shining
+.gj\:layout\:shining {
+    opacity: 0;
+}
+
 .gj\:layout\:base {
     display: flex;
     flex-direction: column;
@@ -186,13 +191,10 @@ h1 {
 .gj\:layout\:header-share-close-blink
 .gj\:layout\:header-share-button {
     animation: buttonShareBlink 2s ease-in-out alternate infinite;
-    box-shadow: 0px 0px 0px 0px var(--gj-light-bg) inset;
-    -webkit-box-shadow: 0px 0px 0px 0px var(--gj-light-bg) inset;
-    -moz-box-shadow: 0px 0px 0px 0px var(--gj-light-bg) inset;
 }
 
 @keyframes buttonShareBlink {
-    0% {
+    /* 0% {
         box-shadow: 0px 0px 0px 0px var(--gj-light-bg) inset;
         -webkit-box-shadow: 0px 0px 0px 0px var(--gj-light-bg) inset;
         -moz-box-shadow: 0px 0px 0px 0px var(--gj-light-bg) inset;
@@ -202,6 +204,15 @@ h1 {
         box-shadow: 0px 0px 0px 2px var(--gj-light-bg) inset;
         -webkit-box-shadow: 0px 0px 0px 2px var(--gj-light-bg) inset;
         -moz-box-shadow: 0px 0px 0px 2px var(--gj-light-bg) inset;
+    } */
+
+    0% {
+        outline: 1px solid red;
+    }
+
+    25% {
+        outline: 2px solid blue;
+        outline-offset: 2px;
     }
 }
 
@@ -583,6 +594,27 @@ body {
     .gj\:layout\:footer {
         padding-bottom: 16px;
     } */
+}
+
+@media only screen and (max-width: 768px) {
+    .gj\:layout\:footer-menu-list {
+        flex-wrap: wrap;
+        gap: 24px;
+        justify-content: center;
+    }
+
+    .gj\:layout\:footer-menu-icon {
+        height: 24px;
+        width: 24px;
+    }
+
+    .gj\:layout\:footer {
+        padding-block: 16px;
+    }
+
+    .gj\:layout\:footer-menu-label {
+        top: -100%;
+    }
 }
 
 @media only screen and (max-height: 768px) {

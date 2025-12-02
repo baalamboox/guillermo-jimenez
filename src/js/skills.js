@@ -35,7 +35,7 @@ $(document).ready(() => {
     const functionX = (nameContentSkill, typeSkill) => {
         $("#gjSkillsContent").html(generateContentSkills(nameContentSkill, typeSkill));
         $(currentContentLink).removeClass("gj:skills:menubox-list-item-active");
-        $(`.gj\\:skills\\:menubox-list-item[data-item="${ nameContentSkill }"]`).addClass("gj\:skills\:menubox-list-item-active");
+        $(`.gj\\:skills\\:menubox-list-item[data-item="${ nameContentSkill }"]`).addClass("gj:skills:menubox-list-item-active");
         blink();
         currentContentLink = $(`.gj\\:skills\\:menubox-list-item[data-item="${ nameContentSkill }"]`);
     }
@@ -67,9 +67,17 @@ $(document).ready(() => {
                     }
                 </ul>
             </div>
-            ${
-                arrayKeysContentSkills.length > 1 ? (`
-                    <div class="gj:skills:nav-footer-buttons-wrapper" style="${ "--gj-icon-color:" + data.skills[typeSkill][nameContentSkill].emphasis_color + ";" }">
+            
+            <div class="gj:skills:nav-footer-buttons-wrapper" style="${ "--gj-icon-color:" + data.skills[typeSkill][nameContentSkill].emphasis_color + ";" }">
+                <div class="gj:skills:nav-footer-back-button-wrapper">
+                    <button class="gj:skills:nav-footer-back-button" type="button" onclick="slideMenuContent()">
+                        <span class="gj:layout:svg-wrapper">
+                            <svg height="24px" width="24px"><use href="./src/assets/icons/gj.svg#iconBack"></use></svg>
+                        </span>
+                    </button>
+                </div>
+                ${
+                    arrayKeysContentSkills.length > 1 ? (`
                         <div class="gj:skills:nav-footer-buttons">
                             <button class="gj:skills:nav-footer-button" type="button" onclick="window.functionX(${ "'" + prevContentItem + "', " + "'" + typeSkill + "'" })" title="${ prevContentItem }">
                                 <span class="gj:layout:svg-wrapper">
@@ -82,9 +90,9 @@ $(document).ready(() => {
                                 </span>
                             </button>
                         </div>
-                    </div>
-                `) : ""
-            }
+                    `) : ""
+                }
+            </div>    
         `;
     }
 
@@ -95,12 +103,18 @@ $(document).ready(() => {
         }, 1);
     };
 
+    window.slideMenuContent = () => {
+        if($(window).outerWidth() <= 1024) {
+            $(".gj\\:skills\\:wrapper").toggleClass("gj:skills:active-menu-content");
+        }
+    }
+
     $("#gjSkillsMenuboxList").html(generateItemsSkills("technical"));
     $("#gjSkillsContent").html(generateContentSkills("bootstrap", "technical"));
     setTimeout(() => {
         $(".gj\\:skills\\:wrapper").addClass("gj:skills:blink");
     }, 1);
-    $(".gj\\:skills\\:menubox-list > li:first-child").addClass("gj\:skills\:menubox-list-item-active");
+    $(".gj\\:skills\\:menubox-list > li:first-child").addClass("gj:skills:menubox-list-item-active");
 
     $("#gjSkillsNavList").delegate("li", "click", (event) => {
         $(currentNavLink).removeClass("gj:skills:nav-button-active");
@@ -108,14 +122,14 @@ $(document).ready(() => {
         switch($(event.target).data("nav-item")) {
             case "technical-skills":
                 $("#gjSkillsMenuboxList").html(generateItemsSkills("technical"));
-                $(".gj\\:skills\\:menubox-list > li:first-child").addClass("gj\:skills\:menubox-list-item-active");
+                $(".gj\\:skills\\:menubox-list > li:first-child").addClass("gj:skills:menubox-list-item-active");
                 $("#gjSkillsContent").html(generateContentSkills($(".gj\\:skills\\:menubox-list > li:first-child").data("item"), $(event.target).data("nav-item").split("-")[0]));
                 currentContentLink = $(".gj\\:skills\\:menubox-list > li:first-child");
                 blink();
                 break;
             case "soft-skills":
                 $("#gjSkillsMenuboxList").html(generateItemsSkills("soft"));
-                $(".gj\\:skills\\:menubox-list > li:first-child").addClass("gj\:skills\:menubox-list-item-active");
+                $(".gj\\:skills\\:menubox-list > li:first-child").addClass("gj:skills:menubox-list-item-active");
                 $("#gjSkillsContent").html(generateContentSkills($(".gj\\:skills\\:menubox-list > li:first-child").data("item"), $(event.target).data("nav-item").split("-")[0]));
                 currentContentLink = $(".gj\\:skills\\:menubox-list > li:first-child");
                 blink();
@@ -132,8 +146,8 @@ $(document).ready(() => {
         $(currentContentLink).removeClass("gj:skills:menubox-list-item-active");
         $(event.target).addClass("gj:skills:menubox-list-item-active");
         blink();
+        slideMenuContent();
         $("#gjSkillsContent").html(generateContentSkills($(event.target).data("item"), $(event.target).data("type")));
         currentContentLink = event.target;
     });
-
 });

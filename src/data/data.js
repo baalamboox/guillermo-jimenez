@@ -3,18 +3,11 @@ const data = {
         "technical" : {
             "bootstrap" : {
                 "icon" : "iconBootstrap",
-                "title" : "Bootstrap Framework",
+                "title" : "Bootstrap",
                 "percentage_experience" : 80,
                 "emphasis_color" : "#7110F4",
                 "mastered_topics" : "Diseños responsivos,Modelo Grid y Flex,UI/UX,Gaps,Diseños intuitivos y fáciles de usar,Consumo de iconos,Manejo de breakpoints,Migración a nuevas versiones,Completo manejo de SASS",
                 "position_grid" : "span-col-2,span-row-2"
-            },
-            "vue" : {
-                "icon" : "iconVue",
-                "title" : "Vue Framework",
-                "percentage_experience" : 60,
-                "emphasis_color" : "#327959",
-                "mastered_topics" : "Diseño por componentes,Manejo de islas,Enrrutamiento,SAP"
             },
             "html5" : {
                 "icon" : "iconHTML5",
@@ -22,6 +15,20 @@ const data = {
                 "percentage_experience" : 100,
                 "emphasis_color" : "#DD4B25",
                 "mastered_topics" : "SEO,Cavas,iFrames,Prácticas en buena estructuración"
+            },
+            "github" : {
+                "icon" : "iconGitHub",
+                "title" : "GitHub",
+                "percentage_experience" : 80,
+                "emphasis_color" : "#FFFFFF",
+                "mastered_topics" : "Callbacks,Async/Await,Funciones flecha,Desestructuración,Modulos,Import,Export,POO,Programación funcional"
+            },
+            "laravel" : {
+                "icon" : "iconLaravel",
+                "title" : "Laravel",
+                "percentage_experience" : 80,
+                "emphasis_color" : "#f53003",
+                "mastered_topics" : "Callbacks,Async/Await,Funciones flecha,Desestructuración,Modulos,Import,Export,POO,Programación funcional"
             },
             "css3" : {
                 "icon" : "iconCSS3",
@@ -51,13 +58,6 @@ const data = {
                 "emphasis_color" : "#EBDA1C",
                 "mastered_topics" : "Callbacks,Async/Await,Funciones flecha,Desestructuración,Modulos,Import,Export,POO,Programación funcional"
             },
-            "gitlab" : {
-                "icon" : "iconGitLab",
-                "title" : "GitLab",
-                "percentage_experience" : 80,
-                "emphasis_color" : "#E24329",
-                "mastered_topics" : "Callbacks,Async/Await,Funciones flecha,Desestructuración,Modulos,Import,Export,POO,Programación funcional"
-            },
             "tailwind" : {
                 "icon" : "iconTailwind",
                 "title" : "Tailwind",
@@ -65,18 +65,39 @@ const data = {
                 "emphasis_color" : "#3EBFF8",
                 "mastered_topics" : "Callbacks,Async/Await,Funciones flecha,Desestructuración,Modulos,Import,Export,POO,Programación funcional"
             },
-            "SQL Lite" : {
-                "icon" : "iconGitLab",
-                "title" : "SQL Lite",
-                "percentage_experience" : 10,
-                "emphasis_color" : "#AF4335",
+            "git" : {
+                "icon" : "iconGit",
+                "title" : "Git",
+                "percentage_experience" : 80,
+                "emphasis_color" : "#F05133",
                 "mastered_topics" : "Callbacks,Async/Await,Funciones flecha,Desestructuración,Modulos,Import,Export,POO,Programación funcional"
             },
-            "MongoDB" : {
-                "icon" : "iconTailwind",
-                "title" : "MongoDB",
-                "percentage_experience" : 45,
-                "emphasis_color" : "#FF152F",
+            "php" : {
+                "icon" : "iconPHP",
+                "title" : "PHP",
+                "percentage_experience" : 80,
+                "emphasis_color" : "#4F5B93",
+                "mastered_topics" : "Callbacks,Async/Await,Funciones flecha,Desestructuración,Modulos,Import,Export,POO,Programación funcional"
+            },
+            "figma" : {
+                "icon" : "iconFigma",
+                "title" : "Figma",
+                "percentage_experience" : 80,
+                "emphasis_color" : "#FFFFFF",
+                "mastered_topics" : "Callbacks,Async/Await,Funciones flecha,Desestructuración,Modulos,Import,Export,POO,Programación funcional"
+            },
+            "adobexd" : {
+                "icon" : "iconAdobeXD",
+                "title" : "Adobe XD",
+                "percentage_experience" : 80,
+                "emphasis_color" : "#4D093D",
+                "mastered_topics" : "Callbacks,Async/Await,Funciones flecha,Desestructuración,Modulos,Import,Export,POO,Programación funcional"
+            },
+            "mysql" : {
+                "icon" : "iconMySQL",
+                "title" : "MySQL",
+                "percentage_experience" : 80,
+                "emphasis_color" : "#00758F",
                 "mastered_topics" : "Callbacks,Async/Await,Funciones flecha,Desestructuración,Modulos,Import,Export,POO,Programación funcional"
             },
         },

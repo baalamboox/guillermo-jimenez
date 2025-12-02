@@ -49,6 +49,7 @@
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
+    transition: transform 4s ease-in-out;
     width: 100%;
     z-index: -1;
 }
@@ -63,6 +64,7 @@
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
+    transition: transform 3s linear;
     width: 100%;
     z-index: -2;
 }
@@ -200,6 +202,27 @@ svg {
     max-height: 12px;
     max-width: 12px;
     width: 100%;
+}
+
+@media only screen and (max-width: 1024px) {
+    .gj\:home\:container {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        height: auto;
+    }
+
+    .gj\:home\:section-left,
+    .gj\:home\:section-right {
+        max-width: 100%;
+    }
+
+    .gj\:home\:section-left {
+        padding-block: 48px;
+    }
+
+    .gj\:home\:profile {
+        padding-inline: 64px;
+    }
 }
 
 @media only screen and (max-height: 768px) {

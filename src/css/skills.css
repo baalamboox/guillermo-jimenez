@@ -35,6 +35,7 @@
 .gj\:skills\:menu {
     display: flex;
     flex-direction: column;
+    transition: all 0.75s ease-in-out;
 }
 
 .gj\:skills\:nav {
@@ -42,6 +43,7 @@
     background-color: var(--gj-main-bg);
     border-radius: 0 0 16px 0;
     padding: 8px;
+    transition: all 1s ease-in-out;
 }
 
 .gj\:skills\:nav-list {
@@ -88,6 +90,7 @@
     flex-grow: 1;
     overflow: hidden;
     padding: 24px;
+    transition: all 1s ease-in-out;
 }
 
 .gj\:skills\:menubox {
@@ -112,6 +115,7 @@
     flex-direction: column;
     height: 100%;
     padding: 24px;
+    transition: all 1s ease-in-out;
 }
 
 .gj\:skills\:corner {
@@ -143,7 +147,7 @@
 
 .gj\:skills\:menubox-list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
     gap: 16px;
     list-style: none;
     padding-inline: 0;
@@ -152,6 +156,7 @@
 .gj\:skills\:menubox-list-item {
     display: flex;
     align-items: center;
+    aspect-ratio: 1/1;
     background-color: var(--gj-main-bg);
     border-radius: 16px;
     flex-direction: column;
@@ -200,6 +205,7 @@
     min-height: 120px;
     min-width: 120px;
     margin-inline: auto;
+    padding: 24px;
     width: 120px;
 }
 
@@ -219,6 +225,7 @@
     margin-inline: auto;
     max-width: 400px;
     position: relative;
+    transition: all 1s ease-in-out;
     width: 100%;
 }
 
@@ -238,8 +245,9 @@
 }
 
 .gj\:skills\:content-list {
-    columns: 2;
-    line-height: 32px;
+    columns: 2 200px;
+    column-gap: 48px;
+    line-height: 20px;
     opacity: 0;
     padding-inline: 48px;
     transition: opacity 1s ease;
@@ -263,6 +271,7 @@
 .gj\:skills\:content-list > li {
     color: var(--gj-fonts-light);
     font-size: 16px;
+    margin-bottom: 16px;
 }
 
 .gj\:skills\:nav-footer-buttons-wrapper {
@@ -294,6 +303,7 @@
     max-height: 48px;
     min-height: 48px;
     min-width: 48px;
+    transition: all 1s ease-in-out;
     width: 100%;
 }
 
@@ -352,6 +362,70 @@
     width: 12px;
 }
 
+.gj\:skills\:nav-footer-back-button-wrapper {
+    display: none;
+    flex-grow: 1;
+}
+
+@media only screen and (max-width: 1024px) {
+    .gj\:skills\:wrapper {
+        border-radius: 16px;
+        position: relative;
+    }
+
+    .gj\:skills\:menu,
+    .gj\:skills\:menu-content {
+        max-width: 100%;
+    }
+
+    .gj\:skills\:active-menu-content
+    .gj\:skills\:menu {
+        opacity: 0;
+    }
+
+    .gj\:skills\:menu-content {
+        /* display: none; */
+        /* opacity: 0; */
+        position: absolute;
+        transition: transform 0.75s ease-in-out;
+        transform: translateY(100%);
+    }
+
+    .gj\:skills\:active-menu-content
+    .gj\:skills\:menu-content  {
+        transform: translateY(0%);
+    }
+
+    .gj\:skills\:content {
+        border-radius: 16px;
+    }
+
+    .gj\:skills\:menubox-wrapper {
+        border-radius: 16px;
+    }
+
+    .gj\:skills\:nav-footer-back-button-wrapper {
+        display: block;
+    }
+
+    .gj\:skills\:nav-footer-back-button {
+        background-color: var(--gj-main-bg);
+        border: none;
+        border-radius: 100%;
+        color: var(--gj-fonts-light);
+        height: 48px;
+        width: 48px;
+    }
+
+    .gj\:skills\:nav-footer-back-button:hover {
+        cursor: pointer;
+    }
+
+    .gj\:skills\:nav-footer-buttons-wrapper {
+        margin-bottom: 24px;
+    }
+}
+
 @media only screen and (max-height: 768px) {
     .gj\:skills\:wrapper {
         height: 100% !important;
@@ -360,7 +434,7 @@
     }
 
     .gj\:skills\:menubox-list {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
     }
 
     .gj\:skills\:content-title {
