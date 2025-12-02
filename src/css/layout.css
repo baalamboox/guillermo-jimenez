@@ -39,11 +39,11 @@
 }
 
 :root {
-    --gj-main-bg: #161616;
+    --gj-main-bg: #ffffff;
     --gj-light-bg: #ffffff;
     --gj-dark-bg: #000000;
     --gj-second-bg: #242424;
-    --gj-fonts-light: #ffffff;
+    --gj-fonts-light: #000000;
     --gj-fonts-dark: #000000;
     --gj-black: #000000;
     --gj-gray: #707070;
@@ -51,11 +51,11 @@
 
 :root[dark-mode="true"] {
     --gj-main-bg: #ffffff;
-    --gj-light-bg: #ffffff;
+    --gj-light-bg: #000000;
     --gj-dark-bg: #000000;
     --gj-second-bg: #a8a8a8;
     --gj-fonts-light: #000000;
-    --gj-fonts-light: #ffffff;
+    --gj-fonts-light: #000000;
     --gj-black: #000000;
 }
 
