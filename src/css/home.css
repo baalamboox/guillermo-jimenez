@@ -87,7 +87,7 @@
 
 .gj\:home\:profile-me img {
     aspect-ratio: 1/1;
-    animation: profileM 10s ease-in-out;
+    /* animation: profileM 10s ease-in-out; */
     display: block;
     height: 100%;
     max-height: calc(100vh - 480px);
@@ -98,7 +98,7 @@
     width: 100%;
 }
 
-@keyframes profileM {
+/* @keyframes profileM {
     from {
         clip-path: polygon(50% 0%, 83% 12%, 100% 43%, 94% 78%, 68% 100%, 32% 100%, 6% 78%, 0% 43%, 17% 12%);
     }
@@ -106,7 +106,7 @@
     to {
         clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
     }
-}
+} */
 
 .gj\:home\:swiper-card\:names {
     display: flex;

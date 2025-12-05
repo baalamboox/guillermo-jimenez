@@ -2,64 +2,34 @@ import $ from "jquery";
 
 $(document).ready(() => {
 
-    setTimeout(() => {
-        $(".gj\\:layout\\:header-share").addClass("gj:layout:header-share-close");
-    }, 2000);
-
-    $("#gjShareButton").click((event) => {
-        $(".gj\\:layout\\:header-share").toggleClass("gj:layout:header-share-close");
-        $(".gj\\:layout\\:header-share").toggleClass("gj:layout:header-share-close-blink");
-    });
-    
-    $("#headerShareList").on("transitionend", (event) => {
-        $(".gj\\:layout\\:header-share").addClass("gj:layout:header-share-close-blink");
-    });
-});
-
-const body = document.querySelector("body");
-const gjLoaderMask = document?.querySelector("#gjLoderMask");
-// const gjLoaderMaskSection = document?.querySelector("#gjLoaderMaskSection");
-
-// const bottonTheme = document?.querySelector("#buttonTheme");
-
-const gjSwitchTheme = document?.querySelector("#gjSwitchTheme");
-
-const indexView = () => {
-    // console.log(document.querySelector("#gjLayoutBase"));
-}
-
-const changeTheme = () => {
-    // bottonTheme.addEventListener("click", (event) => {
-    //     localStorage.setItem("dark-mode", "true");
-    //     document.documentElement.setAttribute("dark-mode", "true");
-    //     console.log(event);
-    // });
-
-    document.documentElement.setAttribute("dark-mode", localStorage.getItem("dark-mode"));
-
-    if(localStorage.getItem("dark-mode") === "dark") {
-        gjSwitchTheme.checked = "false";
-    } else {
-        gjSwitchTheme.checked = "true";
-    }
-
-    gjSwitchTheme.addEventListener("click", (event) => {
-        event.target.checked ? [
-            localStorage.setItem("dark-mode", "false"),
-            document.documentElement.setAttribute("dark-mode", "false"),
-        ] : [
-            localStorage.setItem("dark-mode", "true"),
-            document.documentElement.setAttribute("dark-mode", "true"),
-        ];
-        
-        console.log(event.target.checked);
-    });
-}
-
-window.addEventListener("load", () => {
     let currentView = "";
 
-    body.classList.add("gj:content-loaded");
+    const changeTheme = () => {
+
+        const changeThemeOptions = expresion => expresion ? [
+            $(":root").attr("dark-mode", true),
+            $("#gjSwitchTheme").prop("checked", true),
+        ] : [
+            $(":root").attr("dark-mode", false),
+            $("#gjSwitchTheme").prop("checked", false),
+        ];
+
+        window.localStorage.key("dark-mode") != null ? [
+            $(":root").attr("dark-mode", window.localStorage.getItem("dark-mode")),
+            $("#gjSwitchTheme").prop("checked", window.localStorage.getItem("dark-mode")),
+        ] :  [
+            changeThemeOptions(window.matchMedia("(prefers-color-scheme: dark)").matches),
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", event => changeThemeOptions(event.matches)),
+        ];
+
+        $("#gjSwitchTheme").on("click", () => {
+            changeThemeOptions($("#gjSwitchTheme").prop("checked"));
+            $("#gjSwitchTheme").prop("checked") ? window.localStorage.setItem("dark-mode", true) : window.localStorage.setItem("dark-mode", false);
+        });
+    }
+
+    $(":root").addClass("gj:content-loaded");
+
     switch (window.location.pathname) {
         case "/":
             currentView = "gj:path:home";
@@ -80,16 +50,21 @@ window.addEventListener("load", () => {
             console.log("Ninguna URL encontrada");
             break;
     }
-    document.documentElement.classList.add(currentView);
-    // gjLoaderMaskSection.addEventListener("transitionend", () => {
-    //     body.classList.add("gj:lm:hidden");
-    // });
-    // gjLoaderMask.addEventListener("transitionend", () => {
-    //     setTimeout(() => {
-    //         body.classList.add("gj:lm:remove");
-    //     }, 1000);
-        
-    // });
+
+    $(":root").addClass(currentView);
+
     changeTheme();
-    indexView();
+
+    setTimeout(() => {
+        $(".gj\\:layout\\:header-share").addClass("gj:layout:header-share-close");
+    }, 2000);
+
+    $("#gjShareButton").click(() => {
+        $(".gj\\:layout\\:header-share").toggleClass("gj:layout:header-share-close");
+        $(".gj\\:layout\\:header-share").toggleClass("gj:layout:header-share-close-blink");
+    });
+    
+    $("#headerShareList").on("transitionend", () => {
+        $(".gj\\:layout\\:header-share").addClass("gj:layout:header-share-close-blink");
+    });
 });

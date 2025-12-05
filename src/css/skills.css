@@ -241,6 +241,7 @@
 
 .gj\:skills\:blink
 .gj\:skills\:content-load-bar-status {
+    border: 1px solid var(--gj-main-bg);
     width: var(--gj-percentage);
 }
 
@@ -331,6 +332,7 @@
     display: block;
     border-radius: 100px;
     background-color: var(--gj-light-bg);
+    color: var(--gj-fonts-dark);
     font-size: 12px;
     font-weight: 700;
     left: 0;
@@ -358,6 +360,7 @@
     left: 50%;
     position: absolute;
     transform: rotate(45deg) translateX(-50%);
+    transition: all 1s ease-in-out;
     top: -1px;
     width: 12px;
 }

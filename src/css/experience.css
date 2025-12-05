@@ -159,6 +159,6 @@
 
 .gj\:experience\:list-item.gj\:experience\:list-item\:active
 .gj\:experience\:location {
-    background-color: var(--gj-dark-bg);
+    background-color: var(--gj-main-bg);
     pointer-events: all;
 }

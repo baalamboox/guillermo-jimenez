@@ -6,7 +6,10 @@
 }
 
 .gj\:projects\:container {
-
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .gj\:swiper\:projects-wrapper {
@@ -120,4 +123,18 @@
 .gj\:swiper\:projects-paused
 .gj\:swiper\:projects-play-icon {
     display: block;
+}
+
+@media only screen and (max-height: 768px) {
+    .gj\:swiper\:projects-card {
+        height: 350px;
+    }
+
+    .gj\:swiper\:projects-pagination {
+        display: none;
+    }
+
+    .gj\:swiper\:projects-controllers {
+        display: none;
+    }
 }
