@@ -125,6 +125,13 @@
     display: block;
 }
 
+.modal-backdrop.show {
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(16px);
+    opacity: 1;
+    -webkit-backdrop-filter: blur(16px);
+}
+
 @media only screen and (max-height: 768px) {
     .gj\:swiper\:projects-card {
         height: 350px;

@@ -1,4 +1,5 @@
 ---
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./src/css/layout.css";
 import LoaderMask from "./src/components/LoaderMask.astro";
 
@@ -175,7 +176,52 @@ const { title } = Astro.props;
 				<p class="gj:layout:post:text">Desarrollador Web</p>
 			</div>
 		</div>
+		<!-- Modal -->
+		<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<p class="modal-title fs-5" id="staticBackdropLabel">Proyecto</p>
+						<div class="">
+							<button type="button">
+								<span class="gj:layout:svg-wrapper">
+
+								</span>
+							</button>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+					</div>
+					<div class="modal-body">
+						<div class="">
+							<img id="" />
+						</div>
+						<p class="gj:modal:projects:title">MacStore</p>
+						<div class="gj:modal:projects:cat-exp-wrapper">
+							<p class="gj:modal:projects:category"><span class="gj:modal:projects:prefix-cat-exp">Categoría:</span> Desarrollo Frontend</p>
+							<p class="gj:modal:projects:experience"><span class="gj:modal:projects:prefix-cat-exp">Experiencia:</span> 2 años</p>
+						</div>
+						<div class="gj:modal:projects:paragraphs">
+							<p class="gj:modal:projects:paragraph">Durante mi experiencia en MacStore, participé activamente en el desarrollo y mantenimiento de la interfaz de usuario del sitio web, enfocándome en mejorar la experiencia del cliente mediante interfaces intuitivas, accesibles y visualmente atractivas.</p>
+							<p class="gj:modal:projects:paragraph">Trabajé en la maquetación y desarrollo de componentes dinámicos, asegurando compatibilidad responsive en distintos dispositivos. También colaboré con el equipo backend utilizando .NET para la integración de funcionalidades clave, como la visualización de productos, gestión del carrito de compras, validaciones en el proceso de checkout y filtros avanzados.</p>
+						</div>
+						<div class="gj:modal:projects:section">
+							<p class="gj:modal:projects:section-title">Tecnologías implementadas</p>
+							<div class="gj:modal:projects">
+								swiper here...
+							</div>
+						</div>
+						<div class="gj:modal:projects:section">
+							<p class="gj:modal:projects:section-title">Aportes principales</p>
+							<div class="gj:modal:projects">
+								tabs here...
+							</div>
+						</div>	
+					</div>
+				</div>
+			</div>
+		</div>
 		<!-- <LoaderMask /> -->
+		 <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 		<script src="./src/js/main.js" is:inline type="module"></script>
 	</body>
 </html>

@@ -1,5 +1,6 @@
 import $ from "jquery";
 import Swiper from "swiper/bundle";
+import data from "/src/data/data";
 
 $(document).ready(() => {
     const swiperProjects = new Swiper(".gj\\:swiper\\:projects", {
@@ -18,7 +19,6 @@ $(document).ready(() => {
     });
 
     swiperProjects.on("init", () => {
-        console.log("Adios");
         $(".gj\\:layout\\:shining").css("background-image", `url("${ $(swiperProjects.slides[swiperProjects.activeIndex].children[0].lastElementChild).attr("src") }")`);
     })
 
@@ -31,4 +31,15 @@ $(document).ready(() => {
     swiperProjects.slideTo(swiperProjects.slides.length / 2);
 
     // swiperProjects.autoplay.start();
+
+    document.querySelector("#staticBackdrop").addEventListener("show.bs.modal", (event) => {
+        const idProject = $(event.relatedTarget).data("id-project");
+        const currentDataProject = data.projects[idProject];
+
+        $(".gj\\:modal\\:projects\\:title").text(currentDataProject.title);
+        $("*").text(currentDataProject.experience_time);
+        console.log(currentDataProject);
+        console.log(currentDataProject.description.split("\n"));
+
+    });
 });

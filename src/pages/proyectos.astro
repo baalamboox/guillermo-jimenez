@@ -15,7 +15,7 @@ const { projects } = data;
                     <div class="swiper-wrapper">
                         {
                             Object.keys(projects).map((project) => (
-                                <div class="swiper-slide gj:swiper:projects-card">
+                                <div class="swiper-slide gj:swiper:projects-card" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-id-project={ project }>
                                     <picture>
                                         <source srcset={ "./src/assets/img/projects/" + project + "/" + projects[project].screenshot + ".png"} />
                                         <img class="gj:swiper:projects-card-image" src={ "./src/assets/img/projects/" + project + "/" + projects[project].screenshot + ".png"} alt="" width="" height="" loading="lazy" />

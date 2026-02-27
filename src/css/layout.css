@@ -560,6 +560,67 @@ body {
     transform: rotateX(-180deg);
 }
 
+.modal
+.modal-dialog
+.modal-content {
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.modal
+.modal-dialog
+.modal-content
+.modal-header {
+    background-color: var(--gj-main-bg);
+}
+
+.modal
+.modal-dialog
+.modal-content
+.modal-body {
+    background-color: var(--gj-second-bg);
+}
+
+.gj\:modal\:projects\:title {
+    color: var(--gj-fonts-light);
+    font-size: 48px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.gj\:modal\:projects\:cat-exp-wrapper {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.gj\:modal\:projects\:category,
+.gj\:modal\:projects\:experience {
+    color: var(--gj-fonts-light);
+    font-weight: 500;
+}
+
+.gj\:modal\:projects\:prefix-cat-exp {
+    color: var(--gj-gray);
+}
+
+.gj\:modal\:projects\:paragraphs {
+    display: flex;
+    flex-direction: column;
+    margin-block: 48px;
+    row-gap: 16px;
+    width: 100%;
+}
+
+.gj\:modal\:projects\:paragraph {
+    color: var(--gj-fonts-light);
+    font-weight: 400;
+}
+
+.gj\:modal\:projects\:section-title {}
+
 @media only screen and (max-width: 1366px) {
     /* .gj\:layout\:base {
         padding-inline: 16px;
