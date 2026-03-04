@@ -125,6 +125,109 @@
     display: block;
 }
 
+.gj\:modal\:projects\:header {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+.gj\:modal\:projects\:header
+.modal-title  {
+    color: var(--gj-fonts-light);
+}
+
+.gj\:modal\:projects\:action-buttons {
+    display: flex;
+    align-items: center;
+    column-gap: 16px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+.gj\:modal\:projects\:action-button {
+    background-color: transparent;
+    border: none;
+    color: var(--gj-fonts-light);
+}
+
+.gj\:modal\:projects\:action-button:hover
+.gj\:layout\:svg-wrapper {
+    transform: scale(1.1);
+    transition: transform 400ms ease;
+}
+
+.gj\:modal\:projects\:banner {
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-100%);
+    transition: transform 400ms ease, opacity 400ms ease;
+}
+
+.gj\:modal\:projects-resize
+.gj\:modal\:projects\:banner {
+    opacity: 1;
+    transform: translateY(0);
+    width: 100%;
+}
+
+.gj\:modal\:projects\:banner::after {
+    box-shadow: 4px -42px 60px 40px rgba(36,36,36,1) inset;
+    content: "";
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 2;
+    -webkit-box-shadow: 4px -42px 60px 40px rgba(36,36,36,1) inset;
+    -moz-box-shadow: 4px -42px 60px 40px rgba(36,36,36,1) inset;
+}
+
+.gj\:modal\:projects\:banner-image {
+    height: 150px;
+    object-fit: cover;
+    object-position: top;
+    position: relative;
+    width: 100%;
+    z-index: 1;
+}
+
+.gj\:modal\:projects\:modal-wrapper {
+    padding: 24px;
+    transform: translateY(-32%);
+    transition: transform 400ms ease, opacity 400ms ease;
+}
+
+.gj\:modal\:projects-resize
+.gj\:modal\:projects\:modal-wrapper {
+    transform: translateY(0);
+}
+
+.gj\:modal\:projects\:experience {
+    opacity: 0;
+    transform: translateX(100%);
+    transition: transform 400ms ease, opacity 300ms ease;
+}
+
+.gj\:modal\:projects-resize
+.gj\:modal\:projects\:experience {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.gj\:modal\:projects\:sections {
+    display: none;
+}
+
+.gj\:modal\:projects-resize
+.gj\:modal\:projects\:sections {
+    display: block;
+}
+
 .modal-backdrop.show {
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(16px);

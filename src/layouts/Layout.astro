@@ -177,45 +177,56 @@ const { title } = Astro.props;
 			</div>
 		</div>
 		<!-- Modal -->
-		<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal fade" id="gjModalProjects" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="gjModalProjectsLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header">
-						<p class="modal-title fs-5" id="staticBackdropLabel">Proyecto</p>
-						<div class="">
-							<button type="button">
-								<span class="gj:layout:svg-wrapper">
-
-								</span>
-							</button>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						<div class="gj:modal:projects:header">
+							<p class="modal-title fs-5" id="gjModalProjectsLabel">Proyecto</p>
+							<div class="gj:modal:projects:action-buttons">
+								<button class="gj:modal:projects:action-button" type="button" onclick="window.actionButtonResize()">
+									<span class="gj:layout:svg-wrapper">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M4 3a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zm12 5v8.414l-3.5-3.5l-3.793 3.793l-1.414-1.414l3.793-3.793l-3.5-3.5z"/></svg>
+									</span>
+								</button>
+								<button class="gj:modal:projects:action-button" type="button" class="" data-bs-dismiss="modal" aria-label="Close">
+									<span class="gj:layout:svg-wrapper">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10m0-11.414L9.172 7.757L7.757 9.172L10.586 12l-2.829 2.828l1.415 1.415L12 13.414l2.828 2.829l1.415-1.415L13.414 12l2.829-2.828l-1.415-1.415z"/></svg>
+									</span>
+								</button>
+							</div>
 						</div>
 					</div>
 					<div class="modal-body">
-						<div class="">
-							<img id="" />
+						<div class="gj:modal:projects:banner">
+							<img class="gj:modal:projects:banner-image" id="gjModalProjectsBanner" />
 						</div>
-						<p class="gj:modal:projects:title">MacStore</p>
-						<div class="gj:modal:projects:cat-exp-wrapper">
-							<p class="gj:modal:projects:category"><span class="gj:modal:projects:prefix-cat-exp">Categoría:</span> Desarrollo Frontend</p>
-							<p class="gj:modal:projects:experience"><span class="gj:modal:projects:prefix-cat-exp">Experiencia:</span> 2 años</p>
-						</div>
-						<div class="gj:modal:projects:paragraphs">
-							<p class="gj:modal:projects:paragraph">Durante mi experiencia en MacStore, participé activamente en el desarrollo y mantenimiento de la interfaz de usuario del sitio web, enfocándome en mejorar la experiencia del cliente mediante interfaces intuitivas, accesibles y visualmente atractivas.</p>
-							<p class="gj:modal:projects:paragraph">Trabajé en la maquetación y desarrollo de componentes dinámicos, asegurando compatibilidad responsive en distintos dispositivos. También colaboré con el equipo backend utilizando .NET para la integración de funcionalidades clave, como la visualización de productos, gestión del carrito de compras, validaciones en el proceso de checkout y filtros avanzados.</p>
-						</div>
-						<div class="gj:modal:projects:section">
-							<p class="gj:modal:projects:section-title">Tecnologías implementadas</p>
-							<div class="gj:modal:projects">
-								swiper here...
+						<div class="gj:modal:projects:modal-wrapper">
+							<p class="gj:modal:projects:title"></p>
+							<div class="gj:modal:projects:cat-exp-wrapper">
+								<p class="gj:modal:projects:category"></p>
+								<p class="gj:modal:projects:experience"></p>
+							</div>
+							<div class="gj:modal:projects:paragraphs">
+								<p class="gj:modal:projects:paragraph">
+									Durante mi experiencia en MacStore, participé activamente en el desarrollo y mantenimiento de la interfaz de usuario del sitio web, enfocándome en mejorar la experiencia del cliente mediante interfaces intuitivas, accesibles y visualmente atractivas.
+								</p>
+							</div>
+							<div class="gj:modal:projects:sections">
+								<div class="gj:modal:projects:section">
+									<p class="gj:modal:projects:section-title">Tecnologías implementadas</p>
+									<div class="gj:modal:projects">
+										swiper here...
+									</div>
+								</div>
+								<div class="gj:modal:projects:section">
+									<p class="gj:modal:projects:section-title">Aportes principales</p>
+									<div class="gj:modal:projects">
+										tabs here...
+									</div>
+								</div>
 							</div>
 						</div>
-						<div class="gj:modal:projects:section">
-							<p class="gj:modal:projects:section-title">Aportes principales</p>
-							<div class="gj:modal:projects">
-								tabs here...
-							</div>
-						</div>	
 					</div>
 				</div>
 			</div>

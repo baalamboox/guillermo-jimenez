@@ -32,14 +32,23 @@ $(document).ready(() => {
 
     // swiperProjects.autoplay.start();
 
-    document.querySelector("#staticBackdrop").addEventListener("show.bs.modal", (event) => {
+    document.querySelector("#gjModalProjects").addEventListener("show.bs.modal", (event) => {
         const idProject = $(event.relatedTarget).data("id-project");
         const currentDataProject = data.projects[idProject];
 
         $(".gj\\:modal\\:projects\\:title").text(currentDataProject.title);
-        $("*").text(currentDataProject.experience_time);
-        console.log(currentDataProject);
-        console.log(currentDataProject.description.split("\n"));
+        $(".gj\\:modal\\:projects\\:category").html(`<span class="gj:modal:projects:prefix-cat-exp">Categoría: </span>${currentDataProject.category}`);
+        $(".gj\\:modal\\:projects\\:experience").html(`<span class="gj:modal:projects:prefix-cat-exp">Experiencia: </span>${currentDataProject.experience_time}`);
+        $("#gjModalProjectsBanner").attr("src", `/src/assets/img/projects/${ idProject }/${ currentDataProject.screenshot }.png`);
 
+        window.actionButtonResize = () => {
+            $("#gjModalProjects .modal-dialog").toggleClass("modal-lg");
+            $("#gjModalProjects").toggleClass("gj:modal:projects-resize");
+        }
+    });
+
+    document.querySelector("#gjModalProjects").addEventListener("hidden.bs.modal", () => {
+        $("#gjModalProjects .modal-dialog").removeClass("modal-lg");
+        $("#gjModalProjects").removeClass("gj:modal:projects-resize");
     });
 });

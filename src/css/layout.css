@@ -572,6 +572,7 @@ body {
 .modal-content
 .modal-header {
     background-color: var(--gj-main-bg);
+    border-bottom: none;
 }
 
 .modal
@@ -579,6 +580,8 @@ body {
 .modal-content
 .modal-body {
     background-color: var(--gj-second-bg);
+    padding: 0;
+    overflow: hidden;
 }
 
 .gj\:modal\:projects\:title {
