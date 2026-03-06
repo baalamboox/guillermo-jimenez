@@ -179,7 +179,7 @@ const { title } = Astro.props;
 		<!-- Modal -->
 		<div class="modal fade" id="gjModalProjects" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="gjModalProjectsLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
+				<div class="modal-content gj:modal:projects:content">
 					<div class="modal-header">
 						<div class="gj:modal:projects:header">
 							<p class="modal-title fs-5" id="gjModalProjectsLabel">Proyecto</p>
@@ -210,19 +210,170 @@ const { title } = Astro.props;
 							<div class="gj:modal:projects:paragraphs">
 								<p class="gj:modal:projects:paragraph">
 									Durante mi experiencia en MacStore, participé activamente en el desarrollo y mantenimiento de la interfaz de usuario del sitio web, enfocándome en mejorar la experiencia del cliente mediante interfaces intuitivas, accesibles y visualmente atractivas.
+									<br />
+									<br />
+									Durante mi experiencia en MacStore, participé activamente en el desarrollo y mantenimiento de la interfaz de usuario del sitio web, enfocándome en mejorar la experiencia del cliente mediante interfaces intuitivas, accesibles y visualmente atractivas.
 								</p>
 							</div>
 							<div class="gj:modal:projects:sections">
 								<div class="gj:modal:projects:section">
 									<p class="gj:modal:projects:section-title">Tecnologías implementadas</p>
-									<div class="gj:modal:projects">
-										swiper here...
+									<div class="gj:modal:projects:section-content">
+										<div class="gj:swiper:projects:technologies-applied-wrapper">
+											<div class="swiper gj:swiper:projects:technologies-applied">
+												<div class="swiper-wrapper" style="transition-timing-function:linear;">
+													<div class="swiper-slide">
+														<div class="gj:swiper:projects:technologies-applied:card">
+															<span class="gj:layout:svg-wrapper">
+																<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24"><path fill="currentColor" d="m12 18.178l4.62-1.256l.623-6.778H9.026L8.822 7.89h8.626l.227-2.211H6.325l.636 6.678h7.82l-.261 2.866l-2.52.667l-2.52-.667l-.158-1.844h-2.27l.329 3.544zM3 2h18l-1.623 18L12 22l-7.377-2z"/></svg>
+															</span>
+															<p class="gj:swiper:projects:technologies-applied:card-title">HTML</p>
+														</div>
+													</div>
+													<div class="swiper-slide">
+														<div class="gj:swiper:projects:technologies-applied:card">
+															<span class="gj:layout:svg-wrapper">
+																<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24"><path fill="currentColor" d="m5 3l-.65 3.34h13.59L17.5 8.5H3.92l-.66 3.33h13.59l-.76 3.81l-5.48 1.81l-4.75-1.81l.33-1.64H2.85l-.79 4l7.85 3l9.05-3l1.2-6.03l.24-1.21L21.94 3z"/></svg>
+															</span>
+															<p class="gj:swiper:projects:technologies-applied:card-title">CSS</p>
+														</div>
+													</div>
+													<div class="swiper-slide">
+														<div class="gj:swiper:projects:technologies-applied:card">
+															<span class="gj:layout:svg-wrapper">
+																<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24"><path fill="currentColor" d="M12.001 13.5a1.5 1.5 0 1 1 0-3a1.5 1.5 0 0 1 0 3m-.528 2.994q.262.316.528.609q.266-.292.528-.609a25 25 0 0 1-1.056 0m-1.995-.125a21 21 0 0 1-2.285-.367q-.113.525-.17 1.015c-.19 1.583.075 2.545.478 2.777s1.368-.019 2.645-.974q.395-.296.794-.655a21 21 0 0 1-1.462-1.796m7.331-.367a21 21 0 0 1-2.285.367a21 21 0 0 1-1.462 1.796q.4.36.794.655c1.277.955 2.242 1.207 2.645.974c.403-.232.667-1.194.479-2.777a11 11 0 0 0-.17-1.015m1.45-.388c.577 2.639.274 4.74-1.008 5.48s-3.253-.048-5.25-1.867c-1.997 1.819-3.968 2.606-5.25 1.866s-1.585-2.84-1.009-5.48C3.168 14.794 1.501 13.48 1.501 12s1.667-2.793 4.241-3.613c-.576-2.64-.273-4.74 1.009-5.48s3.253.047 5.25 1.866c1.997-1.819 3.968-2.606 5.25-1.866s1.585 2.84 1.009 5.48c2.573.82 4.24 2.133 4.24 3.613s-1.668 2.794-4.241 3.614m-7.32-9.779q-.398-.359-.793-.655C8.869 4.225 7.904 3.973 7.5 4.206c-.403.232-.667 1.194-.479 2.778q.06.49.17 1.015a21 21 0 0 1 2.286-.368q.714-.981 1.462-1.796m3.585 1.796a21 21 0 0 1 2.285.368q.113-.526.17-1.015c.19-1.584-.075-2.546-.478-2.778s-1.368.019-2.645.974q-.395.296-.794.655q.748.815 1.462 1.796m-1.995-.125q-.262-.316-.528-.609q-.265.293-.528.609a25 25 0 0 1 1.056 0m-4.156 7.198a25 25 0 0 1-.528-.914q-.143.385-.263.762q.386.083.79.152m1.932.234a23 23 0 0 0 3.392 0A23 23 0 0 0 15.393 12a23 23 0 0 0-1.696-2.938a23 23 0 0 0-3.392 0A23 23 0 0 0 8.609 12a23 23 0 0 0 1.696 2.938m5.852-4.728q.143-.385.263-.761a18 18 0 0 0-.79-.153a25 25 0 0 1 .527.914M6.131 9.837q-.51.165-.964.36c-1.465.628-2.166 1.338-2.166 1.803s.7 1.175 2.166 1.803q.454.195.964.36c.222-.7.497-1.426.825-2.163a21 21 0 0 1-.825-2.163m1.45-.388q.121.375.264.76a25 25 0 0 1 .528-.913q-.405.069-.791.153m10.29 4.714q.51-.165.964-.36C20.3 13.175 21 12.465 21 12s-.7-1.175-2.166-1.803q-.454-.195-.965-.36c-.22.7-.496 1.426-.824 2.163c.328.737.603 1.463.825 2.163m-1.45.389q-.122-.377-.264-.762a25 25 0 0 1-.528.914q.405-.07.791-.152"/></svg>
+															</span>
+															<p class="gj:swiper:projects:technologies-applied:card-title">React</p>
+														</div>
+													</div>
+													<div class="swiper-slide">
+														<div class="gj:swiper:projects:technologies-applied:card">
+															<span class="gj:layout:svg-wrapper">
+																<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24"><path fill="currentColor" d="M5.423 3.038c-1.284 0-2.233 1.124-2.19 2.342c.04 1.171-.013 2.688-.395 3.924c-.383 1.24-1.03 2.026-2.088 2.127v1.138c1.058.101 1.705.887 2.088 2.127c.382 1.237.435 2.753.394 3.924c-.042 1.218.907 2.342 2.192 2.342h13.154c1.284 0 2.234-1.124 2.192-2.342c-.041-1.171.012-2.687.393-3.924c.384-1.24 1.03-2.026 2.087-2.127v-1.138c-1.058-.101-1.703-.887-2.087-2.127c-.381-1.236-.434-2.753-.393-3.924c.042-1.218-.908-2.342-2.192-2.342zm10.581 11.033c0 1.678-1.251 2.696-3.328 2.696H9.14a.38.38 0 0 1-.382-.381V7.614a.38.38 0 0 1 .382-.38h3.515c1.732 0 2.869.937 2.869 2.378c0 1.01-.765 1.916-1.739 2.074v.053c1.326.145 2.22 1.064 2.22 2.332M12.29 8.442h-2.016v2.848h1.698c1.313 0 2.036-.529 2.036-1.474c0-.885-.622-1.374-1.718-1.374m-2.016 3.977v3.139h2.09c1.367 0 2.09-.549 2.09-1.58c0-1.03-.743-1.559-2.178-1.559z"/></svg>
+															</span>
+															<p class="gj:swiper:projects:technologies-applied:card-title">Bootstrap</p>
+														</div>
+													</div>
+													<div class="swiper-slide">
+														<div class="gj:swiper:projects:technologies-applied:card">
+															<span class="gj:layout:svg-wrapper">
+																<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24"><path fill="currentColor" d="M12.887 1.362a1.75 1.75 0 0 0-1.774 0L3.363 5.92A1.75 1.75 0 0 0 2.5 7.429v9.142c0 .62.328 1.194.863 1.508l2.623 1.543C7.319 20.408 9 19.446 9 17.9V7.747H7v10.152l-2.5-1.471V7.572L12 3.16l7.5 4.412v8.856L12 20.84l-1.768-1.04l-1.014 1.723l1.895 1.115a1.75 1.75 0 0 0 1.774 0l7.75-4.559a1.75 1.75 0 0 0 .863-1.508V7.429a1.75 1.75 0 0 0-.863-1.508zM14 7.5c-1.363 0-2.329.351-2.95.97a2.5 2.5 0 0 0-.737 1.761c0 .555.157 1.058.482 1.474c.313.4.725.649 1.12.81c.72.297 1.62.394 2.344.471l.087.01c.831.09 1.454.167 1.88.345c.193.08.272.154.305.197c.021.028.062.09.062.26c0 .264-.09.434-.373.595c-.347.197-.96.347-1.883.347c-.915 0-1.553-.17-1.918-.422c-.283-.196-.492-.497-.437-1.15l-1.993-.167c-.108 1.289.359 2.316 1.292 2.962c.851.59 1.97.777 3.056.777c1.077 0 2.092-.165 2.873-.61c.846-.48 1.383-1.282 1.383-2.332c0-.557-.155-1.061-.477-1.48c-.31-.404-.722-.656-1.118-.822c-.728-.305-1.64-.403-2.368-.481l-.07-.008c-.833-.09-1.456-.165-1.885-.341c-.194-.08-.273-.152-.303-.192c-.02-.024-.059-.08-.059-.243c0-.077.023-.219.15-.345c.122-.122.499-.386 1.537-.386c.99 0 1.567.105 1.897.3c.215.128.448.363.48 1.133l1.998-.08c-.05-1.246-.506-2.208-1.458-2.772C16.08 7.583 15.01 7.5 14 7.5"/></svg>
+															</span>
+															<p class="gj:swiper:projects:technologies-applied:card-title">NodeJS</p>
+														</div>
+													</div>
+													<div class="swiper-slide">
+														<div class="gj:swiper:projects:technologies-applied:card">
+															<span class="gj:layout:svg-wrapper">
+																<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4.86q-4.76 0-5.95 4.76q1.785-2.38 4.165-1.785c.905.226 1.552.883 2.268 1.61C13.651 10.63 15 12 17.95 12q4.76 0 5.95-4.76q-1.785 2.38-4.165 1.785c-.906-.226-1.552-.883-2.27-1.61C16.3 6.23 14.95 4.86 12 4.86M6.05 12Q1.29 12 .1 16.76q1.785-2.38 4.165-1.785c.905.226 1.552.883 2.269 1.61C7.7 17.77 9.05 19.14 12 19.14q4.76 0 5.95-4.76q-1.785 2.38-4.165 1.785c-.906-.226-1.552-.883-2.27-1.61C10.35 13.37 9 12 6.05 12"/></svg>
+															</span>
+															<p class="gj:swiper:projects:technologies-applied:card-title">Tailwind</p>
+														</div>
+													</div>
+													<div class="swiper-slide">
+														<div class="gj:swiper:projects:technologies-applied:card">
+															<span class="gj:layout:svg-wrapper">
+																<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24"><path fill="currentColor" d="M6 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3zm7.334 13.055q1.08.87 2.156.858q.66 0 1.012-.242a.75.75 0 0 0 .341-.66a.97.97 0 0 0-.34-.748q-.352-.307-1.332-.616q-1.177-.34-1.815-.88q-.626-.54-.638-1.507q0-.913.792-1.529q.77-.616 1.97-.616q1.672 0 2.683.814l-.77 1.199a2.6 2.6 0 0 0-.935-.462a3.2 3.2 0 0 0-.946-.165q-.57 0-.913.209q-.34.21-.34.55q0 .374.417.638q.42.254 1.43.561q1.221.363 1.738.968t.517 1.54q0 .957-.737 1.65q-.726.682-2.112.715q-1.815 0-3.036-1.089zm-5.53.638q.352.22.847.22q.517 0 .858-.297q.34-.308.341-1.067v-5.302h1.485v5.588q-.033 1.298-.748 1.87a2.5 2.5 0 0 1-.891.484a3.3 3.3 0 0 1-.935.143q-.825 0-1.463-.286q-.682-.307-1.144-1.089l1.034-.847q.285.385.616.583"/></svg>
+															</span>
+															<p class="gj:swiper:projects:technologies-applied:card-title">JavaScript</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 								<div class="gj:modal:projects:section">
 									<p class="gj:modal:projects:section-title">Aportes principales</p>
-									<div class="gj:modal:projects">
-										tabs here...
+									<div class="gj:modal:projects:section-content">
+										<div class="">
+											<div class="gj:modal:projects:tabs-wrapper">
+												<ul class="gj:modal:projects:tabs">
+													<li>
+														<button class="gj:modal:projects:tabs:button gj:modal:projects:tabs:button-active" type="button">
+															<div class="gj:modal:projects:tabs:button-icons">
+																<span class="gj:layout:svg-wrapper gj:modal:projects:tabs:button-icon-active">
+																	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12s4.477 10 10 10"/></svg>
+																</span>
+																<span class="gj:layout:svg-wrapper gj:modal:projects:tabs:button-icon-no-active">
+																	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10m0-2a8 8 0 1 0 0-16a8 8 0 0 0 0 16"/></svg>
+																</span>
+															</div>	
+															<p class="gj:modal:projects:tabs:button-title">MacStore Online</p>
+														</button>
+													</li>
+													<li>
+														<button class="gj:modal:projects:tabs:button" type="button">
+															<div class="gj:modal:projects:tabs:button-icons">
+																<span class="gj:layout:svg-wrapper gj:modal:projects:tabs:button-icon-active">
+																	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12s4.477 10 10 10"/></svg>
+																</span>
+																<span class="gj:layout:svg-wrapper gj:modal:projects:tabs:button-icon-no-active">
+																	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10m0-2a8 8 0 1 0 0-16a8 8 0 0 0 0 16"/></svg>
+																</span>
+															</div>	
+															<p class="gj:modal:projects:tabs:button-title">MacStore B2B</p>
+														</button>
+													</li>
+													<li>
+														<button class="gj:modal:projects:tabs:button" type="button">
+															<div class="gj:modal:projects:tabs:button-icons">
+																<span class="gj:layout:svg-wrapper gj:modal:projects:tabs:button-icon-active">
+																	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12s4.477 10 10 10"/></svg>
+																</span>
+																<span class="gj:layout:svg-wrapper gj:modal:projects:tabs:button-icon-no-active">
+																	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10m0-2a8 8 0 1 0 0-16a8 8 0 0 0 0 16"/></svg>
+																</span>
+															</div>	
+															<p class="gj:modal:projects:tabs:button-title">iReNew</p>
+														</button>
+													</li>
+													<li>
+														<button class="gj:modal:projects:tabs:button" type="button">
+															<div class="gj:modal:projects:tabs:button-icons">
+																<span class="gj:layout:svg-wrapper gj:modal:projects:tabs:button-icon-active">
+																	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12s4.477 10 10 10"/></svg>
+																</span>
+																<span class="gj:layout:svg-wrapper gj:modal:projects:tabs:button-icon-no-active">
+																	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10m0-2a8 8 0 1 0 0-16a8 8 0 0 0 0 16"/></svg>
+																</span>
+															</div>	
+															<p class="gj:modal:projects:tabs:button-title">MacStore Empresarial</p>
+														</button>
+													</li>
+												</ul>
+											</div>
+											<div class="grid-stack">
+											</div>
+											<br />
+											<br />
+											<div id="my-gallery">
+												<a href="/screenshots/screen-1.png">
+													<img src="/screenshots/screen-1.png" alt="Example image" width="250" height="250" />
+												</a>
+												<a href="/screenshots/screen-2.png">
+													<img src="/screenshots/screen-2.png" alt="Example image" width="250" height="250" />
+												</a>
+												<a href="/screenshots/screen-3.png">
+													<img src="/screenshots/screen-3.png" alt="Example image" width="250" height="250" />
+												</a>
+												<a href="/screenshots/screen-4.png">
+													<img src="/screenshots/screen-4.png" alt="Example image" width="250" height="250" />
+												</a>
+												<a href="/screenshots/screen-5.png">
+													<img src="/screenshots/screen-5.png" alt="Example image" width="250" height="250" />
+												</a>
+												<a href="/screenshots/screen-6.png">
+													<img src="/screenshots/screen-6.png" alt="Example image" width="250" height="250" />
+												</a>
+												<a href="/screenshots/screen-7.png">
+													<img src="/screenshots/screen-7.png" alt="Example image" width="250" height="250" />
+												</a>
+												<a href="/screenshots/screen-8.png">
+													<img src="/screenshots/screen-8.png" alt="Example image" width="250" height="250" />
+												</a>
+											</div>
+										</div>	
 									</div>
 								</div>
 							</div>

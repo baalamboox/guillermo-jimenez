@@ -198,8 +198,14 @@
 
 .gj\:modal\:projects\:modal-wrapper {
     padding: 24px;
-    transform: translateY(-32%);
+    padding-top: 0;
+    transform: translateY(-50%);
     transition: transform 400ms ease, opacity 400ms ease;
+}
+
+.gj\:modal\:projects-resize
+.gj\:modal\:projects\:modal-wrapper {
+    padding-top: 24px;
 }
 
 .gj\:modal\:projects-resize
@@ -225,8 +231,112 @@
 
 .gj\:modal\:projects-resize
 .gj\:modal\:projects\:sections {
+    display: flex;
+}
+
+.gj\:modal\:projects\:content {
+    max-height: 320px;
+}
+
+.gj\:modal\:projects-resize
+.gj\:modal\:projects\:content {
+    max-height: unset;
+}
+
+.gj\:swiper\:projects\:technologies-applied-wrapper {
+    background-color: var(--gj-main-bg);
+    border-radius: 8px;
+}
+
+.gj\:swiper\:projects\:technologies-applied\:card {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    padding: 16px;
+    row-gap: 8px;
+}
+
+.gj\:swiper\:projects\:technologies-applied\:card
+.gj\:layout\:svg-wrapper
+svg {
+    color: var(--gj-gray);
+}
+
+.gj\:swiper\:projects\:technologies-applied\:card-title {
+    color: var(--gj-gray);
+    font-weight: 600;
+    margin: 0;
+    text-align: center;
+}
+
+.gj\:modal\:projects\:tabs-wrapper {
+    background-color: var(--gj-main-bg);
+    border-radius: 100px;
+    overflow: hidden;
+}
+
+.gj\:modal\:projects\:tabs {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: left;
+    list-style: none;
+    padding-inline: 0;
+    margin: 0;
+}
+
+.gj\:modal\:projects\:tabs\:button {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    border-radius: 100px;
+    color: var(--gj-fonts-light);
+    column-gap: 4px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    line-height: normal;
+    padding-block: 16px;
+    padding-inline: 24px;
+}
+
+.gj\:modal\:projects\:tabs\:button:hover {
+    background-color: var(--gj-dark-bg);
+}
+
+.gj\:modal\:projects\:tabs\:button-active {
+    background-color: var(--gj-dark-bg);
+}
+
+.gj\:modal\:projects\:tabs\:button-icons {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.gj\:modal\:projects\:tabs\:button-icon-active {
+    display: none;
+}
+
+.gj\:modal\:projects\:tabs\:button-active
+.gj\:modal\:projects\:tabs\:button-icon-active {
     display: block;
 }
+
+.gj\:modal\:projects\:tabs\:button-active
+.gj\:modal\:projects\:tabs\:button-icon-no-active {
+    display: none;
+}
+
+.gj\:modal\:projects\:tabs\:button-title {
+    margin: 0;
+    text-wrap: nowrap;
+}
+
+.grid-stack { background: #FAFAD2; }
+
+.grid-stack-item-content { background-color: #18BC9C; }
 
 .modal-backdrop.show {
     background-color: rgba(0, 0, 0, 0.5);

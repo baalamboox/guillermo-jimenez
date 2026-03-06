@@ -586,9 +586,14 @@ body {
 
 .gj\:modal\:projects\:title {
     color: var(--gj-fonts-light);
-    font-size: 48px;
+    font-size: 38px;
     font-weight: 600;
     text-align: center;
+}
+
+.gj\:modal\:projects-resize
+.gj\:modal\:projects\:title {
+    font-size: 48px;
 }
 
 .gj\:modal\:projects\:cat-exp-wrapper {
@@ -612,17 +617,56 @@ body {
 .gj\:modal\:projects\:paragraphs {
     display: flex;
     flex-direction: column;
-    margin-block: 48px;
+    margin-block: 8px;
     row-gap: 16px;
     width: 100%;
 }
 
-.gj\:modal\:projects\:paragraph {
-    color: var(--gj-fonts-light);
-    font-weight: 400;
+.gj\:modal\:projects-resize
+.gj\:modal\:projects\:paragraphs {
+    margin-block: 36px;
 }
 
-.gj\:modal\:projects\:section-title {}
+.gj\:modal\:projects\:paragraph {
+    display: -webkit-box;
+    color: var(--gj-fonts-light);
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 20px;
+    height: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.gj\:modal\:projects-resize
+.gj\:modal\:projects\:paragraph {
+    display: initial;
+    height: auto;
+    line-height: 24px;
+    overflow: unset;
+    -webkit-line-clamp: unset;
+    -webkit-box-orient: unset;
+}
+
+.gj\:modal\:projects\:sections {
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 48px;
+}
+
+.gj\:modal\:projects\:section {
+    /* background-color: lightblue; */
+}
+
+.gj\:modal\:projects\:section-title {
+    color: var(--gj-fonts-light);
+    font-size: 18px;
+    font-weight: 600;
+}
 
 @media only screen and (max-width: 1366px) {
     /* .gj\:layout\:base {

@@ -134,11 +134,11 @@ const data = {
             "description" : "Durante mi experiencia en Microsoft, participé activamente en el desarrollo y mantenimiento de la interfaz de usuario del sitio web, enfocándome en mejorar la experiencia del cliente mediante interfaces intuitivas, accesibles y visualmente atractivas.\nTrabajé con tecnologías como HTML5, CSS3 y JavaScript para la maquetación y desarrollo de componentes dinámicos, asegurando compatibilidad responsive en distintos dispositivos. También colaboré con el equipo backend utilizando .NET para la integración de funcionalidades clave, como la visualización de productos, gestión del carrito de compras, validaciones en el proceso de checkout y filtros avanzados.",
             "experience_time" : "3 años"
         },
-        "moles-don-pancho" : {
-            "title" : "Moles Don Pancho",
-            "screenshot" : "moles-don-pancho-project",
+        "nu" : {
+            "title" : "Nu Bank",
+            "screenshot" : "nu-project",
             "category" : "Desarrollo Frontend",
-            "description" : "Durante mi experiencia en Moles Don Pancho, participé activamente en el desarrollo y mantenimiento de la interfaz de usuario del sitio web, enfocándome en mejorar la experiencia del cliente mediante interfaces intuitivas, accesibles y visualmente atractivas.\nTrabajé con tecnologías como HTML5, CSS3 y JavaScript para la maquetación y desarrollo de componentes dinámicos, asegurando compatibilidad responsive en distintos dispositivos. También colaboré con el equipo backend utilizando .NET para la integración de funcionalidades clave, como la visualización de productos, gestión del carrito de compras, validaciones en el proceso de checkout y filtros avanzados.",
+            "description" : "Durante mi experiencia en Nu Bank, participé activamente en el desarrollo y mantenimiento de la interfaz de usuario del sitio web, enfocándome en mejorar la experiencia del cliente mediante interfaces intuitivas, accesibles y visualmente atractivas.\nTrabajé con tecnologías como HTML5, CSS3 y JavaScript para la maquetación y desarrollo de componentes dinámicos, asegurando compatibilidad responsive en distintos dispositivos. También colaboré con el equipo backend utilizando .NET para la integración de funcionalidades clave, como la visualización de productos, gestión del carrito de compras, validaciones en el proceso de checkout y filtros avanzados.",
             "experience_time" : "8 meses"
         },
         "volkswagen" : {
@@ -161,6 +161,13 @@ const data = {
             "category" : "Desarrollo Frontend",
             "description" : "Durante mi experiencia en BMW, participé activamente en el desarrollo y mantenimiento de la interfaz de usuario del sitio web, enfocándome en mejorar la experiencia del cliente mediante interfaces intuitivas, accesibles y visualmente atractivas.\nTrabajé con tecnologías como HTML5, CSS3 y JavaScript para la maquetación y desarrollo de componentes dinámicos, asegurando compatibilidad responsive en distintos dispositivos. También colaboré con el equipo backend utilizando .NET para la integración de funcionalidades clave, como la visualización de productos, gestión del carrito de compras, validaciones en el proceso de checkout y filtros avanzados.",
             "experience_time" : "6 meses"
+        },
+        "discord" : {
+            "title" : "Discord",
+            "screenshot" : "discord-project",
+            "category" : "Desarrollo Frontend",
+            "description" : "Durante mi experiencia en Discord, participé activamente en el desarrollo y mantenimiento de la interfaz de usuario del sitio web, enfocándome en mejorar la experiencia del cliente mediante interfaces intuitivas, accesibles y visualmente atractivas.\nTrabajé con tecnologías como HTML5, CSS3 y JavaScript para la maquetación y desarrollo de componentes dinámicos, asegurando compatibilidad responsive en distintos dispositivos. También colaboré con el equipo backend utilizando .NET para la integración de funcionalidades clave, como la visualización de productos, gestión del carrito de compras, validaciones en el proceso de checkout y filtros avanzados.",
+            "experience_time" : "4 años"
         }
     }
 }
