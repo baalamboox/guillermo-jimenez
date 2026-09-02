@@ -1,45 +1,130 @@
 ---
-import Layout from "../layouts/Layout.astro"
+import Layout from "../layouts/Layout.astro";
+import data from "../data/data.js";
 import "../css/skills.css";
+
+const technicalSkills = Object.entries(data.skills.technical);
+const [initialKey, initialSkill] = technicalSkills[0];
+const totalSkills = technicalSkills.length;
+const initialTopics = initialSkill.mastered_topics.split(",");
 ---
 
 <Layout title="Habilidades">
-    <h1 class="gj:skills:title">Habilidades</h1>
-    <div class="gj:skills:wrapper">
-        <div class="gj:skills:menu">
-            <div class="gj:skills:nav">
-                <ul class="gj:skills:nav-list" id="gjSkillsNavList">
-                    <li class="gj:skills:nav-button gj:skills:nav-button-active" data-nav-item="technical-skills">
-                        <span class="gj:layout:svg-wrapper">
-                            <svg class="gj:skills:icon-selected" xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12s4.477 10 10 10"/></svg>
-                            <svg class="gj:skills:icon-no-selected" xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10m0-2a8 8 0 1 0 0-16a8 8 0 0 0 0 16"/></svg>
-                        </span>
-                        Habilidades ténicas
-                    </li>
-                    <li class="gj:skills:nav-button" data-nav-item="soft-skills">
-                        <span class="gj:layout:svg-wrapper">
-                            <svg class="gj:skills:icon-selected" xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12s4.477 10 10 10"/></svg>
-                            <svg class="gj:skills:icon-no-selected" xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10m0-2a8 8 0 1 0 0-16a8 8 0 0 0 0 16"/></svg>
-                        </span>
-                        Habilidades blandas
-                    </li>
-                </ul>
+    <div class="gj:layout:container">
+        <div class="gj:skills:container">
+            <!-- Encabezado con Selector de Categorías -->
+            <header class="gj:skills:header">
+            <h1 class="gj:skills:title">Habilidades</h1>
+            <div class="gj:skills:tabs-pill" id="gjSkillsNavList" role="tablist" aria-label="Categorías de Habilidades">
+                <button class="gj:skills:tab-btn gj:skills:tab-btn-active" type="button" role="tab" aria-selected="true" aria-controls="gjSkillsHoloCard" data-nav-item="technical-skills">
+                    <span class="gj:skills:tab-icon" aria-hidden="true">⚡</span>
+                    <span class="gj:skills:tab-text">Habilidades Técnicas</span>
+                </button>
+                <button class="gj:skills:tab-btn" type="button" role="tab" aria-selected="false" aria-controls="gjSkillsHoloCard" data-nav-item="soft-skills">
+                    <span class="gj:skills:tab-icon" aria-hidden="true">🤝</span>
+                    <span class="gj:skills:tab-text">Habilidades Blandas</span>
+                </button>
             </div>
-            <div class="gj:skills:menubox-wrapper">
-                <div class="gj:skills:menubox">
-                    <ul class="gj:skills:menubox-list" id="gjSkillsMenuboxList"></ul>
-                    <div class="gj:skills:corner">
-                        <span class="gj:skills:corner-circle"></span>
+        </header>
+
+        <!-- Dock Flotante Estilo macOS / Cyber -->
+        <nav class="gj:skills:dock-wrapper" aria-label="Dock de Tecnologías">
+            <div class="gj:skills:dock" id="gjSkillsDock" role="tablist" aria-label="Listado de Tecnologías">
+                {technicalSkills.map(([key, item], index) => (
+                    <button 
+                        class={`gj:skills:dock-item ${index === 0 ? "gj:skills:dock-item-active" : ""}`}
+                        data-item={key}
+                        data-type="technical"
+                        style={`--dock-accent: ${item.emphasis_color};`}
+                        type="button"
+                        role="tab"
+                        aria-selected={index === 0 ? "true" : "false"}
+                        aria-label={item.title}
+                    >
+                        <span class="gj:skills:dock-glow" aria-hidden="true"></span>
+                        <span class="gj:layout:svg-wrapper gj:skills:dock-svg">
+                            <svg><use href={`./src/assets/icons/gj.svg#${item.icon}`}></use></svg>
+                        </span>
+                        <span class="gj:skills:dock-tooltip" role="tooltip">{item.title}</span>
+                    </button>
+                ))}
+            </div>
+        </nav>
+
+        <!-- Escenario Holográfico Central (Hero Stage) -->
+        <main class="gj:skills:stage" id="gjSkillsStage">
+            <!-- Flecha Anterior -->
+            <button class="gj:skills:stage-arrow gj:skills:stage-arrow-prev" id="stagePrevBtn" type="button" aria-label="Habilidad anterior">
+                <span class="gj:layout:svg-wrapper">
+                    <svg width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M15.41 7.41L14 6l-6 6l6 6l1.41-1.41L10.83 12z"/></svg>
+                </span>
+            </button>
+
+            <!-- Tarjeta Holográfica 3D (Renderizada en Servidor para Cero CLS) -->
+            <div class="gj:skills:holo-card gj:skills:card-enter" id="gjSkillsHoloCard" role="region" aria-live="polite" aria-atomic="true" aria-label={`Detalles de ${initialSkill.title}`}>
+                <div class="gj:skills:holo-ambient-glow" style={`--holo-glow: ${initialSkill.emphasis_color};`}></div>
+                
+                <div class="gj:skills:holo-inner">
+                    <!-- Micro-Contador de Posición -->
+                    <div class="gj:skills:counter-badge" id="gjSkillsCounter">
+                        <span>1</span> / {totalSkills}
+                    </div>
+
+                    <!-- Icono Holográfico 3D con Anillo de Luz -->
+                    <div class="gj:skills:holo-icon-wrapper" style={`--icon-accent: ${initialSkill.emphasis_color};`}>
+                        <div class="gj:skills:holo-icon-ring" aria-hidden="true"></div>
+                        <span class="gj:layout:svg-wrapper gj:skills:holo-svg-wrapper">
+                            <svg class="gj:skills:holo-icon"><use href={`./src/assets/icons/gj.svg#${initialSkill.icon}`}></use></svg>
+                        </span>
+                    </div>
+
+                    <!-- Título y Badges -->
+                    <div class="gj:skills:holo-header">
+                        <h2 class="gj:skills:holo-title">{initialSkill.title}</h2>
+                        <div class="gj:skills:dual-badges">
+                            <span class="gj:skills:badge-pill" style={`--badge-accent: ${initialSkill.emphasis_color};`}>
+                                <span class="gj:skills:badge-dot" style={`background-color: ${initialSkill.emphasis_color};`}></span>
+                                <span class="gj:skills:badge-text">Nivel: {initialSkill.level}</span>
+                            </span>
+                            <span class="gj:skills:badge-pill gj:skills:badge-pill-secondary">
+                                <span class="gj:skills:badge-icon">⚡</span>
+                                <span class="gj:skills:badge-text">{initialSkill.frequency}</span>
+                            </span>
+                            <span class="gj:skills:badge-pill gj:skills:badge-pill-secondary">
+                                <span class="gj:skills:badge-icon">🚀</span>
+                                <span class="gj:skills:badge-text">{initialSkill.application}</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Chips de Competencias y Especialidades -->
+                    <div class="gj:skills:holo-topics-wrapper">
+                        <p class="gj:skills:topics-heading">Competencias y Especialidades</p>
+                        <ul class="gj:skills:chips-grid">
+                            {initialTopics.map((topic) => (
+                                <li class="gj:skills:topic-chip" style={`--chip-accent: ${initialSkill.emphasis_color};`}>
+                                    <span class="gj:skills:chip-check" style={`color: ${initialSkill.emphasis_color};`}>✓</span>
+                                    <span class="gj:skills:chip-text">{topic.trim()}</span>
+                                </li>
+                            ))}
+                        </ul>
                     </div>
                 </div>
             </div>
-            
-        </div>
-        <div class="gj:skills:menu-content">
-            <div class="gj:skills:gost-nav"></div>
-            <div class="gj:skills:content" id="gjSkillsContent"></div>
+
+            <!-- Flecha Siguiente -->
+            <button class="gj:skills:stage-arrow gj:skills:stage-arrow-next" id="stageNextBtn" type="button" aria-label="Habilidad siguiente">
+                <span class="gj:layout:svg-wrapper">
+                    <svg width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M10 6L8.59 7.41L13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                </span>
+            </button>
+        </main>
+
+        <p class="gj:skills:dock-hint">
+            Usa las teclas <kbd>←</kbd> <kbd>→</kbd> del teclado o desliza en móvil para navegar
+        </p>
         </div>
     </div>
 </Layout>
 
-<script src="/src/js/skills.js" is:inline type="module"></script>
+<script src="../js/skills.js"></script>

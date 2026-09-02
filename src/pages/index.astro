@@ -1,71 +1,155 @@
 ---
-import Layout from "../layouts/Layout.astro"
+import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import meImage from "../assets/img/me.jpg";
 import "../css/home.css";
-import "swiper/css/bundle";
 ---
 
 <Layout title="Inicio">
     <div class="gj:layout:container">
-        <div class="gj:home:container">
-            <div class="gj:home:section-left">
-                <div class="gj:home:profile">
-                    <div class="gj:home:profile-gost-circle-1"></div>
-                    <div class="gj:home:profile-gost-circle-2"></div>
-                    <div class="gj:home:profile-me">
-                        <picture>
-                            <source srcset="/src/assets/img/me.jpg">
-                            <img src="/src/assets/img/me.jpg" alt="Me" width="1000" height="1000" loading="lazy" />
-                        </picture>
-                    </div>
-                </div>
-            </div>
-            <div class="gj:home:section-right">
-                <div class="gj:home:section-right-wrapper">
-                    <div class="swiper gj:swiper:home-profile">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="gj:home:swiper-card">
-                                    <p class="gj:home:swiper-card:names">Guillermo <span class="gj:home:swiper-card:surname">Jiménez</span></p>
-                                    <cite class="gj:home:swiper-card:cite">"Some short phrase goes here" <span class="gj:home:swiper-card:cite-autor">Written by someone</span></cite>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="gj:home:swiper-card">
-                                    <p class="gj:home-swiper-text">¡Hola! Soy desarrollador frontend con pasión por crear experiencias web atractivas, funcionales y accesibles.</p>
-                                    <button class="gj:home:swiper-card:button" type="button">
-                                        <p class="gj:home:swiper-card:button-text">
-                                            <span class="gj:layout:svg-wrapper">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M13 13v5.585l1.828-1.828l1.415 1.415L12 22.414l-4.243-4.242l1.415-1.415L11 18.585V13zM12 2a7 7 0 0 1 6.954 6.194A5.5 5.5 0 0 1 18 18.978V17a6 6 0 0 0-11.996-.225L6 17v1.978a5.5 5.5 0 0 1-.954-10.784A7 7 0 0 1 12 2" /></svg>
-                                            </span>
-                                            Descargar C.V
-                                        </p>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="gj:home:swiper-card">
-                                    <p class="gj:home-swiper-text">¡Hola! Soy desarrollador frontend con pasión por crear experiencias web atractivas, funcionales y accesibles.</p>
-                                    <button class="gj:home:swiper-card:button" type="button">
-                                        <p class="gj:home:swiper-card:button-text">
-                                            <span class="gj:layout:svg-wrapper">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M13 13v5.585l1.828-1.828l1.415 1.415L12 22.414l-4.243-4.242l1.415-1.415L11 18.585V13zM12 2a7 7 0 0 1 6.954 6.194A5.5 5.5 0 0 1 18 18.978V17a6 6 0 0 0-11.996-.225L6 17v1.978a5.5 5.5 0 0 1-.954-10.784A7 7 0 0 1 12 2" /></svg>
-                                            </span>
-                                            Descargar C.V
-                                        </p>
-                                    </button>
-                                </div>
-                            </div>
+        <section class="gj:home:hero">
+            
+            <!-- Columna Izquierda: Avatar con Efecto Portal Neón y Badges Flotantes -->
+            <div class="gj:home:visual-side">
+                <div class="gj:home:avatar-wrapper">
+                    <!-- Ondas Expansivas (Sonar Pulse Waves) -->
+                    <div class="gj:home:pulse-wave gj:home:pulse-wave-1" aria-hidden="true"></div>
+                    <div class="gj:home:pulse-wave gj:home:pulse-wave-2" aria-hidden="true"></div>
+                    
+                    <!-- Resplandor Cónico Giratorio de Luz Líquida -->
+                    <div class="gj:home:conic-glow" aria-hidden="true"></div>
+                    
+                    <!-- Destellos de Luz / Chispas Brillantes -->
+                    <div class="gj:home:sparkle gj:home:sparkle-1" aria-hidden="true">✦</div>
+                    <div class="gj:home:sparkle gj:home:sparkle-2" aria-hidden="true">✦</div>
+                    <div class="gj:home:sparkle gj:home:sparkle-3" aria-hidden="true">✦</div>
+                    
+                    <!-- Badge Flotante Superior -->
+                    <div class="gj:home:floating-badge-container gj:home:badge-top-container">
+                        <div class="gj:home:floating-badge gj:home:badge-top">
+                            <span class="gj:home:badge-icon" aria-hidden="true">✨</span>
+                            <span class="gj:home:badge-text">Frontend Developer</span>
                         </div>
                     </div>
-                    <div class="gj:home:swiper-controllers">
-                        <div class="swiper-button-prev gj:home:swiper-prev"></div>
-                        <div class="swiper-pagination gj:home:swiper-pagination"></div>
-                        <div class="swiper-button-next gj:home:swiper-next"></div>
+
+                    <!-- Marco del Avatar con Borde Gradiente Iluminado -->
+                    <div class="gj:home:avatar-frame">
+                        <div class="gj:home:avatar-img-inner">
+                            <Image 
+                                src={meImage} 
+                                alt="Fotografía de Guillermo Jiménez - Desarrollador Web Frontend" 
+                                width={460} 
+                                height={460} 
+                                loading="eager" 
+                                fetchpriority="high" 
+                            />
+                        </div>
+                    </div>
+
+                    <!-- Badge Flotante Inferior -->
+                    <div class="gj:home:floating-badge-container gj:home:badge-bottom-container">
+                        <div class="gj:home:floating-badge gj:home:badge-bottom">
+                            <span class="gj:home:badge-icon" aria-hidden="true">🚀</span>
+                            <span class="gj:home:badge-text">+4 Años de Experiencia</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+            <!-- Columna Derecha: Contenido y Acciones -->
+            <div class="gj:home:content-side">
+                <!-- Status Badge -->
+                <div class="gj:home:status-pill" role="status">
+                    <span class="gj:home:status-dot" aria-hidden="true"></span>
+                    <span class="gj:home:status-text">Disponible para nuevos proyectos</span>
+                </div>
+
+                <!-- Título Principal -->
+                <h1 class="gj:home:title">
+                    Construyendo interfaces web <span class="gj:home:title-gradient">rápidas, intuitivas</span> y memorables.
+                </h1>
+
+                <!-- Biografía Resumida -->
+                <p class="gj:home:bio">
+                    ¡Hola! Soy <strong class="gj:home:bio-name">Guillermo Jiménez</strong>, desarrollador frontend especializado en crear experiencias digitales accesibles, de alto rendimiento y con atención milimétrica a los detalles visuales.
+                </p>
+
+                <!-- Botones de Acción (Dual CTA) -->
+                <div class="gj:home:actions">
+                    <a class="gj:home:btn-primary" href="/proyectos" aria-label="Explorar proyectos realizados">
+                        <span>Ver Proyectos</span>
+                        <span class="gj:layout:svg-wrapper">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="m14 18l-1.4-1.45L15.15 14H4v-2h11.15L12.6 9.45L14 8l5 5z"/>
+                            </svg>
+                        </span>
+                    </a>
+                    <a class="gj:home:btn-secondary" href="#" download="CV-Guillermo-Jimenez.pdf" aria-label="Descargar Currículum Vitae en PDF">
+                        <span class="gj:layout:svg-wrapper">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M13 13v5.585l1.828-1.828l1.415 1.415L12 22.414l-4.243-4.242l1.415-1.415L11 18.585V13zM12 2a7 7 0 0 1 6.954 6.194A5.5 5.5 0 0 1 18 18.978V17a6 6 0 0 0-11.996-.225L6 17v1.978a5.5 5.5 0 0 1-.954-10.784A7 7 0 0 1 12 2"/>
+                    <a class="gj:home:btn-secondary" href="/acerca-de-mi" aria-label="Conocer más acerca de Guillermo Jiménez">
+                        <span class="gj:layout:svg-wrapper" aria-hidden="true">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4s-4 1.79-4 4s1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </span>
+                        <span>Más Sobre Mí</span>
+                    </a>
+                </div>
+
+                <!-- Stack Tecnológico -->
+                <div class="gj:home:stack">
+                    <span class="gj:home:stack-label">Stack Principal:</span>
+                    <div class="gj:home:stack-badges">
+                        <a class="gj:home:tech-chip" href="/habilidades" data-tech="react" title="Ver proyectos y habilidades en React" style="--chip-color: #1399C4;">
+                            <span class="gj:layout:svg-wrapper gj:home:tech-chip-svg">
+                                <svg><use href="./src/assets/icons/gj.svg#iconReactJS"></use></svg>
+                            </span>
+                            <span>React</span>
+                        </a>
+                        <a class="gj:home:tech-chip" href="/habilidades" data-tech="astro" title="Ver proyectos y habilidades en Astro" style="--chip-color: #FF5D01;">
+                            <span class="gj:layout:svg-wrapper gj:home:tech-chip-svg">
+                                <svg><use href="./src/assets/icons/gj.svg#iconAstro"></use></svg>
+                            </span>
+                            <span>Astro</span>
+                        </a>
+                        <a class="gj:home:tech-chip" href="/habilidades" data-tech="typescript" title="Ver proyectos y habilidades en TypeScript" style="--chip-color: #3178C6;">
+                            <span class="gj:layout:svg-wrapper gj:home:tech-chip-svg">
+                                <svg><use href="./src/assets/icons/gj.svg#iconTypeScript"></use></svg>
+                            </span>
+                            <span>TypeScript</span>
+                        </a>
+                        <a class="gj:home:tech-chip" href="/habilidades" data-tech="javascript" title="Ver proyectos y habilidades en JavaScript" style="--chip-color: #EBDA1C;">
+                            <span class="gj:layout:svg-wrapper gj:home:tech-chip-svg">
+                                <svg><use href="./src/assets/icons/gj.svg#iconJavaScript"></use></svg>
+                            </span>
+                            <span>JavaScript</span>
+                        </a>
+                        <a class="gj:home:tech-chip" href="/habilidades" data-tech="tailwind" title="Ver proyectos y habilidades en Tailwind CSS" style="--chip-color: #38BDF8;">
+                            <span class="gj:layout:svg-wrapper gj:home:tech-chip-svg">
+                                <svg><use href="./src/assets/icons/gj.svg#iconTailwind"></use></svg>
+                            </span>
+                            <span>Tailwind CSS</span>
+                        </a>
+                        <a class="gj:home:tech-chip" href="/habilidades" data-tech="bootstrap" title="Ver proyectos y habilidades en Bootstrap" style="--chip-color: #7952B3;">
+                            <span class="gj:layout:svg-wrapper gj:home:tech-chip-svg">
+                                <svg><use href="./src/assets/icons/gj.svg#iconBootstrap"></use></svg>
+                            </span>
+                            <span>Bootstrap</span>
+                        </a>
+                        <a class="gj:home:tech-chip" href="/habilidades" data-tech="nodejs" title="Ver proyectos y habilidades en Node.js" style="--chip-color: #3F873B;">
+                            <span class="gj:layout:svg-wrapper gj:home:tech-chip-svg">
+                                <svg><use href="./src/assets/icons/gj.svg#iconNodeJS"></use></svg>
+                            </span>
+                            <span>Node.js</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
     </div>
 </Layout>
 
-<script src="/src/js/home.js" is:inline type="module"></script>
+<script src="../js/home.js"></script>

@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Comfortaa";
-    src: url("./src/assets/fonts/comfortaa/Comfortaa-Bold.ttf") format("truetype");
+    src: url("../assets/fonts/comfortaa/Comfortaa-Bold.ttf") format("truetype");
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -8,7 +8,7 @@
 
 @font-face {
     font-family: "Comfortaa";
-    src: url("./src/assets/fonts/comfortaa/Comfortaa-SemiBold.ttf") format("truetype");
+    src: url("../assets/fonts/comfortaa/Comfortaa-SemiBold.ttf") format("truetype");
     font-weight: 600;
     font-style: normal;
     font-display: swap;
@@ -16,7 +16,7 @@
 
 @font-face {
     font-family: "Comfortaa";
-    src: url("./src/assets/fonts/comfortaa/Comfortaa-Medium.ttf") format("truetype");
+    src: url("../assets/fonts/comfortaa/Comfortaa-Medium.ttf") format("truetype");
     font-weight: 500;
     font-style: normal;
     font-display: swap;
@@ -24,7 +24,7 @@
 
 @font-face {
     font-family: "Comfortaa";
-    src: url("./src/assets/fonts/comfortaa/Comfortaa-Regular.ttf") format("truetype");
+    src: url("../assets/fonts/comfortaa/Comfortaa-Regular.ttf") format("truetype");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -32,34 +32,95 @@
 
 @font-face {
     font-family: "Comfortaa";
-    src: url("./src/assets/fonts/comfortaa/Comfortaa-Light.ttf") format("truetype");
+    src: url("../assets/fonts/comfortaa/Comfortaa-Light.ttf") format("truetype");
     font-weight: 300;
     font-style: normal;
     font-display: swap;
 }
 
-:root {
-    --gj-main-bg: #dbdbdb;
-    --gj-second-bg: #ffffff;
-    --gj-fonts-light: #000000;
-    --gj-fonts-dark: #ffffff;
-    --gj-light-bg: #000000;
-    --gj-dark-bg: #ffffff;
-    --gj-black: #ffffff;
+.gj\:layout\:skip-link {
+    position: absolute;
+    top: -100px;
+    left: 20px;
+    background-color: var(--gj-border-focus);
+    color: #FFFFFF;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 13px;
+    z-index: 9999;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    transition: top 0.25s ease;
+}
 
-    --gj-gray: #707070;
+.gj\:layout\:skip-link:focus {
+    top: 20px;
+    outline: 2px solid #FFFFFF;
+}
+
+:root {
+    /* Superficies y Fondos */
+    --gj-bg-canvas: #F4F5F7;
+    --gj-bg-surface: #FFFFFF;
+    --gj-bg-overlay: rgba(24, 24, 27, 0.05);
+
+    /* Textos */
+    --gj-text-primary: #18181B;
+    --gj-text-secondary: #52525B;
+    --gj-text-muted: #71717A;
+    --gj-text-inverted: #FFFFFF;
+
+    /* Bordes y Líneas */
+    --gj-border: #E2E4E9;
+    --gj-border-focus: #6366F1;
+
+    /* Tokens del Logo (Oscuro en modo Claro) */
+    --gj-logo-primary: #18181B;
+    --gj-logo-secondary: #52525B;
+    --gj-logo-cutout: #FFFFFF;
+
+    /* Alias para Retrocompatibilidad */
+    --gj-main-bg: var(--gj-bg-canvas);
+    --gj-second-bg: var(--gj-bg-surface);
+    --gj-fonts-light: var(--gj-text-primary);
+    --gj-fonts-dark: var(--gj-text-inverted);
+    --gj-light-bg: var(--gj-text-primary);
+    --gj-dark-bg: var(--gj-bg-surface);
+    --gj-black: var(--gj-bg-surface);
+    --gj-gray: var(--gj-text-secondary);
 }
 
 :root[dark-mode="true"] {
-    --gj-main-bg: #161616;
-    --gj-second-bg: #242424;
-    --gj-fonts-light: #ffffff;
-    --gj-fonts-dark: #000000;
-    --gj-light-bg: #ffffff;
-    --gj-dark-bg: #000000;
-    --gj-black: #000000;
+    /* Superficies y Fondos */
+    --gj-bg-canvas: #121214;
+    --gj-bg-surface: #1E1E22;
+    --gj-bg-overlay: rgba(255, 255, 255, 0.06);
 
-    --gj-gray: #707070;
+    /* Textos */
+    --gj-text-primary: #F4F4F5;
+    --gj-text-secondary: #A1A1AA;
+    --gj-text-muted: #71717A;
+    --gj-text-inverted: #121214;
+
+    /* Bordes y Líneas */
+    --gj-border: #2E2E35;
+    --gj-border-focus: #818CF8;
+
+    /* Tokens del Logo (Claro/Blanco en modo Oscuro) */
+    --gj-logo-primary: #FFFFFF;
+    --gj-logo-secondary: #A1A1AA;
+    --gj-logo-cutout: #121214;
+
+    /* Alias para Retrocompatibilidad */
+    --gj-main-bg: var(--gj-bg-canvas);
+    --gj-second-bg: var(--gj-bg-surface);
+    --gj-fonts-light: var(--gj-text-primary);
+    --gj-fonts-dark: var(--gj-text-inverted);
+    --gj-light-bg: var(--gj-text-primary);
+    --gj-dark-bg: var(--gj-bg-surface);
+    --gj-black: var(--gj-bg-canvas);
+    --gj-gray: var(--gj-text-secondary);
 }
 
 * {
@@ -70,11 +131,12 @@
 
 body {
     background-color: var(--gj-main-bg);
+    color: var(--gj-fonts-light);
     font-family: "Comfortaa";
     font-weight: 400;
     letter-spacing: -0.02em;
     position: relative;
-    transition: all 1s ease-in-out;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1 {
@@ -83,30 +145,75 @@ h1 {
     color: var(--gj-fonts-light);
 }
 
+/* Fondo Resplandor Híbrido: Aurora Continua + Reacción Dinámica */
 .gj\:layout\:shining {
-    background: linear-gradient(to right, #9028FF 0%, #FF74ED 50%, #4059FF 100%);
-    filter: blur(256px);
+    background: linear-gradient(135deg, #6366F1 0%, #A855F7 35%, #EC4899 65%, #3B82F6 100%);
+    background-size: 240% 240%;
+    filter: blur(120px);
     height: 100%;
     left: 50%;
-    max-height: calc(100% - 320px);
-    max-width: calc(100% - 320px);
+    max-height: calc(100% - 240px);
+    max-width: calc(100% - 240px);
     opacity: 0;
     position: absolute;
     top: 50%;
-    transform: translate(-50%, -50%);
-    transition: all 1s ease;
+    transform: translate3d(-50%, -50%, 0);
+    transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
     width: 100%;
     z-index: 1;
+    pointer-events: none;
+    will-change: background-position, transform, opacity;
+    animation: gjAuroraMotion 18s ease-in-out infinite alternate;
 }
 
-.gj\:path\:home
-.gj\:layout\:shining {
-    opacity: 1;
-}
-
-.gj\:layout\:change-shining
-.gj\:layout\:shining {
+.gj\:layout\:shining-reactive {
+    filter: blur(100px);
+    height: 100%;
+    left: 50%;
+    max-height: calc(100% - 240px);
+    max-width: calc(100% - 240px);
     opacity: 0;
+    position: absolute;
+    top: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+    z-index: 1;
+    pointer-events: none;
+    will-change: opacity;
+}
+
+.gj\:path\:home .gj\:layout\:shining,
+.gj\:path\:skills .gj\:layout\:shining {
+    opacity: 0.65;
+}
+
+:root[dark-mode="true"] .gj\:path\:home .gj\:layout\:shining,
+:root[dark-mode="true"] .gj\:path\:skills .gj\:layout\:shining {
+    opacity: 0.45;
+}
+
+.gj\:layout\:shining-reactive.gj\:active {
+    opacity: 0.75;
+}
+
+:root[dark-mode="true"] .gj\:layout\:shining-reactive.gj\:active {
+    opacity: 0.55;
+}
+
+@keyframes gjAuroraMotion {
+    0% {
+        background-position: 0% 50%;
+        transform: translate3d(-50%, -50%, 0) scale(1) rotate(0deg);
+    }
+    50% {
+        background-position: 100% 50%;
+        transform: translate3d(-48%, -52%, 0) scale(1.06) rotate(3deg);
+    }
+    100% {
+        background-position: 50% 100%;
+        transform: translate3d(-52%, -48%, 0) scale(0.96) rotate(-2deg);
+    }
 }
 
 .gj\:layout\:base {
@@ -122,12 +229,14 @@ h1 {
 
 .gj\:layout\:base-main {
     flex-grow: 1;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
 }
 
 .gj\:layout\:container {
-    height: 100%;
-    overflow-y: auto;
+    min-height: 100%;
     max-width: 1280px;
     margin-inline: auto;
     position: relative;
@@ -161,11 +270,20 @@ h1 {
 }
 
 .gj\:layout\:header-menu-button {
+    display: inline-block;
     height: auto;
     left: 0;
     position: absolute;
     top: 0;
     width: 80px;
+    text-decoration: none;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), filter 0.25s ease;
+}
+
+.gj\:layout\:header-menu-button:hover,
+.gj\:layout\:header-menu-button:focus-visible {
+    transform: scale(1.06);
+    filter: drop-shadow(0 4px 16px rgba(99, 102, 241, 0.35));
 }
 
 .gj\:layout\:header-menu-logo {
@@ -173,6 +291,7 @@ h1 {
     height: auto;
     max-width: 80px;
     width: 100%;
+    transition: transform 0.25s ease;
 }
 
 .gj\:layout\:header-options {
@@ -185,10 +304,21 @@ h1 {
 }
 
 .gj\:layout\:header-share-button {
-    background-color: var(--gj-dark-bg);
+    background-color: transparent;
+    border: none;
     border-radius: 16px;
     padding: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     z-index: 1;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.gj\:layout\:header-share-button:hover {
+    background-color: var(--gj-bg-overlay);
+    transform: scale(1.05);
 }
 
 .gj\:layout\:header-share-icon {
@@ -210,33 +340,67 @@ h1 {
     justify-content: center;
     overflow: hidden;
     position: relative;
-    transition: all 1s ease-in-out;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.3s ease;
 }
 
 .gj\:layout\:header-share-list {
     display: flex;
     align-items: center;
-    column-gap: 16px;
+    column-gap: 14px;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: center;
     list-style: none;
-    padding-inline: 8px;
-    transition: all 1s ease-in-out;
-    width: 150px;
+    padding-inline: 12px 14px;
+    margin: 0;
+    width: 156px;
+    opacity: 1;
+    visibility: visible;
+    transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                padding 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.25s ease;
 }
 
-.gj\:layout\:header-share-close
-.gj\:layout\:header-share-list {
+.gj\:layout\:header-share-close .gj\:layout\:header-share-list {
     overflow: hidden;
     padding-inline: 0;
     width: 0px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.gj\:layout\:header-share-list-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border-radius: 8px;
+    color: var(--gj-fonts-light);
+    text-decoration: none;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.gj\:layout\:header-share-list-button:hover,
+.gj\:layout\:header-share-list-button:focus-visible {
+    transform: scale(1.2);
+    color: var(--gj-border-focus);
+}
+
+.gj\:layout\:header-share-list-button.gj\:copied {
+    color: #10B981;
+    transform: scale(1.25);
 }
 
 .gj\:layout\:header-share-list-icon {
-    color: var(--gj-fonts-light);
-    height: 16px;
-    width: 16px;
+    color: currentColor;
+    height: 18px;
+    width: 18px;
+    display: block;
 }
 
 .gj\:layout\:header-theme-button {
@@ -332,6 +496,22 @@ h1 {
     border-radius: 16px;
     padding: 8px;
     position: relative;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gj\:layout\:footer-menu-button\.gj\:layout\:footer-menu-active {
+    background-color: var(--gj-border-focus) !important;
+    box-shadow: 0 0 20px color-mix(in srgb, var(--gj-border-focus) 65%, transparent), 0 6px 16px rgba(0, 0, 0, 0.3);
+    transform: translateY(-4px) scale(1.08);
+}
+
+.gj\:layout\:footer-menu-button\.gj\:layout\:footer-menu-active .gj\:layout\:footer-menu-icon {
+    color: #FFFFFF !important;
+    transform: scale(1.05);
+}
+
+.gj\:layout\:footer-menu-button\.gj\:layout\:footer-menu-active::after {
+    display: none;
 }
 
 .gj\:layout\:footer-menu-icon {
@@ -617,37 +797,42 @@ body {
 .gj\:modal\:projects\:paragraphs {
     display: flex;
     flex-direction: column;
-    margin-block: 8px;
-    row-gap: 16px;
+    row-gap: 12px;
+    margin-block: 8px 16px;
     width: 100%;
 }
 
-.gj\:modal\:projects-resize
-.gj\:modal\:projects\:paragraphs {
-    margin-block: 36px;
-}
-
-.gj\:modal\:projects\:paragraph {
+.modal:not(.gj\:modal\:projects-resize) .gj\:modal\:projects\:paragraph {
     display: -webkit-box;
-    color: var(--gj-fonts-light);
-    font-weight: 300;
-    font-size: 16px;
-    line-height: 20px;
-    height: 60px;
-    overflow: hidden;
-    text-overflow: ellipsis;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--gj-fonts-light);
+    font-size: 14.5px;
+    line-height: 1.6;
+    max-height: 4.8em;
+    margin-bottom: 0;
 }
 
-.gj\:modal\:projects-resize
-.gj\:modal\:projects\:paragraph {
-    display: initial;
-    height: auto;
-    line-height: 24px;
-    overflow: unset;
+.modal:not(.gj\:modal\:projects-resize) .gj\:modal\:projects\:paragraph:not(:first-child) {
+    display: none;
+}
+
+.gj\:modal\:projects-resize .gj\:modal\:projects\:paragraphs {
+    margin-block: 16px 24px;
+    row-gap: 14px;
+}
+
+.gj\:modal\:projects-resize .gj\:modal\:projects\:paragraph {
+    display: block;
+    max-height: none;
+    overflow: visible;
+    text-overflow: unset;
     -webkit-line-clamp: unset;
     -webkit-box-orient: unset;
+    line-height: 1.7;
+    margin-bottom: 12px;
 }
 
 .gj\:modal\:projects\:sections {
@@ -668,38 +853,68 @@ body {
     font-weight: 600;
 }
 
-@media only screen and (max-width: 1366px) {
-    /* .gj\:layout\:base {
-        padding-inline: 16px;
+@media only screen and (max-width: 1400px) {
+    .gj\:layout\:left-post\:wrapper,
+    .gj\:layout\:right-post\:wrapper {
+        display: none !important;
     }
-
-    .gj\:layout\:header {
-        padding-top: 16px;
-    }
-
-    .gj\:layout\:footer {
-        padding-bottom: 16px;
-    } */
 }
 
 @media only screen and (max-width: 768px) {
+    .gj\:layout\:base {
+        padding-inline: 12px;
+    }
+
+    .gj\:layout\:header {
+        padding-block: 16px 12px;
+    }
+
+    .gj\:layout\:header-menu-button {
+        width: 64px;
+    }
+
+    .gj\:layout\:header-menu-logo {
+        max-width: 64px;
+    }
+
+    .gj\:layout\:header-themes {
+        padding-block: 6px;
+        padding-inline: 12px;
+    }
+
     .gj\:layout\:footer-menu-list {
-        flex-wrap: wrap;
-        gap: 24px;
+        flex-wrap: nowrap;
+        column-gap: 16px;
         justify-content: center;
+    }
+
+    .gj\:layout\:footer-menu-icon {
+        height: 28px;
+        width: 28px;
+    }
+
+    .gj\:layout\:footer {
+        padding-block: 14px;
+    }
+
+    .gj\:layout\:footer-menu-label {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 440px) {
+    .gj\:layout\:footer-menu-list {
+        column-gap: 10px;
+    }
+
+    .gj\:layout\:footer-menu-button {
+        padding: 6px;
+        border-radius: 12px;
     }
 
     .gj\:layout\:footer-menu-icon {
         height: 24px;
         width: 24px;
-    }
-
-    .gj\:layout\:footer {
-        padding-block: 16px;
-    }
-
-    .gj\:layout\:footer-menu-label {
-        top: -100%;
     }
 }
 
@@ -709,23 +924,10 @@ body {
     }
 
     .gj\:layout\:header {
-        padding-block: 16px;
+        padding-block: 14px;
     }
     
-    .gj\:layout\:footer-menu-list {
-        gap: 24px;
-    }
-
-    .gj\:layout\:footer-menu-icon {
-        height: 24px;
-        width: 24px;
-    }
-
     .gj\:layout\:footer {
-        padding-block: 16px;
-    }
-
-    .gj\:layout\:footer-menu-label {
-        top: -100%;
+        padding-block: 12px;
     }
 }

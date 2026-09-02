@@ -2,81 +2,268 @@
 import Layout from "../layouts/Layout.astro";
 import "swiper/css/bundle";
 import "../css/about-me.css";
+import data from "../data/data.js";
+
+const about = data.about;
+const files = about.workspace?.files || [];
+const setup = about.workspace?.setup || {};
+const experiences = data.experience || [];
+const hobbies = about.hobbies || [];
 ---
 
-<Layout title="Un poco de mi">
+<Layout title="Acerca de Mí">
     <div class="gj:layout:container">
-        <div class="gj:about-me:container">
-            <div class="gj:about-me:header">
-                <picture>
-                    <img class="gj:about-me:header-splash" src="/src/assets/img/banner-about-me.jpg" alt="Banner About Me" width="1000" height="1000" loading="lazy" />
-                </picture>
-                <div class="gj:about-me:header-wrapper">
-                    <div class="gj:about-me:header:profile-wrapper">
-                        <div class="gj:about-me:header-profile-circle">
-                            <picture>
-                                <img class="gj:about-me:header-profile-img" src="/src/assets/img/beach-me.jpg" alt="Profile Image" width="1000" height="1000" loading="lazy">
-                            </picture>
-                        </div>
-                    </div>
-                    <div class="gj:about-me:header-details-wrapper">
-                        <div class="gj:about-me:header-details-main">
-                            <p class="gj:about-me:header:names">Your name goes here</p>
-                            <p class="gj:about-me:header:career">Your career goes here</p>
-                            <span class="gj:about-me:header:birthday">1998-10-20</span>
-                        </div>
-                        <div class="gj:about-me:header-details-main">
-                            <span class="gj:about-me:header:years">27 years old</span>
-                        </div>
-                    </div>
-                    
+        <div class="gj:ide:container">
+            <!-- Encabezado de la Sección -->
+            <header class="gj:ide:header">
+                <div class="gj:ide:header-badge">
+                    <span class="gj:ide:header-dot"></span>
+                    <span>WORKSPACE & DEV ENVIRONMENT</span>
                 </div>
-            </div>
-            <section class="gj:about-me:section">
-                <p class="gj:about-me:section-title">Hobbies</p>
-                <div class="gj:about-me:section:carousel-section">
-                    <div class="gj:about-me:section:left">
-                        <div class="gj:about-me:swiper-wrapper">
-                            <div class="swiper gj:swiper:hobbies">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <div class="gj:about-me:card-hobbie">
-                                            <picture>
-                                                <img class="gj:about-me:card-image" src="/src/assets/img/hobbies/hobbie-01.jpg" alt="Image hobbie 1" width="1920" height="1080" loading="lazy" />
-                                            </picture>
-                                        </div>
+                <h1 class="gj:ide:title">Perfil de Ingeniería & Entorno</h1>
+                <p class="gj:ide:subtitle">
+                    Navega por el espacio de trabajo interactivo, explora las definiciones de código o ejecuta comandos en la terminal integrada.
+                </p>
+            </header>
+
+            <!-- Ventana Principal del IDE (VS Code / Neovim Style) -->
+            <div class="gj:ide:window" id="gjIdeWindow">
+                <!-- Barra de Título del IDE -->
+                <div class="gj:ide:titlebar">
+                    <div class="gj:ide:traffic-lights">
+                        <span class="gj:ide:light gj:ide:light-close" title="Close"></span>
+                        <span class="gj:ide:light gj:ide:light-minimize" title="Minimize"></span>
+                        <span class="gj:ide:light gj:ide:light-maximize" title="Maximize"></span>
+                    </div>
+
+                    <div class="gj:ide:breadcrumbs">
+                        <span class="gj:ide:breadcrumb-folder">📁 guillermo-jimenez</span>
+                        <span class="gj:ide:breadcrumb-sep">/</span>
+                        <span class="gj:ide:breadcrumb-folder">src</span>
+                        <span class="gj:ide:breadcrumb-sep">/</span>
+                        <span class="gj:ide:breadcrumb-file" id="gjIdeBreadcrumbFile">profile.tsx</span>
+                    </div>
+
+                    <div class="gj:ide:branch-tag">
+                        <span class="gj:layout:svg-wrapper">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18 15a3 3 0 0 0-2.82 2H11a3 3 0 0 1-3-3V7.82a3 3 0 1 0-2 0v6.36A5 5 0 0 0 11 19h4.18A3 3 0 1 0 18 15zm-12-9a1 1 0 1 1-1 1 1 1 0 0 1 1-1zm12 12a1 1 0 1 1 1-1 1 1 0 0 1-1 1z"/>
+                            </svg>
+                        </span>
+                        <span>main*</span>
+                    </div>
+                </div>
+
+                <!-- Barra de Pestañas de Archivos -->
+                <div class="gj:ide:tabbar" role="tablist" aria-label="Archivos del Workspace">
+                    {files.map((file, idx) => (
+                        <button
+                            class={`gj:ide:tab ${idx === 0 ? "gj:ide:tab:active" : ""}`}
+                            data-tab-id={file.id}
+                            role="tab"
+                            aria-selected={idx === 0 ? "true" : "false"}
+                            type="button"
+                        >
+                            <span class="gj:ide:tab-icon">{file.icon}</span>
+                            <span class="gj:ide:tab-name">{file.name}</span>
+                            <span class="gj:ide:tab-dot"></span>
+                        </button>
+                    ))}
+                </div>
+
+                <!-- Cuerpo del Editor de Código & Vistas Interactivas -->
+                <div class="gj:ide:body">
+                    <!-- PESTAÑA 1: profile.tsx -->
+                    <div class="gj:ide:panel gj:ide:panel:active" id="pane-profile" role="tabpanel">
+                        <div class="gj:ide:split-view">
+                            <!-- Editor de Código Sintáctico -->
+                            <div class="gj:ide:code-block">
+                                <div class="gj:ide:gutter">
+                                    {Array.from({ length: 18 }).map((_, i) => (
+                                        <span class="gj:ide:line-num">{i + 1}</span>
+                                    ))}
+                                </div>
+                                <pre class="gj:ide:code-content"><code><span class="tok-kw">import</span> &#123; DeveloperProfile &#125; <span class="tok-kw">from</span> <span class="tok-str">"@guillermo/core"</span>;
+
+<span class="tok-kw">export const</span> <span class="tok-var">guillermo</span>: <span class="tok-type">DeveloperProfile</span> = &#123;
+  <span class="tok-key">name</span>: <span class="tok-str">"{about.name}"</span>,
+  <span class="tok-key">role</span>: <span class="tok-str">"{about.title}"</span>,
+  <span class="tok-key">location</span>: <span class="tok-str">"{about.location}"</span>,
+  <span class="tok-key">available</span>: <span class="tok-bool">true</span>,
+  <span class="tok-key">stats</span>: &#123;
+    <span class="tok-key">experience</span>: <span class="tok-str">"4+ Años"</span>,
+    <span class="tok-key">featuredProjects</span>: <span class="tok-num">8</span>,
+    <span class="tok-key">coreFocus</span>: <span class="tok-str">"Frontend & UI/UX"</span>
+  &#125;,
+  <span class="tok-key">mindset</span>: [
+    <span class="tok-str">"Arquitectura reactiva y predecible"</span>,
+    <span class="tok-str">"Accesibilidad web WCAG nativa"</span>,
+    <span class="tok-str">"Sistemas de diseño escalables"</span>
+  ]
+&#125;;</code></pre>
+                            </div>
+
+                            <!-- Live Render Preview Card -->
+                            <div class="gj:ide:preview-card">
+                                <div class="gj:ide:preview-header">
+                                    <div class="gj:ide:preview-avatar-wrapper">
+                                        <img 
+                                            class="gj:ide:preview-avatar" 
+                                            src="./src/assets/img/beach-me.jpg" 
+                                            alt={about.name} 
+                                            width="160" 
+                                            height="160" 
+                                            loading="eager" 
+                                        />
+                                        <span class="gj:ide:preview-status-dot" title={about.status}></span>
                                     </div>
-                                    <div class="swiper-slide">
-                                        <div class="gj:about-me:card-hobbie">
-                                            <picture>
-                                                <img class="gj:about-me:card-image" src="/src/assets/img/hobbies/hobbie-02.jpg" alt="Image hobbie 2" width="1920" height="1080" loading="lazy" />
-                                            </picture>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="gj:about-me:card-hobbie">
-                                            <picture>
-                                                <img class="gj:about-me:card-image" src="/src/assets/img/hobbies/hobbie-03.jpg" alt="Image hobbie 3" width="1920" height="1080" loading="lazy" />
-                                            </picture>
-                                        </div>
+                                    <div class="gj:ide:preview-info">
+                                        <h2 class="gj:ide:preview-name">{about.name}</h2>
+                                        <p class="gj:ide:preview-role">{about.title}</p>
+                                        <span class="gj:ide:preview-location">📍 {about.location}</span>
                                     </div>
                                 </div>
+
+                                <p class="gj:ide:preview-bio">{about.bio}</p>
+
+                                <div class="gj:ide:preview-stats">
+                                    {about.stats && about.stats.map((st) => (
+                                        <div class="gj:ide:stat-chip">
+                                            <span class="gj:ide:stat-chip-val">{st.value}</span>
+                                            <span class="gj:ide:stat-chip-lbl">{st.label}</span>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
-                            <div class="swiper-pagination gj:swiper:hobbies-pagination"></div>
-                            <div class="swiper-button-prev gj:swiper:hobbies-prev"></div>
-                            <div class="swiper-button-next gj:swiper:hobbies-next"></div>
                         </div>
                     </div>
-                    <div class="gj:about-me:section:right">
-                        <div class="gj:about-me:hobbie:descriptions">
-                            <p class="gj:about-me:hobbie:title">Your title goes here</p>
-                            <p class="gj:about-me:hobbie:text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni recusandae, iusto amet tenetur sint at deleniti architecto, dolorum omnis repellat libero explicabo vel minus accusamus doloremque, distinctio maiores vitae. Laborum.</p> 
+
+                    <!-- PESTAÑA 2: journey.json -->
+                    <div class="gj:ide:panel" id="pane-journey" role="tabpanel">
+                        <div class="gj:ide:journey-wrapper">
+                            <div class="gj:ide:journey-grid">
+                                {experiences.map((exp, i) => (
+                                    <div class="gj:ide:journey-card" style={`--exp-brand: ${exp.brand_color};`}>
+                                        <div class="gj:ide:journey-top">
+                                            <span class="gj:ide:journey-num">0{i + 1}.json</span>
+                                            <span class="gj:ide:journey-period">{exp.period}</span>
+                                        </div>
+                                        <h3 class="gj:ide:journey-company">{exp.company}</h3>
+                                        <p class="gj:ide:journey-role">{exp.role}</p>
+                                        <p class="gj:ide:journey-summary">{exp.summary}</p>
+                                        <div class="gj:ide:journey-techs">
+                                            {exp.technologies.slice(0, 4).map((tech) => (
+                                                <span class="gj:ide:journey-tech">{tech}</span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PESTAÑA 3: hobbies.yaml -->
+                    <div class="gj:ide:panel" id="pane-hobbies" role="tabpanel">
+                        <div class="gj:ide:hobbies-grid">
+                            {hobbies.map((h) => (
+                                <div class="gj:ide:hobbie-card" style={`--h-brand: ${h.brand_color};`}>
+                                    <div class="gj:ide:hobbie-img-box">
+                                        <img src={h.image} alt={h.title} class="gj:ide:hobbie-img" loading="lazy" />
+                                        <span class="gj:ide:hobbie-icon">{h.icon}</span>
+                                    </div>
+                                    <div class="gj:ide:hobbie-info">
+                                        <h3 class="gj:ide:hobbie-title">{h.title}</h3>
+                                        <p class="gj:ide:hobbie-desc">{h.description}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    <!-- PESTAÑA 4: setup.sh -->
+                    <div class="gj:ide:panel" id="pane-setup" role="tabpanel">
+                        <div class="gj:ide:setup-grid">
+                            <div class="gj:ide:setup-card">
+                                <span class="gj:ide:setup-card-icon">💻</span>
+                                <h3 class="gj:ide:setup-card-title">Hardware & Workstation</h3>
+                                <p class="gj:ide:setup-card-text">{setup.workstation}</p>
+                            </div>
+                            <div class="gj:ide:setup-card">
+                                <span class="gj:ide:setup-card-icon">🖥️</span>
+                                <h3 class="gj:ide:setup-card-title">Display & Ergonomía</h3>
+                                <p class="gj:ide:setup-card-text">{setup.display}</p>
+                            </div>
+                            <div class="gj:ide:setup-card">
+                                <span class="gj:ide:setup-card-icon">⌨️</span>
+                                <h3 class="gj:ide:setup-card-title">Teclado & Ratón</h3>
+                                <p class="gj:ide:setup-card-text">{setup.peripherals}</p>
+                            </div>
+                            <div class="gj:ide:setup-card">
+                                <span class="gj:ide:setup-card-icon">🎧</span>
+                                <h3 class="gj:ide:setup-card-title">Audio & Monitoreo</h3>
+                                <p class="gj:ide:setup-card-text">{setup.audio}</p>
+                            </div>
+                            <div class="gj:ide:setup-card">
+                                <span class="gj:ide:setup-card-icon">📝</span>
+                                <h3 class="gj:ide:setup-card-title">Editor & Tema</h3>
+                                <p class="gj:ide:setup-card-text">{setup.editor}</p>
+                            </div>
+                            <div class="gj:ide:setup-card">
+                                <span class="gj:ide:setup-card-icon">⚡</span>
+                                <h3 class="gj:ide:setup-card-title">Shell & CLI</h3>
+                                <p class="gj:ide:setup-card-text">{setup.terminal}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </section>
+
+                <!-- --------------------------------------------------------
+                     Terminal Interactiva Integrada (CLI / Bash)
+                     -------------------------------------------------------- -->
+                <div class="gj:ide:terminal" id="gjIdeTerminal">
+                    <!-- Cabecera de la Terminal -->
+                    <div class="gj:ide:terminal-header">
+                        <div class="gj:ide:terminal-title">
+                            <span class="gj:ide:terminal-icon">⌨️</span>
+                            <span>TERMINAL — zsh (guillermo@portfolio)</span>
+                        </div>
+
+                        <!-- Botones de Acceso Rápido a Comandos -->
+                        <div class="gj:ide:terminal-quick-btns">
+                            <button type="button" class="gj:ide:quick-cmd" data-cmd="whoami">whoami</button>
+                            <button type="button" class="gj:ide:quick-cmd" data-cmd="skills">skills</button>
+                            <button type="button" class="gj:ide:quick-cmd" data-cmd="experience">experience</button>
+                            <button type="button" class="gj:ide:quick-cmd" data-cmd="setup">setup</button>
+                            <button type="button" class="gj:ide:quick-cmd" data-cmd="contact">contact</button>
+                            <button type="button" class="gj:ide:quick-cmd" data-cmd="clear">clear</button>
+                        </div>
+                    </div>
+
+                    <!-- Registro de Salida de la Terminal -->
+                    <div class="gj:ide:terminal-output" id="gjTerminalOutput">
+                        <p class="gj:ide:term-line term-welcome">
+                            Bienvenido a la consola interactiva de Guillermo Jiménez. Escribe <span class="term-highlight">help</span> o presiona los botones de comandos rápidos.
+                        </p>
+                    </div>
+
+                    <!-- Línea de Comando Prompt -->
+                    <form class="gj:ide:terminal-prompt-form" id="gjTerminalForm">
+                        <span class="gj:ide:terminal-prompt">guest@guillermo:~$</span>
+                        <input 
+                            type="text" 
+                            id="gjTerminalInput" 
+                            class="gj:ide:terminal-input" 
+                            placeholder="escribe un comando (ej: whoami, skills, contact)..." 
+                            autocomplete="off" 
+                            spellcheck="false" 
+                            aria-label="Entrada de comando de la terminal"
+                        />
+                        <button type="submit" class="gj:ide:terminal-submit" aria-label="Ejecutar comando">↵</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </Layout>
 
-<script  src="/src/js/about-me.js" is:inline type="module"></script>
+<script src="../js/about-me.js"></script>

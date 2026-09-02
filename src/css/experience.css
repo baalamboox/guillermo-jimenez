@@ -1,164 +1,420 @@
 .gj\:experience\:container {
-    padding-top: 128px;
-    padding-bottom: 64px;
+    padding-top: 36px;
+    padding-bottom: 96px;
     margin-inline: auto;
-    max-width: 996px;
-    transition: transform 1.5s ease-in-out;
-    transform: translateY(-100%);
+    max-width: 920px;
     width: 100%;
+    animation: fadeInExperience 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.gj\:path\:experience
-.gj\:experience\:container {
-    transform: translateY(0);
+@keyframes fadeInExperience {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
+/* Encabezado de la Página */
+.gj\:experience\:header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.gj\:experience\:title {
+    font-size: 34px;
+    font-weight: 800;
+    color: var(--gj-fonts-light);
+    letter-spacing: -0.03em;
+    margin: 0 0 10px 0;
+}
+
+.gj\:experience\:subtitle {
+    font-size: 15px;
+    color: var(--gj-gray);
+    max-width: 600px;
+    margin-inline: auto;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+/* Lista y Línea de Tiempo */
 .gj\:experience\:list {
+    position: relative;
     display: flex;
-    align-items: center;
-    border-left: 2px dashed var(--gj-gray);
-    border-radius: 16px;
     flex-direction: column;
-    row-gap: 64px;
-    justify-content: center;
-    padding-inline: 0;
+    row-gap: 32px;
+    padding-left: 32px;
+    margin: 0;
+    list-style: none;
+    border-left: 2px dashed var(--gj-border);
 }
 
+/* Elemento Individual de la Línea de Tiempo */
 .gj\:experience\:list-item {
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+/* Nodo de la Línea de Tiempo */
+.gj\:experience\:node {
+    position: absolute;
+    left: -42px;
+    top: 26px;
+    width: 20px;
+    height: 20px;
     display: flex;
     align-items: center;
-    border-radius: 16px;
-    border: 2px dashed;
-    border-color: transparent;
-    cursor: pointer;
-    flex-direction: row;
-    left: -2px;
-    justify-content: space-between;
+    justify-content: center;
+    z-index: 5;
+}
+
+.gj\:experience\:node-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--gj-gray);
+    border: 2px solid var(--gj-main-bg);
+    transition: all 0.35s ease;
+}
+
+.gj\:experience\:node-pulse {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background-color: var(--brand-color, #6366F1);
+    opacity: 0;
+    transform: scale(0.6);
+    transition: all 0.4s ease;
+    pointer-events: none;
+}
+
+.gj\:experience\:list-item.gj\:experience\:list-item\:active .gj\:experience\:node-dot {
+    background-color: var(--brand-color, var(--gj-light-bg));
+    transform: scale(1.3);
+    box-shadow: 0 0 12px var(--brand-color, #6366F1);
+}
+
+.gj\:experience\:list-item.gj\:experience\:list-item\:active .gj\:experience\:node-pulse {
+    opacity: 0.35;
+    transform: scale(1.4);
+    animation: nodePulseAnim 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+@keyframes nodePulseAnim {
+    0%, 100% { transform: scale(1.2); opacity: 0.35; }
+    50% { transform: scale(1.8); opacity: 0; }
+}
+
+/* Tarjeta de Experiencia */
+.gj\:experience\:card {
     position: relative;
-    padding-inline: 48px;
-    padding-block: 16px;
+    background-color: var(--gj-second-bg);
+    border: 1px solid var(--gj-border);
+    border-radius: 20px;
+    padding: 24px 28px;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+}
+
+.gj\:experience\:list-item:hover .gj\:experience\:card {
+    border-color: var(--gj-border-focus);
+    transform: translateX(4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+.gj\:experience\:list-item.gj\:experience\:list-item\:active .gj\:experience\:card {
+    border-color: var(--brand-color, var(--gj-border-focus));
+    background-color: var(--gj-second-bg);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12), 0 0 24px color-mix(in srgb, var(--brand-color, #6366F1) 18%, transparent);
+    transform: translateX(6px);
+}
+
+/* Cabecera de la Tarjeta */
+.gj\:experience\:card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.gj\:experience\:left {
+    display: flex;
+    flex-direction: column;
+    row-gap: 6px;
+}
+
+.gj\:experience\:business-name-wrapper {
+    position: relative;
+    width: fit-content;
+    margin: 0;
+}
+
+.gj\:experience\:business-name {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--gj-fonts-light);
+    margin: 0;
+    letter-spacing: -0.02em;
+    position: relative;
+    z-index: 2;
+}
+
+.gj\:experience\:business-name-underline {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 3px;
+    width: 0;
+    background-color: var(--brand-color, var(--gj-light-bg));
+    border-radius: 4px;
+    transition: width 0.4s ease;
+    z-index: 1;
+}
+
+.gj\:experience\:list-item.gj\:experience\:list-item\:active .gj\:experience\:business-name-underline {
     width: 100%;
 }
 
-.gj\:experience\:list-item.gj\:experience\:list-item\:active {
-    border-color: var(--gj-light-bg);
-    background-color: var(--gj-second-bg);
+.gj\:experience\:position {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--brand-color, var(--gj-gray));
+    margin: 0;
 }
 
-.gj\:experience\:list-item::before {
-    display: block;
-    background-color: var(--gj-gray);
-    border-radius: 100%;
-    content: "";
-    height: 24px;
-    left: -12px;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%) scale(75%);
-    transition: all 0.5s ease;
-    width: 24px;
+/* Badges e Información Derecha */
+.gj\:experience\:right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    row-gap: 8px;
 }
 
-.gj\:experience\:list-item.gj\:experience\:list-item\:active::before {
-    background-color: var(--gj-light-bg);
-    transform: translateY(-50%) scale(100%);
+.gj\:experience\:badges {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
-.gj\:experience\:list-item\:left,
-.gj\:experience\:list-item\:right {
+.gj\:experience\:badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.gj\:experience\:badge-modality {
+    background-color: var(--gj-main-bg);
+    border: 1px solid var(--gj-border);
+    color: var(--gj-fonts-light);
+}
+
+.gj\:experience\:badge-date {
+    background-color: color-mix(in srgb, var(--brand-color, #6366F1) 12%, transparent);
+    color: var(--brand-color, var(--gj-fonts-light));
+    border: 1px solid color-mix(in srgb, var(--brand-color, #6366F1) 30%, transparent);
+}
+
+.gj\:experience\:location {
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--gj-gray);
+}
+
+/* Botón de Enlace Externo */
+.gj\:experience\:list-item\:link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: var(--gj-main-bg);
+    border: 1px solid var(--gj-border);
+    color: var(--gj-fonts-light);
+    text-decoration: none;
+    transition: all 0.25s ease;
+    align-self: center;
+}
+
+.gj\:experience\:list-item\:link:hover {
+    background-color: var(--brand-color, #6366F1);
+    color: #FFFFFF;
+    border-color: var(--brand-color, #6366F1);
+    transform: scale(1.12) rotate(45deg);
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--brand-color, #6366F1) 40%, transparent);
+}
+
+/* Detalles Expansibles (Acordeón) */
+.gj\:experience\:details {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.4s ease,
+                margin-top 0.35s ease,
+                padding-top 0.35s ease;
+}
+
+.gj\:experience\:list-item.gj\:experience\:list-item\:active .gj\:experience\:details {
+    max-height: 600px;
+    opacity: 1;
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid var(--gj-border);
+}
+
+.gj\:experience\:summary {
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--gj-fonts-light);
+    opacity: 0.9;
+    margin: 0 0 16px 0;
+}
+
+/* Logros y Responsabilidades */
+.gj\:experience\:achievements-wrapper {
+    margin-bottom: 18px;
+}
+
+.gj\:experience\:achievements-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gj-gray);
+    margin: 0 0 10px 0;
+}
+
+.gj\:experience\:achievements-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     display: flex;
     flex-direction: column;
     row-gap: 8px;
 }
 
-.gj\:experience\:business-name-wrapper {
-    color: var(--gj-fonts-light);
-    font-size: 24px;
-    line-height: 24px;
-    padding-bottom: 4px;
-    position: relative;
-    width: fit-content;
-}
-
-.gj\:experience\:business-name-underline {
-    display: block;
-    background-color: transparent;
-    height: 100%;
-    position: absolute;
-    transition: width 0.5s ease-in-out;
-    width: 0%;
-    z-index: 1;
-}
-
-.gj\:experience\:list-item.gj\:experience\:list-item\:active
-.gj\:experience\:business-name-underline {
-    background-color: var(--gj-light-bg);
-    width: 100%;
-}
-
-.gj\:experience\:list-item.gj\:experience\:list-item\:active
-.gj\:experience\:business-name {
-    background-color: var(--gj-second-bg);
-    position: relative;
-    z-index: 2;
-}
-
-.gj\:experience\:position {
-    color: var(--gj-gray);
-}
-
-.gj\:experience\:location,
-.gj\:experience\:location:link,
-.gj\:experience\:location:visited,
-.gj\:experience\:location:active {
+.gj\:experience\:achievement-item {
     display: flex;
-    align-items: center;
-    border-radius: 100px;
-    column-gap: 4px;
+    align-items: flex-start;
+    column-gap: 8px;
+    font-size: 14px;
+    line-height: 1.6;
     color: var(--gj-fonts-light);
-    flex-direction: row;
-    flex-wrap: nowrap;
-    padding-inline: 8px;
-    padding-block: 4px;
-    pointer-events: none;
-    text-decoration: none;
-    transition: all 0.75s ease;
 }
 
-.gj\:experience\:date {
+.gj\:experience\:achievement-bullet {
+    color: var(--brand-color, #6366F1);
+    font-weight: 800;
+    line-height: 1.4;
+}
+
+/* Píldoras de Tecnologías */
+.gj\:experience\:techs-wrapper {
+    margin-top: 14px;
+}
+
+.gj\:experience\:techs-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
     color: var(--gj-gray);
+    margin: 0 0 10px 0;
 }
 
-.gj\:experience\:list-item\:link {
+.gj\:experience\:tech-grid {
     display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.gj\:experience\:tech-pill {
+    display: inline-flex;
     align-items: center;
-    background-color: var(--gj-light-bg);
-    border-radius: 100%;
-    color: var(--gj-fonts-dark);
-    height: 36px;
-    justify-content: center;
-    right: -18px;
-    opacity: 0;
-    position: absolute;
-    pointer-events: none;
-    transform: scale(200%);
-    transition: transform 0.25s ease;
-    width: 36px;
-}
-
-.gj\:experience\:list-item\:link svg {
-    display: block;
-}
-
-.gj\:experience\:list-item.gj\:experience\:list-item\:active
-.gj\:experience\:list-item\:link  {
-    opacity: 1;
-    pointer-events: all;
-    transform: scale(100%);
-}
-
-.gj\:experience\:list-item.gj\:experience\:list-item\:active
-.gj\:experience\:location {
+    column-gap: 6px;
+    padding: 5px 12px;
     background-color: var(--gj-main-bg);
-    pointer-events: all;
+    border: 1px solid var(--gj-border);
+    border-radius: 100px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--gj-fonts-light);
+    transition: all 0.25s ease;
+}
+
+.gj\:experience\:tech-pill:hover {
+    border-color: var(--brand-color, var(--gj-border-focus));
+    background-color: var(--gj-bg-overlay);
+    transform: translateY(-2px);
+}
+
+.gj\:experience\:tech-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--brand-color, #6366F1);
+    box-shadow: 0 0 5px var(--brand-color, #6366F1);
+}
+
+/* Accesibilidad & Focus Visible */
+.gj\:experience\:list-item:focus-visible {
+    border-radius: 20px;
+    outline: 2px solid var(--gj-border-focus);
+    outline-offset: 4px;
+}
+
+/* Responsividad */
+@media only screen and (max-width: 768px) {
+    .gj\:experience\:container {
+        padding-top: 24px;
+        padding-bottom: 84px;
+    }
+
+    .gj\:experience\:title {
+        font-size: 28px;
+    }
+
+    .gj\:experience\:list {
+        padding-left: 20px;
+    }
+
+    .gj\:experience\:node {
+        left: -30px;
+    }
+
+    .gj\:experience\:card {
+        padding: 18px 20px;
+    }
+
+    .gj\:experience\:right {
+        align-items: flex-start;
+        width: 100%;
+        margin-top: 8px;
+    }
+
+    .gj\:experience\:card-header {
+        flex-direction: column;
+    }
+
+    .gj\:experience\:list-item\:link {
+        align-self: flex-start;
+        margin-top: 8px;
+    }
 }

@@ -1,360 +1,766 @@
-.gj\:path\:projects
-.gj\:layout\:shining {
-    max-height: 50%;
-    max-width: 50%;
-    opacity: 1;
-}
+/* ==========================================================================
+   Depth Stack 3D & Projects Modal Styles
+   ========================================================================== */
 
-.gj\:projects\:container {
+.gj\:projects\:wrapper {
     display: flex;
-    align-items: center;
     flex-direction: column;
-    justify-content: center;
-}
-
-.gj\:swiper\:projects-wrapper {
-    position: relative;
-}
-
-.gj\:swiper\:projects-pagination {
-    position: static !important;
-    margin: 0 !important;
-    padding-block: 48px;
-}
-
-.gj\:swiper\:projects-pagination
-.swiper-pagination-bullet {
-    background-color: var(--gj-gray);
-    height: 12px !important;
-    transition: transform 0.5s ease-in-out !important;
-    width: 12px !important;
-}
-
-.gj\:swiper\:projects-pagination
-.swiper-pagination-bullet-active {
-    background-color: var(--gj-light-bg);
-    transform: scale(1.4) !important;
-}
-
-.gj\:swiper\:projects-card {
-    border-radius: 16px;
-    filter: grayscale() opacity(0.25) blur(2px);
-    height: 420px;
-    overflow: hidden;
-    margin-right: 32px;
-    transform: scale(0.8) !important;
-    transition: all 1s ease;
-    width: 250px;
-}
-
-.gj\:swiper\:projects-card.swiper-slide-active {
-    filter: none;
-    transform: scale(1) !important;
-}
-
-.gj\:swiper\:projects-card.swiper-slide-prev,
-.gj\:swiper\:projects-card.swiper-slide-next {
-    transform: scale(0.9) !important;
-    filter: grayscale() opacity(1);
-}
-
-.gj\:swiper\:projects-card-image {
-    height: 100%;
-    max-width: 100%;
-    object-fit: cover;
-    object-position: center;
+    align-items: center;
     width: 100%;
-}
-
-.gj\:swiper\:projects-controllers {
-    display: flex;
-    align-items: center;
-    column-gap: 36px;
-    flex-direction: row;
-    justify-content: center;
+    max-width: 1080px;
+    margin-inline: auto;
+    padding-inline: 16px;
+    padding-top: 36px;
+    padding-bottom: 96px;
     position: relative;
-    padding-block: 64px;
+    animation: fadeInProjects 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.gj\:swiper\:projects-prev,
-.gj\:swiper\:projects-next {
-    margin: 0 !important;
-    position: static !important;
+@keyframes fadeInProjects {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.gj\:swiper\:projects-prev
-.gj\:layout\:svg-wrapper > svg,
-.gj\:swiper\:projects-next
-.gj\:layout\:svg-wrapper > svg {
-    color: var(--gj-light-bg);
-    min-height: 48px;
-    min-width: 48px;
-}
+/* --------------------------------------------------------------------------
+   Encabezado: Título, Contador y Autoplay
+   -------------------------------------------------------------------------- */
 
-.gj\:swiper\:projects-play-pause {
+.gj\:projects\:header {
     display: flex;
     align-items: center;
-    border: 2px solid var(--gj-light-bg);
-    border-radius: 100%;
-    background-color: transparent;
-    flex-direction: column;
-    height: 48px;
-    justify-content: center;
-    width: 48px;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 820px;
+    margin-bottom: 24px;
 }
 
-.gj\:swiper\:projects-play-pause
-.gj\:layout\:svg-wrapper > svg {
-    color: var(--gj-light-bg);
-    min-height: 32px;
-    min-width: 32px;
+.gj\:projects\:title {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--gj-fonts-light);
+    margin: 0;
+    letter-spacing: -0.02em;
 }
 
-.gj\:swiper\:projects-pause-icon,
-.gj\:swiper\:projects-play-icon {
+.gj\:projects\:header-controls {
+    display: flex;
+    align-items: center;
+    column-gap: 12px;
+}
+
+.gj\:projects\:counter-pill {
+    display: inline-flex;
+    align-items: center;
+    column-gap: 4px;
+    padding: 6px 14px;
+    background-color: var(--gj-main-bg);
+    border: 1px solid var(--gj-border);
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gj-gray);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.gj\:projects\:counter-current {
+    color: var(--gj-fonts-light);
+    font-weight: 800;
+}
+
+.gj\:projects\:counter-divider {
+    opacity: 0.5;
+}
+
+.gj\:projects\:autoplay-btn {
+    display: inline-flex;
+    align-items: center;
+    column-gap: 6px;
+    padding: 6px 14px;
+    background-color: var(--gj-main-bg);
+    border: 1px solid var(--gj-border);
+    border-radius: 100px;
+    color: var(--gj-gray);
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.gj\:projects\:autoplay-btn:hover {
+    border-color: var(--gj-border-focus);
+    color: var(--gj-fonts-light);
+    background-color: var(--gj-bg-overlay);
+}
+
+.gj\:projects\:autoplay-btn .gj\:projects\:icon-pause {
     display: none;
 }
 
-.gj\:swiper\:projects-played
-.gj\:swiper\:projects-pause-icon {
+.gj\:projects\:autoplay-active {
+    border-color: #10B981 !important;
+    color: #10B981 !important;
+    background-color: rgba(16, 185, 129, 0.1) !important;
+}
+
+.gj\:projects\:autoplay-active .gj\:projects\:icon-play {
+    display: none;
+}
+
+.gj\:projects\:autoplay-active .gj\:projects\:icon-pause {
     display: block;
 }
 
-.gj\:swiper\:projects-paused
-.gj\:swiper\:projects-play-icon {
+/* --------------------------------------------------------------------------
+   Escenario 3D Depth Stack (Hero Stage)
+   -------------------------------------------------------------------------- */
+
+.gj\:projects\:stage {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 840px;
+    min-height: 480px;
+    perspective: 1200px;
+    margin-bottom: 24px;
+}
+
+.gj\:projects\:arrow {
+    position: absolute;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background-color: var(--gj-main-bg);
+    border: 1px solid var(--gj-border);
+    color: var(--gj-fonts-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 40;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.gj\:projects\:arrow:hover {
+    border-color: var(--gj-border-focus);
+    transform: scale(1.12);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.gj\:projects\:arrow-prev {
+    left: -24px;
+}
+
+.gj\:projects\:arrow-next {
+    right: -24px;
+}
+
+/* Contenedor del Mazo 3D */
+.gj\:projects\:deck {
+    position: relative;
+    width: 100%;
+    max-width: 680px;
+    height: 460px;
+    transform-style: preserve-3d;
+}
+
+/* Tarjeta Individual del Mazo 3D */
+.gj\:projects\:card {
+    position: absolute;
+    inset: 0;
+    background-color: var(--gj-second-bg);
+    border: 1px solid var(--gj-border);
+    border-radius: 24px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.5s ease,
+                filter 0.5s ease,
+                border-color 0.4s ease,
+                box-shadow 0.4s ease;
+    cursor: pointer;
+    backdrop-filter: blur(16px);
+    transform-origin: center center;
+    will-change: transform, opacity, filter;
+}
+
+.gj\:projects\:card-active {
+    border-color: var(--brand-color, var(--gj-border-focus));
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2), 0 0 30px color-mix(in srgb, var(--brand-color, #6366F1) 25%, transparent);
+}
+
+.gj\:projects\:card-glow {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, var(--brand-color, #6366F1) 0%, transparent 70%);
+    opacity: 0.22;
+    filter: blur(40px);
+    pointer-events: none;
+    z-index: 0;
+    transition: opacity 0.5s ease;
+}
+
+/* Captura Visual del Proyecto */
+.gj\:projects\:card-visual {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+    background-color: var(--gj-dark-bg);
+    z-index: 1;
+}
+
+.gj\:projects\:card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
     display: block;
+    transition: transform 0.6s ease;
+}
+
+.gj\:projects\:card:hover .gj\:projects\:card-img {
+    transform: scale(1.03);
+}
+
+/* Cuerpo de la Tarjeta */
+.gj\:projects\:card-body {
+    position: relative;
+    z-index: 2;
+    padding: 20px 24px 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+    background-color: var(--gj-second-bg);
+}
+
+.gj\:projects\:card-header {
+    display: flex;
+    flex-direction: column;
+    row-gap: 6px;
+}
+
+.gj\:projects\:card-tags {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.gj\:projects\:tag-category {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--brand-color, #6366F1);
+}
+
+.gj\:projects\:tag-exp {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--gj-gray);
+}
+
+.gj\:projects\:card-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--gj-fonts-light);
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+/* Footer de la Tarjeta con Chips y Botón */
+.gj\:projects\:card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 14px;
+    border-top: 1px solid var(--gj-border);
+    gap: 12px;
+}
+
+.gj\:projects\:card-techs {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.gj\:projects\:tech-pill {
+    display: inline-block;
+    padding: 4px 10px;
+    background-color: var(--gj-main-bg);
+    border: 1px solid var(--gj-border);
+    border-radius: 6px;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--gj-fonts-light);
+}
+
+.gj\:projects\:tech-pill-more {
+    color: var(--gj-gray);
+}
+
+.gj\:projects\:card-cta {
+    display: inline-flex;
+    align-items: center;
+    column-gap: 8px;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, var(--brand-color, #6366F1) 0%, color-mix(in srgb, var(--brand-color, #6366F1) 80%, black) 100%);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--brand-color, #6366F1) 35%, transparent);
+}
+
+.gj\:projects\:card-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px color-mix(in srgb, var(--brand-color, #6366F1) 50%, transparent);
+}
+
+/* --------------------------------------------------------------------------
+   Dock de Miniaturas Inferior (Quick Jump Dock)
+   -------------------------------------------------------------------------- */
+
+.gj\:projects\:dock-wrapper {
+    width: 100%;
+    max-width: 820px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+    z-index: 30;
+}
+
+.gj\:projects\:dock {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background-color: var(--gj-main-bg);
+    border: 1px solid var(--gj-border);
+    border-radius: 100px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    overflow-x: auto;
+    scrollbar-width: none;
+    max-width: 100%;
+}
+
+.gj\:projects\:dock::-webkit-scrollbar {
+    display: none;
+}
+
+.gj\:projects\:dock-item {
+    display: inline-flex;
+    align-items: center;
+    column-gap: 8px;
+    padding: 6px 14px;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 100px;
+    color: var(--gj-gray);
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.25s ease;
+}
+
+.gj\:projects\:dock-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--brand-color, var(--gj-gray));
+    transition: transform 0.2s ease;
+}
+
+.gj\:projects\:dock-item:hover {
+    color: var(--gj-fonts-light);
+    background-color: var(--gj-bg-overlay);
+}
+
+.gj\:projects\:dock-item-active {
+    background-color: var(--gj-second-bg);
+    border-color: var(--brand-color, var(--gj-border-focus));
+    color: var(--gj-fonts-light);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.gj\:projects\:dock-item-active .gj\:projects\:dock-dot {
+    transform: scale(1.4);
+    box-shadow: 0 0 6px var(--brand-color, #6366F1);
+}
+
+.gj\:projects\:hint {
+    font-size: 12px;
+    color: var(--gj-gray);
+    text-align: center;
+    margin: 0;
+    opacity: 0.8;
+}
+
+.gj\:projects\:hint kbd {
+    display: inline-block;
+    padding: 2px 6px;
+    font-size: 11px;
+    font-weight: 700;
+    background-color: var(--gj-main-bg);
+    border: 1px solid var(--gj-border);
+    border-radius: 4px;
+    color: var(--gj-fonts-light);
+}
+
+/* --------------------------------------------------------------------------
+   Modal de Detalles de Proyectos (#gjModalProjects)
+   -------------------------------------------------------------------------- */
+
+.gj\:modal\:projects\:content {
+    background-color: var(--gj-second-bg);
+    border: 1px solid var(--gj-border);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
 }
 
 .gj\:modal\:projects\:header {
     display: flex;
     align-items: center;
-    flex-direction: row;
-    flex-grow: 1;
     justify-content: space-between;
+    width: 100%;
 }
 
-.gj\:modal\:projects\:header
-.modal-title  {
+.gj\:modal\:projects\:header .modal-title {
+    font-size: 18px;
+    font-weight: 800;
     color: var(--gj-fonts-light);
+    margin: 0;
 }
 
 .gj\:modal\:projects\:action-buttons {
     display: flex;
     align-items: center;
-    column-gap: 16px;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: center;
+    column-gap: 8px;
 }
 
 .gj\:modal\:projects\:action-button {
-    background-color: transparent;
-    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: var(--gj-main-bg);
+    border: 1px solid var(--gj-border);
     color: var(--gj-fonts-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
 }
 
-.gj\:modal\:projects\:action-button:hover
-.gj\:layout\:svg-wrapper {
+.gj\:modal\:projects\:action-button:hover {
+    border-color: var(--gj-border-focus);
     transform: scale(1.1);
-    transition: transform 400ms ease;
 }
 
 .gj\:modal\:projects\:banner {
     position: relative;
-    overflow: hidden;
+    width: 100%;
+    max-height: 0;
     opacity: 0;
-    transform: translateY(-100%);
-    transition: transform 400ms ease, opacity 400ms ease;
+    overflow: hidden;
+    transform: translateY(-20px);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.gj\:modal\:projects-resize
-.gj\:modal\:projects\:banner {
+.gj\:modal\:projects-resize .gj\:modal\:projects\:banner {
+    max-height: 240px;
     opacity: 1;
     transform: translateY(0);
-    width: 100%;
-}
-
-.gj\:modal\:projects\:banner::after {
-    box-shadow: 4px -42px 60px 40px rgba(36,36,36,1) inset;
-    content: "";
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: 2;
-    -webkit-box-shadow: 4px -42px 60px 40px rgba(36,36,36,1) inset;
-    -moz-box-shadow: 4px -42px 60px 40px rgba(36,36,36,1) inset;
+    margin-bottom: 20px;
 }
 
 .gj\:modal\:projects\:banner-image {
-    height: 150px;
-    object-fit: cover;
-    object-position: top;
-    position: relative;
     width: 100%;
-    z-index: 1;
+    height: 220px;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 14px;
+    border: 1px solid var(--gj-border);
 }
 
 .gj\:modal\:projects\:modal-wrapper {
-    padding: 24px;
-    padding-top: 0;
-    transform: translateY(-50%);
-    transition: transform 400ms ease, opacity 400ms ease;
+    padding: 12px 18px 24px;
 }
 
-.gj\:modal\:projects-resize
-.gj\:modal\:projects\:modal-wrapper {
-    padding-top: 24px;
-}
-
-.gj\:modal\:projects-resize
-.gj\:modal\:projects\:modal-wrapper {
-    transform: translateY(0);
-}
-
-.gj\:modal\:projects\:experience {
-    opacity: 0;
-    transform: translateX(100%);
-    transition: transform 400ms ease, opacity 300ms ease;
-}
-
-.gj\:modal\:projects-resize
-.gj\:modal\:projects\:experience {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.gj\:modal\:projects\:sections {
-    display: none;
-}
-
-.gj\:modal\:projects-resize
-.gj\:modal\:projects\:sections {
-    display: flex;
-}
-
-.gj\:modal\:projects\:content {
-    max-height: 320px;
-}
-
-.gj\:modal\:projects-resize
-.gj\:modal\:projects\:content {
-    max-height: unset;
-}
-
-.gj\:swiper\:projects\:technologies-applied-wrapper {
-    background-color: var(--gj-main-bg);
-    border-radius: 8px;
-}
-
-.gj\:swiper\:projects\:technologies-applied\:card {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    padding: 16px;
-    row-gap: 8px;
-}
-
-.gj\:swiper\:projects\:technologies-applied\:card
-.gj\:layout\:svg-wrapper
-svg {
-    color: var(--gj-gray);
-}
-
-.gj\:swiper\:projects\:technologies-applied\:card-title {
-    color: var(--gj-gray);
-    font-weight: 600;
-    margin: 0;
-    text-align: center;
-}
-
-.gj\:modal\:projects\:tabs-wrapper {
-    background-color: var(--gj-main-bg);
-    border-radius: 100px;
-    overflow: hidden;
-}
-
-.gj\:modal\:projects\:tabs {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    justify-content: left;
-    list-style: none;
-    padding-inline: 0;
-    margin: 0;
-}
-
-.gj\:modal\:projects\:tabs\:button {
-    display: flex;
-    align-items: center;
-    background-color: transparent;
-    border: none;
-    border-radius: 100px;
+.gj\:modal\:projects\:title {
+    font-size: 26px;
+    font-weight: 800;
     color: var(--gj-fonts-light);
-    column-gap: 4px;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    line-height: normal;
-    padding-block: 16px;
-    padding-inline: 24px;
+    margin: 0 0 10px 0;
+    letter-spacing: -0.02em;
 }
 
-.gj\:modal\:projects\:tabs\:button:hover {
-    background-color: var(--gj-dark-bg);
-}
-
-.gj\:modal\:projects\:tabs\:button-active {
-    background-color: var(--gj-dark-bg);
-}
-
-.gj\:modal\:projects\:tabs\:button-icons {
+.gj\:modal\:projects\:cat-exp-wrapper {
     display: flex;
     align-items: center;
-    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 18px;
 }
 
-.gj\:modal\:projects\:tabs\:button-icon-active {
-    display: none;
-}
-
-.gj\:modal\:projects\:tabs\:button-active
-.gj\:modal\:projects\:tabs\:button-icon-active {
-    display: block;
-}
-
-.gj\:modal\:projects\:tabs\:button-active
-.gj\:modal\:projects\:tabs\:button-icon-no-active {
-    display: none;
-}
-
-.gj\:modal\:projects\:tabs\:button-title {
+.gj\:modal\:projects\:category,
+.gj\:modal\:projects\:experience {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--gj-fonts-light);
     margin: 0;
-    text-wrap: nowrap;
 }
 
-.grid-stack { background: #FAFAD2; }
+.gj\:modal\:projects\:prefix-cat-exp {
+    color: var(--gj-gray);
+    font-weight: 500;
+}
 
-.grid-stack-item-content { background-color: #18BC9C; }
+.gj\:modal\:projects\:paragraphs {
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+/* Bloque de texto con tres puntos suspensivos cuando el modal está sin expandir */
+.modal:not(.gj\:modal\:projects-resize) .gj\:modal\:projects\:paragraph {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14.5px;
+    line-height: 1.6;
+    max-height: 4.8em;
+    color: var(--gj-fonts-light);
+    opacity: 0.9;
+    margin-bottom: 0;
+}
+
+.modal:not(.gj\:modal\:projects-resize) .gj\:modal\:projects\:paragraph:not(:first-child) {
+    display: none;
+}
+
+/* Bloque de texto completo cuando el modal está expandido */
+.gj\:modal\:projects-resize .gj\:modal\:projects\:paragraphs {
+    margin-bottom: 24px;
+    row-gap: 14px;
+}
+
+.gj\:modal\:projects-resize .gj\:modal\:projects\:paragraph {
+    display: block;
+    max-height: none;
+    overflow: visible;
+    text-overflow: unset;
+    -webkit-line-clamp: unset;
+    -webkit-box-orient: unset;
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: var(--gj-fonts-light);
+    opacity: 0.9;
+    margin-bottom: 12px;
+}
+
+.gj\:modal\:projects\:section-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gj-gray);
+    margin-bottom: 12px;
+}
+
+/* Chips de Tecnologías */
+.gj\:modal\:projects\:tech-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.gj\:modal\:projects\:tech-chip {
+    display: inline-flex;
+    align-items: center;
+    column-gap: 8px;
+    padding: 7px 14px;
+    background-color: var(--gj-main-bg);
+    border: 1px solid var(--gj-border);
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gj-fonts-light);
+    transition: all 0.25s ease;
+}
+
+.gj\:modal\:projects\:tech-chip:hover {
+    border-color: var(--chip-brand, var(--gj-border-focus));
+    background-color: var(--gj-bg-overlay);
+    transform: translateY(-2px);
+}
+
+.gj\:modal\:projects\:tech-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--chip-brand, #6366F1);
+    box-shadow: 0 0 6px var(--chip-brand, #6366F1);
+}
+
+/* Galería y Capturas de Pantalla en el Modal */
+.gj\:modal\:projects\:gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+    margin-top: 8px;
+}
+
+.gj\:modal\:projects\:gallery-item {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--gj-border);
+    background-color: var(--gj-dark-bg);
+    aspect-ratio: 16 / 10;
+    display: block;
+    cursor: zoom-in;
+    text-decoration: none;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+}
+
+.gj\:modal\:projects\:gallery-item:hover {
+    transform: translateY(-4px) scale(1.02);
+    border-color: var(--gj-border-focus);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+}
+
+.gj\:modal\:projects\:gallery-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.gj\:modal\:projects\:gallery-item:hover .gj\:modal\:projects\:gallery-thumb {
+    transform: scale(1.06);
+}
+
+.gj\:modal\:projects\:gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 30%, rgba(10, 10, 14, 0.85) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gj\:modal\:projects\:gallery-item:hover .gj\:modal\:projects\:gallery-overlay {
+    opacity: 1;
+}
+
+.gj\:modal\:projects\:gallery-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.gj\:modal\:projects\:gallery-caption {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: #FFFFFF;
+    line-height: 1.3;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* Focus Visible */
+.gj\:projects\:arrow:focus-visible,
+.gj\:projects\:card-cta:focus-visible,
+.gj\:projects\:dock-item:focus-visible,
+.gj\:projects\:autoplay-btn:focus-visible,
+.gj\:modal\:projects\:action-button:focus-visible {
+    outline: 2px solid var(--gj-border-focus);
+    outline-offset: 2px;
+}
 
 .modal-backdrop.show {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.55);
     backdrop-filter: blur(16px);
     opacity: 1;
     -webkit-backdrop-filter: blur(16px);
 }
 
-@media only screen and (max-height: 768px) {
-    .gj\:swiper\:projects-card {
-        height: 350px;
-    }
+/* --------------------------------------------------------------------------
+   Responsividad
+   -------------------------------------------------------------------------- */
 
-    .gj\:swiper\:projects-pagination {
+@media only screen and (max-width: 768px) {
+    .gj\:projects\:arrow {
         display: none;
     }
 
-    .gj\:swiper\:projects-controllers {
-        display: none;
+    .gj\:projects\:deck {
+        height: 480px;
+    }
+
+    .gj\:projects\:card-visual {
+        height: 200px;
+    }
+
+    .gj\:projects\:card-body {
+        padding: 16px 18px 18px;
+    }
+
+    .gj\:projects\:card-title {
+        font-size: 20px;
+    }
+
+    .gj\:projects\:card-footer {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .gj\:projects\:card-cta {
+        justify-content: center;
+        width: 100%;
     }
 }
