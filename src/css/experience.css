@@ -4,17 +4,17 @@
     margin-inline: auto;
     max-width: 920px;
     width: 100%;
-    animation: fadeInExperience 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: fadeInExperience 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes fadeInExperience {
-    from {
+    0% {
         opacity: 0;
-        transform: translateY(24px);
+        filter: brightness(1.2) contrast(1.05);
     }
-    to {
+    100% {
         opacity: 1;
-        transform: translateY(0);
+        filter: brightness(1) contrast(1);
     }
 }
 
@@ -87,7 +87,7 @@
     position: absolute;
     inset: -4px;
     border-radius: 50%;
-    background-color: var(--brand-color, #6366F1);
+    background-color: #00F0FF;
     opacity: 0;
     transform: scale(0.6);
     transition: all 0.4s ease;
@@ -95,13 +95,13 @@
 }
 
 .gj\:experience\:list-item.gj\:experience\:list-item\:active .gj\:experience\:node-dot {
-    background-color: var(--brand-color, var(--gj-light-bg));
+    background-color: #00F0FF;
     transform: scale(1.3);
-    box-shadow: 0 0 12px var(--brand-color, #6366F1);
+    box-shadow: 0 0 12px #00F0FF;
 }
 
 .gj\:experience\:list-item.gj\:experience\:list-item\:active .gj\:experience\:node-pulse {
-    opacity: 0.35;
+    opacity: 0.4;
     transform: scale(1.4);
     animation: nodePulseAnim 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
 }
@@ -111,29 +111,62 @@
     50% { transform: scale(1.8); opacity: 0; }
 }
 
-/* Tarjeta de Experiencia */
+/* Tarjeta de Experiencia (Módulo Cyber HUD) */
 .gj\:experience\:card {
     position: relative;
-    background-color: var(--gj-second-bg);
-    border: 1px solid var(--gj-border);
-    border-radius: 20px;
+    background: rgba(12, 14, 22, 0.88);
+    border: 1px solid rgba(99, 102, 241, 0.28);
+    border-radius: 12px;
     padding: 24px 28px;
     transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     overflow: hidden;
 }
 
+:root[dark-mode="false"] .gj\:experience\:card,
+:root:not([dark-mode="true"]) .gj\:experience\:card {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(99, 102, 241, 0.22);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
 .gj\:experience\:list-item:hover .gj\:experience\:card {
-    border-color: var(--gj-border-focus);
+    border-color: #00F0FF;
     transform: translateX(4px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4), 0 0 16px rgba(0, 240, 255, 0.2);
+}
+
+:root[dark-mode="false"] .gj\:experience\:list-item:hover .gj\:experience\:card,
+:root:not([dark-mode="true"]) .gj\:experience\:list-item:hover .gj\:experience\:card {
+    border-color: #4F46E5;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), 0 0 14px rgba(99, 102, 241, 0.2);
 }
 
 .gj\:experience\:list-item.gj\:experience\:list-item\:active .gj\:experience\:card {
-    border-color: var(--brand-color, var(--gj-border-focus));
-    background-color: var(--gj-second-bg);
-    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12), 0 0 24px color-mix(in srgb, var(--brand-color, #6366F1) 18%, transparent);
+    border-color: #00F0FF;
+    background: linear-gradient(180deg, rgba(20, 22, 32, 0.94) 0%, rgba(10, 11, 18, 0.98) 100%);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5), 0 0 24px rgba(0, 240, 255, 0.25);
     transform: translateX(6px);
+}
+
+:root[dark-mode="false"] .gj\:experience\:list-item.gj\:experience\:list-item\:active .gj\:experience\:card,
+:root:not([dark-mode="true"]) .gj\:experience\:list-item.gj\:experience\:list-item\:active .gj\:experience\:card {
+    background: rgba(255, 255, 255, 0.98);
+    border-color: #4F46E5;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.1), 0 0 18px rgba(99, 102, 241, 0.2);
+}
+
+/* Acento láser superior en tarjeta activa */
+.gj\:experience\:list-item.gj\:experience\:list-item\:active .gj\:experience\:card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, rgba(99, 102, 241, 0.8) 25%, #00F0FF 50%, rgba(99, 102, 241, 0.8) 75%, transparent 100%);
+    z-index: 10;
+    pointer-events: none;
 }
 
 /* Cabecera de la Tarjeta */
@@ -208,32 +241,47 @@
 .gj\:experience\:badge {
     display: inline-flex;
     align-items: center;
-    padding: 4px 10px;
-    border-radius: 8px;
-    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.04em;
 }
 
 .gj\:experience\:badge-modality {
-    background-color: var(--gj-main-bg);
-    border: 1px solid var(--gj-border);
-    color: var(--gj-fonts-light);
+    background: rgba(99, 102, 241, 0.12);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    color: #00F0FF;
+}
+
+:root[dark-mode="false"] .gj\:experience\:badge-modality,
+:root:not([dark-mode="true"]) .gj\:experience\:badge-modality {
+    background: rgba(99, 102, 241, 0.1);
+    color: #4F46E5;
 }
 
 .gj\:experience\:badge-date {
-    background-color: color-mix(in srgb, var(--brand-color, #6366F1) 12%, transparent);
-    color: var(--brand-color, var(--gj-fonts-light));
-    border: 1px solid color-mix(in srgb, var(--brand-color, #6366F1) 30%, transparent);
+    background: rgba(0, 240, 255, 0.08);
+    border: 1px solid rgba(0, 240, 255, 0.35);
+    color: #00F0FF;
+}
+
+:root[dark-mode="false"] .gj\:experience\:badge-date,
+:root:not([dark-mode="true"]) .gj\:experience\:badge-date {
+    background: rgba(99, 102, 241, 0.08);
+    border-color: rgba(99, 102, 241, 0.35);
+    color: #4F46E5;
 }
 
 .gj\:experience\:location {
     display: flex;
     align-items: center;
     column-gap: 5px;
-    font-size: 12.5px;
+    font-size: 12px;
     font-weight: 500;
     color: var(--gj-gray);
+    font-family: ui-monospace, SFMono-Regular, monospace;
 }
 
 /* Botón de Enlace Externo */
@@ -241,23 +289,23 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    background-color: var(--gj-main-bg);
-    border: 1px solid var(--gj-border);
-    color: var(--gj-fonts-light);
+    width: 34px;
+    height: 34px;
+    border-radius: 6px;
+    background: rgba(99, 102, 241, 0.12);
+    border: 1px solid rgba(0, 240, 255, 0.35);
+    color: #00F0FF;
     text-decoration: none;
     transition: all 0.25s ease;
     align-self: center;
 }
 
 .gj\:experience\:list-item\:link:hover {
-    background-color: var(--brand-color, #6366F1);
-    color: #FFFFFF;
-    border-color: var(--brand-color, #6366F1);
-    transform: scale(1.12) rotate(45deg);
-    box-shadow: 0 4px 14px color-mix(in srgb, var(--brand-color, #6366F1) 40%, transparent);
+    background-color: #00F0FF;
+    color: #06080E;
+    border-color: #00F0FF;
+    transform: scale(1.1) rotate(45deg);
+    box-shadow: 0 0 14px #00F0FF;
 }
 
 /* Detalles Expansibles (Acordeón) */
@@ -276,14 +324,14 @@
     opacity: 1;
     margin-top: 18px;
     padding-top: 18px;
-    border-top: 1px solid var(--gj-border);
+    border-top: 1px solid rgba(99, 102, 241, 0.25);
 }
 
 .gj\:experience\:summary {
-    font-size: 14.5px;
+    font-size: 14px;
     line-height: 1.65;
     color: var(--gj-fonts-light);
-    opacity: 0.9;
+    opacity: 0.92;
     margin: 0 0 16px 0;
 }
 
@@ -293,12 +341,18 @@
 }
 
 .gj\:experience\:achievements-title {
-    font-size: 12px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--gj-gray);
+    letter-spacing: 0.1em;
+    color: #00F0FF;
     margin: 0 0 10px 0;
+}
+
+:root[dark-mode="false"] .gj\:experience\:achievements-title,
+:root:not([dark-mode="true"]) .gj\:experience\:achievements-title {
+    color: #4F46E5;
 }
 
 .gj\:experience\:achievements-list {
@@ -314,15 +368,20 @@
     display: flex;
     align-items: flex-start;
     column-gap: 8px;
-    font-size: 14px;
+    font-size: 13.5px;
     line-height: 1.6;
     color: var(--gj-fonts-light);
 }
 
 .gj\:experience\:achievement-bullet {
-    color: var(--brand-color, #6366F1);
+    color: #00F0FF;
     font-weight: 800;
     line-height: 1.4;
+}
+
+:root[dark-mode="false"] .gj\:experience\:achievement-bullet,
+:root:not([dark-mode="true"]) .gj\:experience\:achievement-bullet {
+    color: #4F46E5;
 }
 
 /* Píldoras de Tecnologías */
@@ -331,32 +390,51 @@
 }
 
 .gj\:experience\:techs-title {
-    font-size: 12px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--gj-gray);
+    letter-spacing: 0.1em;
+    color: #00F0FF;
     margin: 0 0 10px 0;
+}
+
+:root[dark-mode="false"] .gj\:experience\:techs-title,
+:root:not([dark-mode="true"]) .gj\:experience\:techs-title {
+    color: #4F46E5;
 }
 
 .gj\:experience\:tech-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
 }
 
 .gj\:experience\:tech-pill {
     display: inline-flex;
     align-items: center;
     column-gap: 6px;
-    padding: 5px 12px;
-    background-color: var(--gj-main-bg);
-    border: 1px solid var(--gj-border);
-    border-radius: 100px;
-    font-size: 12.5px;
+    padding: 4px 10px;
+    background: rgba(99, 102, 241, 0.12);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 4px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11px;
     font-weight: 600;
-    color: var(--gj-fonts-light);
-    transition: all 0.25s ease;
+    color: #00F0FF;
+    transition: all 0.22s ease;
+}
+
+:root[dark-mode="false"] .gj\:experience\:tech-pill,
+:root:not([dark-mode="true"]) .gj\:experience\:tech-pill {
+    background: rgba(99, 102, 241, 0.1);
+    color: #4F46E5;
+}
+
+.gj\:experience\:tech-pill:hover {
+    border-color: #00F0FF;
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+    transform: translateY(-1px);
 }
 
 .gj\:experience\:tech-pill:hover {

@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const badgeBottom = document.querySelector(".gj\\:home\\:badge-bottom");
     const techChips = document.querySelectorAll(".gj\\:home\\:tech-chip");
     const btnPrimary = document.querySelector(".gj\\:home\\:btn-primary");
+    const btnCv = document.querySelector(".gj\\:home\\:btn-cv");
     const conicGlow = document.querySelector(".gj\\:home\\:conic-glow");
     const sparkles = document.querySelectorAll(".gj\\:home\\:sparkle");
     const avatarFrame = document.querySelector(".gj\\:home\\:avatar-frame");
@@ -47,6 +48,22 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         btnPrimary.addEventListener("mouseleave", () => {
+            if (window.resetAura) {
+                window.resetAura(250);
+            }
+        });
+    }
+
+    // Interacción con Botón Descargar CV (Aura Esmeralda/Cyan)
+    if (btnCv) {
+        const cvAuraGradient = "radial-gradient(circle, rgba(16, 185, 129, 0.85) 0%, rgba(6, 182, 212, 0.45) 45%, transparent 75%)";
+        btnCv.addEventListener("mouseenter", () => {
+            if (window.setAuraGradient) {
+                window.setAuraGradient(cvAuraGradient);
+            }
+        });
+
+        btnCv.addEventListener("mouseleave", () => {
             if (window.resetAura) {
                 window.resetAura(250);
             }

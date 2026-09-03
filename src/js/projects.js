@@ -9,8 +9,10 @@ const initProjects = () => {
     let currentIndex = 0;
     let autoplayInterval = null;
     let isAutoplayRunning = false;
+    let currentViewMode = "deck"; // "deck" | "grid"
 
-    // DOM Elements
+    // Elementos del DOM
+    const wrapper = document.getElementById("gjProjectsWrapper");
     const stage = document.getElementById("gjProjectsStage");
     const deck = document.getElementById("gjDeckStack");
     const cards = Array.from(deck?.querySelectorAll(".gj\\:projects\\:card") || []);
@@ -23,7 +25,10 @@ const initProjects = () => {
     const modalProjects = document.getElementById("gjModalProjects");
     const ctaButtons = Array.from(document.querySelectorAll(".gj\\:projects\\:card-cta") || []);
 
-    // Inicializar PhotoSwipe 5 Lightbox
+    const switchDeckBtn = document.getElementById("switchDeckBtn");
+    const switchGridBtn = document.getElementById("switchGridBtn");
+
+    // Inicializar PhotoSwipe 5 Lightbox para el Modal
     let lightbox = null;
     try {
         lightbox = new PhotoSwipeLightbox({
@@ -39,7 +44,12 @@ const initProjects = () => {
         console.warn("PhotoSwipe init warning:", err);
     }
 
-    const updateDeck = (index) => {
+    // --------------------------------------------------------------------------
+    // Controlador de Posicionamiento 3D (3D Depth Stack)
+    // --------------------------------------------------------------------------
+    const updateDeck = (index, isInitial = false) => {
+        if (currentViewMode === "grid") return;
+
         if (index < 0) index = totalProjects - 1;
         if (index >= totalProjects) index = 0;
         currentIndex = index;
@@ -104,99 +114,125 @@ const initProjects = () => {
             }
         });
 
-        // 4. Sincronizar Aura Reactiva
-        if (currentProject && currentProject.brand_color && window.setAuraGradient) {
-            const color = currentProject.brand_color;
-            const gradient = `radial-gradient(circle, ${color}DD 0%, ${color}44 45%, transparent 75%)`;
-            window.setAuraGradient(gradient);
+        // 4. Aura ambiental reactiva
+        if (typeof window !== "undefined" && window.setAuraGradient && currentProject?.brand_color) {
+            window.setAuraGradient(currentProject.brand_color);
         }
     };
 
-    // Navegación
     const nextProject = () => updateDeck(currentIndex + 1);
     const prevProject = () => updateDeck(currentIndex - 1);
 
-    if (prevBtn) prevBtn.addEventListener("click", prevProject);
-    if (nextBtn) nextBtn.addEventListener("click", nextProject);
+    // --------------------------------------------------------------------------
+    // Conmutador de Modo de Vista (Hybrid View Switcher: Deck vs Matriz Grid)
+    // --------------------------------------------------------------------------
+    const setViewMode = (mode) => {
+        currentViewMode = mode;
 
-    // Clic en tarjetas
-    cards.forEach((card, i) => {
-        card.addEventListener("click", (e) => {
-            if (i !== currentIndex) {
-                e.preventDefault();
-                e.stopPropagation();
-                updateDeck(i);
-            } else if (!e.target.closest(".gj\\:projects\\:card-cta")) {
-                const idProject = card.getAttribute("data-id-project") || projectKeys[currentIndex];
-                openProjectModal(idProject);
-            }
-        });
-    });
+        if (mode === "grid") {
+            wrapper?.classList.add("gj:projects:mode-grid");
+            stage?.setAttribute("data-view-mode", "grid");
+            switchGridBtn?.classList.add("gj:projects:switch-active");
+            switchGridBtn?.setAttribute("aria-pressed", "true");
+            switchDeckBtn?.classList.remove("gj:projects:switch-active");
+            switchDeckBtn?.setAttribute("aria-pressed", "false");
 
-    // Clic en items del dock inferior
-    thumbnailItems.forEach((btn, i) => {
-        btn.addEventListener("click", () => updateDeck(i));
-    });
+            stopAutoplay();
 
-    // Parallax 3D Tilt suave en la tarjeta activa al mover el ratón
-    if (stage && window.matchMedia("(min-width: 992px)").matches) {
-        stage.addEventListener("mousemove", (e) => {
-            const activeCard = deck?.querySelector(".gj\\:projects\\:card-active");
-            if (!activeCard) return;
+            // Limpiar estilos inline 3D para que la cuadrícula CSS tome el control pleno
+            cards.forEach((card) => {
+                card.style.transform = "";
+                card.style.opacity = "";
+                card.style.filter = "";
+                card.style.zIndex = "";
+                card.style.pointerEvents = "";
+                card.classList.remove("gj:projects:card-active");
+            });
+        } else {
+            wrapper?.classList.remove("gj:projects:mode-grid");
+            stage?.setAttribute("data-view-mode", "deck");
+            switchDeckBtn?.classList.add("gj:projects:switch-active");
+            switchDeckBtn?.setAttribute("aria-pressed", "true");
+            switchGridBtn?.classList.remove("gj:projects:switch-active");
+            switchGridBtn?.setAttribute("aria-pressed", "false");
 
-            const rect = activeCard.getBoundingClientRect();
-            const cardCenterX = rect.left + rect.width / 2;
-            const cardCenterY = rect.top + rect.height / 2;
-            const mouseX = e.clientX - cardCenterX;
-            const mouseY = e.clientY - cardCenterY;
+            // Recalcular mazo 3D en la posición actual
+            updateDeck(currentIndex);
+        }
+    };
 
-            const rotateX = (-mouseY / (rect.height / 2)) * 6;
-            const rotateY = (mouseX / (rect.width / 2)) * 6;
-
-            activeCard.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translate3d(0, 0, 10px)`;
-        });
-
-        stage.addEventListener("mouseleave", () => {
-            const activeCard = deck?.querySelector(".gj\\:projects\\:card-active");
-            if (activeCard) {
-                activeCard.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) translate3d(0, 0, 0)";
-            }
-        });
+    if (switchDeckBtn) {
+        switchDeckBtn.addEventListener("click", () => setViewMode("deck"));
+    }
+    if (switchGridBtn) {
+        switchGridBtn.addEventListener("click", () => setViewMode("grid"));
     }
 
-    // Navegación con Teclado
-    window.addEventListener("keydown", (e) => {
-        if (["INPUT", "TEXTAREA"].includes(document.activeElement?.tagName)) return;
-        if (modalProjects && modalProjects.classList.contains("show")) return;
+    // Navegación por flechas en el mazo 3D
+    prevBtn?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        prevProject();
+    });
 
-        if (e.key === "ArrowRight" || e.key === "ArrowDown") {
-            nextProject();
-        } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
-            prevProject();
+    nextBtn?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        nextProject();
+    });
+
+    // Navegación por Dock de Miniaturas
+    thumbnailItems.forEach((item, index) => {
+        item.addEventListener("click", (e) => {
+            e.stopPropagation();
+            if (currentViewMode === "grid") {
+                setViewMode("deck");
+            }
+            updateDeck(index);
+        });
+    });
+
+    // Clic en tarjetas
+    cards.forEach((card, index) => {
+        card.addEventListener("click", (e) => {
+            // Si hace clic en el botón CTA, se gestiona independientemente
+            if (e.target.closest(".gj\\:projects\\:card-cta")) return;
+
+            if (currentViewMode === "grid") {
+                // En modo matriz, hacer clic en cualquier tarjeta abre su ficha técnica
+                const key = card.getAttribute("data-id-project") || projectKeys[index];
+                openProjectModal(key);
+            } else {
+                // En modo mazo 3D
+                if (index === currentIndex) {
+                    const key = card.getAttribute("data-id-project") || projectKeys[currentIndex];
+                    openProjectModal(key);
+                } else {
+                    updateDeck(index);
+                }
+            }
+        });
+    });
+
+    // Navegación por Teclado
+    window.addEventListener("keydown", (e) => {
+        if (modalProjects && modalProjects.classList.contains("show")) return;
+        if (["INPUT", "TEXTAREA"].includes(document.activeElement?.tagName)) return;
+
+        if (currentViewMode === "deck") {
+            if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+                e.preventDefault();
+                nextProject();
+            } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+                e.preventDefault();
+                prevProject();
+            } else if (e.key === "Enter") {
+                const activeCard = cards[currentIndex];
+                const key = activeCard?.getAttribute("data-id-project") || projectKeys[currentIndex];
+                openProjectModal(key);
+            }
         }
     });
 
-    // Desplazamiento con Rueda del Mouse (Wheel con Throttle)
-    let isWheeling = false;
-    if (stage) {
-        stage.addEventListener("wheel", (e) => {
-            if (isWheeling) return;
-            if (modalProjects && modalProjects.classList.contains("show")) return;
-            if (Math.abs(e.deltaY) > 25 || Math.abs(e.deltaX) > 25) {
-                isWheeling = true;
-                if (e.deltaY > 0 || e.deltaX > 0) {
-                    nextProject();
-                } else {
-                    prevProject();
-                }
-                setTimeout(() => {
-                    isWheeling = false;
-                }, 450);
-            }
-        }, { passive: true });
-    }
-
-    // Gestos Táctiles Swipe en Móvil
+    // Gestos Táctiles Swipe en Modo 3D
     let touchStartX = 0;
     if (stage) {
         stage.addEventListener("touchstart", (e) => {
@@ -205,6 +241,8 @@ const initProjects = () => {
 
         stage.addEventListener("touchend", (e) => {
             if (modalProjects && modalProjects.classList.contains("show")) return;
+            if (currentViewMode === "grid") return;
+
             const diff = touchStartX - e.changedTouches[0].screenX;
             if (Math.abs(diff) > 45) {
                 if (diff > 0) nextProject();
@@ -228,12 +266,19 @@ const initProjects = () => {
 
     if (playPauseBtn) {
         playPauseBtn.addEventListener("click", () => {
+            if (currentViewMode === "grid") {
+                setViewMode("deck");
+                startAutoplay();
+                return;
+            }
             if (isAutoplayRunning) stopAutoplay();
             else startAutoplay();
         });
     }
 
+    // --------------------------------------------------------------------------
     // Apertura y Poblamiento del Modal de Detalles
+    // --------------------------------------------------------------------------
     const openProjectModal = (idProject) => {
         const modalEl = document.getElementById("gjModalProjects");
         if (!modalEl) {
@@ -293,27 +338,30 @@ const initProjects = () => {
             galleryGrid.innerHTML = currentProject.screenshots_gallery
                 .map((item) => `
                     <a 
-                        href="${item.src}" 
+                        href="./src/assets/img/projects/${idProject}${item.src}" 
                         data-pswp-width="${item.width || 1200}" 
                         data-pswp-height="${item.height || 800}" 
                         target="_blank" 
+                        rel="noreferrer"
                         class="gj:modal:projects:gallery-item"
-                        data-cropped="true"
+                        title="${item.title}"
                         aria-label="Ver captura completa: ${item.title}"
                     >
                         <img 
-                            src="${item.src}" 
+                            src="./src/assets/img/projects/${idProject}${item.src}" 
                             alt="${item.title}" 
                             loading="lazy" 
-                            class="gj:modal:projects:gallery-thumb"
+                            class="gj:modal:projects:gallery-img"
                         />
                         <div class="gj:modal:projects:gallery-overlay">
-                            <span class="gj:modal:projects:gallery-icon">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 11.99 14 9.5 14zm.5-7H9v2H7v1h2v2h1v-2h2V9h-2z"/>
-                                </svg>
-                            </span>
-                            <span class="gj:modal:projects:gallery-caption">${item.title}</span>
+                            <div class="gj:modal:projects:gallery-caption-wrapper">
+                                <span class="gj:modal:projects:gallery-icon">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 11.99 14 9.5 14zm.5-7H9v2H7v1h2v2h1v-2h2V9h-2z"/>
+                                    </svg>
+                                </span>
+                                <span class="gj:modal:projects:gallery-caption">${item.title}</span>
+                            </div>
                         </div>
                     </a>
                 `)
@@ -324,12 +372,10 @@ const initProjects = () => {
 
         // Aura de Marca
         if (window.setAuraGradient && currentProject.brand_color) {
-            const color = currentProject.brand_color;
-            const gradient = `radial-gradient(circle, ${color}DD 0%, ${color}55 45%, transparent 75%)`;
-            window.setAuraGradient(gradient);
+            window.setAuraGradient(currentProject.brand_color);
         }
 
-        // Abrir Modal de Bootstrap con fallback
+        // Abrir Modal de Bootstrap
         try {
             const modalInstance = Modal.getOrCreateInstance(modalEl);
             modalInstance.show();
@@ -343,7 +389,6 @@ const initProjects = () => {
         }
     };
 
-    // Publicar funciones en window
     window.openProjectModal = openProjectModal;
 
     window.closeProjectModal = () => {
@@ -364,7 +409,6 @@ const initProjects = () => {
         document.querySelectorAll(".modal-backdrop").forEach((b) => b.remove());
     };
 
-    // Toggle de tamaño de modal
     window.actionButtonResize = () => {
         const modalEl = document.getElementById("gjModalProjects");
         if (!modalEl) return;
@@ -385,30 +429,20 @@ const initProjects = () => {
         });
     });
 
-    // Delegación global como salvaguarda
-    document.addEventListener("click", (e) => {
-        const ctaBtn = e.target.closest(".gj\\:projects\\:card-cta");
-        if (ctaBtn) {
-            e.preventDefault();
-            e.stopPropagation();
-            const idProject = ctaBtn.getAttribute("data-id-project") || projectKeys[currentIndex];
-            openProjectModal(idProject);
-        }
-    });
-
     if (modalProjects) {
         modalProjects.addEventListener("hidden.bs.modal", () => {
             modalProjects.querySelector(".modal-dialog")?.classList.remove("modal-lg");
             modalProjects.classList.remove("gj:modal:projects-resize");
-            updateDeck(currentIndex);
+            if (currentViewMode === "deck") {
+                updateDeck(currentIndex);
+            }
         });
     }
 
     // Inicialización del Deck
-    updateDeck(0);
+    updateDeck(0, true);
 };
 
-// Ejecución infalible tanto en DOM ready como si el documento ya estaba cargado
 if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initProjects);
 } else {

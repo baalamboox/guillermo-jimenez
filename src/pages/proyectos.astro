@@ -8,141 +8,178 @@ const totalProjects = projectEntries.length;
 
 <Layout title="Proyectos">
     <div class="gj:layout:container">
-        <div class="gj:projects:wrapper">
-            <!-- Encabezado con Contador y Controles -->
+        <div class="gj:projects:wrapper" id="gjProjectsWrapper">
+            <!-- Encabezado con Switcher de Vista HUD, Contador y Autoplay -->
             <header class="gj:projects:header">
-            <h1 class="gj:projects:title">Proyectos Destacados</h1>
+                <div class="gj:projects:header-title-group">
+                    <h1 class="gj:projects:title">Proyectos Destacados</h1>
+                </div>
             
-            <div class="gj:projects:header-controls">
-                <div class="gj:projects:counter-pill" id="gjDeckCounter" aria-live="polite">
-                    <span class="gj:projects:counter-current" id="deckCurrentNum">01</span>
-                    <span class="gj:projects:counter-divider">/</span>
-                    <span class="gj:projects:counter-total" id="deckTotalNum">{String(totalProjects).padStart(2, "0")}</span>
+                <div class="gj:projects:header-controls">
+                    <!-- Conmutador de Modo de Vista (Hybrid View Switcher) -->
+                    <div class="gj:projects:view-switcher" role="group" aria-label="Modo de visualización de proyectos">
+                        <button 
+                            class="gj:projects:switch-btn gj:projects:switch-active" 
+                            id="switchDeckBtn" 
+                            type="button" 
+                            data-view="deck"
+                            aria-pressed="true"
+                            aria-label="Vista 3D Deck"
+                        >
+                            <span class="gj:layout:svg-wrapper">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/>
+                                </svg>
+                            </span>
+                            <span>3D DECK</span>
+                        </button>
+                        <button 
+                            class="gj:projects:switch-btn" 
+                            id="switchGridBtn" 
+                            type="button" 
+                            data-view="grid"
+                            aria-pressed="false"
+                            aria-label="Vista Matriz Cuadrícula"
+                        >
+                            <span class="gj:layout:svg-wrapper">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M3 3v8h8V3H3zm6 6H5V5h4v4zm-6 4v8h8v-8H3zm6 6H5v-4h4v4zm4-16v8h8V3h-8zm6 6h-4V5h4v4zm-6 4v8h8v-8h-8zm6 6h-4v-4h4v4z"/>
+                                </svg>
+                            </span>
+                            <span>MATRIZ HUD</span>
+                        </button>
+                    </div>
+
+                    <!-- Controles específicos del 3D Deck -->
+                    <div class="gj:projects:deck-controls" id="gjDeckControls">
+                        <div class="gj:projects:counter-pill" id="gjDeckCounter" aria-live="polite">
+                            <span class="gj:projects:counter-current" id="deckCurrentNum">01</span>
+                            <span class="gj:projects:counter-divider">/</span>
+                            <span class="gj:projects:counter-total" id="deckTotalNum">{String(totalProjects).padStart(2, "0")}</span>
+                        </div>
+
+                        <button class="gj:projects:autoplay-btn" id="deckPlayPauseBtn" type="button" aria-label="Reproducir presentación automática">
+                            <span class="gj:layout:svg-wrapper">
+                                <svg class="gj:projects:icon-play" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8 5.14v13.72a.5.5 0 0 0 .77.42l10.59-6.86a.5.5 0 0 0 0-.84L8.77 4.72A.5.5 0 0 0 8 5.14z"/>
+                                </svg>
+                                <svg class="gj:projects:icon-pause" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                                </svg>
+                            </span>
+                            <span class="gj:projects:autoplay-text">Autoplay</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Escenario 3D Depth Stack / Matriz Cuadrícula -->
+            <main class="gj:projects:stage" id="gjProjectsStage" data-view-mode="deck" aria-label="Galería de proyectos">
+                <!-- Flecha Anterior -->
+                <button class="gj:projects:arrow gj:projects:arrow-prev" id="deckPrevBtn" type="button" aria-label="Proyecto anterior">
+                    <span class="gj:layout:svg-wrapper">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6l6 6l1.41-1.41L10.83 12z"/></svg>
+                    </span>
+                </button>
+
+                <!-- Contenedor del Mazo / Matriz -->
+                <div class="gj:projects:deck" id="gjDeckStack">
+                    {projectEntries.map(([key, project], index) => (
+                        <article 
+                            class={`gj:projects:card ${index === 0 ? "gj:projects:card-active" : ""}`}
+                            data-id-project={key}
+                            data-index={index}
+                            style={`--brand-color: ${project.brand_color}; --card-order: ${index};`}
+                            role="region"
+                            aria-label={`Proyecto ${project.title}`}
+                        >
+                            <!-- Resplandor reactivo de marca -->
+                            <div class="gj:projects:card-glow" aria-hidden="true"></div>
+
+                            <!-- Imagen / Captura del Proyecto -->
+                            <div class="gj:projects:card-visual">
+                                <picture>
+                                    <source srcset={`./src/assets/img/projects/${key}/${project.screenshot}.png`} />
+                                    <img 
+                                        class="gj:projects:card-img"
+                                        src={`./src/assets/img/projects/${key}/${project.screenshot}.png`} 
+                                        alt={`Captura del proyecto ${project.title} - ${project.category}`}
+                                        loading={index < 2 ? "eager" : "lazy"}
+                                    />
+                                </picture>
+                            </div>
+
+                            <!-- Panel de Contenido de la Tarjeta -->
+                            <div class="gj:projects:card-body">
+                                <div class="gj:projects:card-header">
+                                    <div class="gj:projects:card-tags">
+                                        <span class="gj:projects:tag-category">{project.category}</span>
+                                        <span class="gj:projects:tag-exp">⏱ {project.experience_time}</span>
+                                    </div>
+                                    <h2 class="gj:projects:card-title">{project.title}</h2>
+                                </div>
+
+                                <div class="gj:projects:card-footer">
+                                    <div class="gj:projects:card-techs">
+                                        {project.technologies.slice(0, 4).map((tech) => (
+                                            <span class="gj:projects:tech-pill">{tech}</span>
+                                        ))}
+                                        {project.technologies.length > 4 && (
+                                            <span class="gj:projects:tech-pill gj:projects:tech-pill-more">+{project.technologies.length - 4}</span>
+                                        )}
+                                    </div>
+
+                                    <button 
+                                        class="gj:projects:card-cta" 
+                                        type="button" 
+                                        data-id-project={key}
+                                        onclick={`window.openProjectModal && window.openProjectModal('${key}')`}
+                                        aria-label={`Ver caso de estudio de ${project.title}`}
+                                    >
+                                        <span>Ver Caso Completo</span>
+                                        <span class="gj:layout:svg-wrapper">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                                            </svg>
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </article>
+                    ))}
                 </div>
 
-                <button class="gj:projects:autoplay-btn" id="deckPlayPauseBtn" type="button" aria-label="Reproducir presentación automática">
+                <!-- Flecha Siguiente -->
+                <button class="gj:projects:arrow gj:projects:arrow-next" id="deckNextBtn" type="button" aria-label="Proyecto siguiente">
                     <span class="gj:layout:svg-wrapper">
-                        <svg class="gj:projects:icon-play" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M8 5.14v13.72a.5.5 0 0 0 .77.42l10.59-6.86a.5.5 0 0 0 0-.84L8.77 4.72A.5.5 0 0 0 8 5.14z"/>
-                        </svg>
-                        <svg class="gj:projects:icon-pause" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-                        </svg>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
                     </span>
-                    <span class="gj:projects:autoplay-text">Autoplay</span>
                 </button>
-            </div>
-        </header>
+            </main>
 
-        <!-- Escenario 3D Depth Stack (Mazo de Cartas en Profundidad) -->
-        <main class="gj:projects:stage" id="gjProjectsStage" aria-label="Galería de proyectos 3D">
-            <!-- Flecha Anterior -->
-            <button class="gj:projects:arrow gj:projects:arrow-prev" id="deckPrevBtn" type="button" aria-label="Proyecto anterior">
-                <span class="gj:layout:svg-wrapper">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6l6 6l1.41-1.41L10.83 12z"/></svg>
-                </span>
-            </button>
+            <!-- Barra de Miniaturas Inferior (Quick Jump Dock) -->
+            <nav class="gj:projects:dock-wrapper" id="gjDeckDockWrapper" aria-label="Navegación rápida de proyectos">
+                <div class="gj:projects:dock" id="gjDeckThumbnails" role="tablist">
+                    {projectEntries.map(([key, project], index) => (
+                        <button 
+                            class={`gj:projects:dock-item ${index === 0 ? "gj:projects:dock-item-active" : ""}`}
+                            data-jump-index={index}
+                            style={`--brand-color: ${project.brand_color}; key-item: ${key};`}
+                            type="button"
+                            role="tab"
+                            aria-selected={index === 0 ? "true" : "false"}
+                            aria-label={`Ir al proyecto ${project.title}`}
+                        >
+                            <span class="gj:projects:dock-dot" aria-hidden="true"></span>
+                            <span class="gj:projects:dock-title">{project.title}</span>
+                        </button>
+                    ))}
+                </div>
+            </nav>
 
-            <!-- Contenedor del Mazo 3D -->
-            <div class="gj:projects:deck" id="gjDeckStack">
-                {projectEntries.map(([key, project], index) => (
-                    <article 
-                        class={`gj:projects:card ${index === 0 ? "gj:projects:card-active" : ""}`}
-                        data-id-project={key}
-                        data-index={index}
-                        data-bs-toggle={index === 0 ? "modal" : undefined}
-                        data-bs-target={index === 0 ? "#gjModalProjects" : undefined}
-                        style={`--brand-color: ${project.brand_color}; --card-order: ${index};`}
-                        role="region"
-                        aria-label={`Proyecto ${project.title}`}
-                    >
-                        <!-- Resplandor reactivo de marca -->
-                        <div class="gj:projects:card-glow" aria-hidden="true"></div>
-
-                        <!-- Imagen / Captura del Proyecto -->
-                        <div class="gj:projects:card-visual">
-                            <picture>
-                                <source srcset={`./src/assets/img/projects/${key}/${project.screenshot}.png`} />
-                                <img 
-                                    class="gj:projects:card-img"
-                                    src={`./src/assets/img/projects/${key}/${project.screenshot}.png`} 
-                                    alt={`Captura del proyecto ${project.title} - ${project.category}`}
-                                    loading={index < 2 ? "eager" : "lazy"}
-                                />
-                            </picture>
-                        </div>
-
-                        <!-- Panel de Contenido de la Tarjeta -->
-                        <div class="gj:projects:card-body">
-                            <div class="gj:projects:card-header">
-                                <div class="gj:projects:card-tags">
-                                    <span class="gj:projects:tag-category">{project.category}</span>
-                                    <span class="gj:projects:tag-exp">⏱ {project.experience_time}</span>
-                                </div>
-                                <h2 class="gj:projects:card-title">{project.title}</h2>
-                            </div>
-
-                            <div class="gj:projects:card-footer">
-                                <div class="gj:projects:card-techs">
-                                    {project.technologies.slice(0, 4).map((tech) => (
-                                        <span class="gj:projects:tech-pill">{tech}</span>
-                                    ))}
-                                    {project.technologies.length > 4 && (
-                                        <span class="gj:projects:tech-pill gj:projects:tech-pill-more">+{project.technologies.length - 4}</span>
-                                    )}
-                                </div>
-
-                                <button 
-                                    class="gj:projects:card-cta" 
-                                    type="button" 
-                                    data-id-project={key}
-                                    onclick={`window.openProjectModal && window.openProjectModal('${key}')`}
-                                    aria-label={`Ver caso de estudio de ${project.title}`}
-                                >
-                                    <span>Ver Caso Completo</span>
-                                    <span class="gj:layout:svg-wrapper">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
-                                        </svg>
-                                    </span>
-                                </button>
-                            </div>
-                        </div>
-                    </article>
-                ))}
-            </div>
-
-            <!-- Flecha Siguiente -->
-            <button class="gj:projects:arrow gj:projects:arrow-next" id="deckNextBtn" type="button" aria-label="Proyecto siguiente">
-                <span class="gj:layout:svg-wrapper">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
-                </span>
-            </button>
-        </main>
-
-        <!-- Barra de Miniaturas Inferior (Quick Jump Dock) -->
-        <nav class="gj:projects:dock-wrapper" aria-label="Navegación rápida de proyectos">
-            <div class="gj:projects:dock" id="gjDeckThumbnails" role="tablist">
-                {projectEntries.map(([key, project], index) => (
-                    <button 
-                        class={`gj:projects:dock-item ${index === 0 ? "gj:projects:dock-item-active" : ""}`}
-                        data-jump-index={index}
-                        style={`--brand-color: ${project.brand_color};`}
-                        type="button"
-                        role="tab"
-                        aria-selected={index === 0 ? "true" : "false"}
-                        aria-label={`Ir al proyecto ${project.title}`}
-                    >
-                        <span class="gj:projects:dock-dot" aria-hidden="true"></span>
-                        <span class="gj:projects:dock-title">{project.title}</span>
-                    </button>
-                ))}
-            </div>
-        </nav>
-
-        <p class="gj:projects:hint">
-            Usa las teclas <kbd>←</kbd> <kbd>→</kbd> <kbd>↑</kbd> <kbd>↓</kbd> del teclado o desliza para navegar
-        </p>
+            <p class="gj:projects:hint" id="gjDeckHint">
+                Usa las teclas <kbd>←</kbd> <kbd>→</kbd> <kbd>↑</kbd> <kbd>↓</kbd> del teclado o desliza para navegar
+            </p>
         </div>
     </div>
 </Layout>

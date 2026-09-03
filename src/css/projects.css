@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Depth Stack 3D & Projects Modal Styles
+   Hybrid Cyber Deck 3D & Matriz HUD (Opción D)
    ========================================================================== */
 
 .gj\:projects\:wrapper {
@@ -7,28 +7,29 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    max-width: 1080px;
+    max-width: 1180px;
     margin-inline: auto;
     padding-inline: 16px;
-    padding-top: 36px;
+    padding-top: 32px;
     padding-bottom: 96px;
     position: relative;
-    animation: fadeInProjects 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: fadeInProjects 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    transition: max-width 0.4s ease;
 }
 
 @keyframes fadeInProjects {
-    from {
+    0% {
         opacity: 0;
-        transform: translateY(20px);
+        filter: brightness(1.2) contrast(1.05);
     }
-    to {
+    100% {
         opacity: 1;
-        transform: translateY(0);
+        filter: brightness(1) contrast(1);
     }
 }
 
 /* --------------------------------------------------------------------------
-   Encabezado: Título, Contador y Autoplay
+   Encabezado: Título, Conmutador de Vista (Switcher), Contador y Autoplay
    -------------------------------------------------------------------------- */
 
 .gj\:projects\:header {
@@ -36,12 +37,19 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    max-width: 820px;
+    max-width: 860px;
     margin-bottom: 24px;
+    gap: 16px;
+    flex-wrap: wrap;
+    transition: max-width 0.4s ease;
+}
+
+.gj\:projects\:wrapper.gj\:projects\:mode-grid .gj\:projects\:header {
+    max-width: 1140px;
 }
 
 .gj\:projects\:title {
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 800;
     color: var(--gj-fonts-light);
     margin: 0;
@@ -52,50 +60,144 @@
     display: flex;
     align-items: center;
     column-gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* --------------------------------------------------------------------------
+   Conmutador de Modo de Vista (Hybrid View Switcher HUD)
+   -------------------------------------------------------------------------- */
+
+.gj\:projects\:view-switcher {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(12, 14, 22, 0.85);
+    border: 1px solid rgba(99, 102, 241, 0.35);
+    border-radius: 8px;
+    padding: 3px;
+    gap: 2px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+:root[dark-mode="false"] .gj\:projects\:view-switcher,
+:root:not([dark-mode="true"]) .gj\:projects\:view-switcher {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(99, 102, 241, 0.28);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.gj\:projects\:switch-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gj-gray);
+    cursor: pointer;
+    transition: all 0.22s ease;
+}
+
+.gj\:projects\:switch-btn:hover {
+    color: var(--gj-fonts-light);
+}
+
+.gj\:projects\:switch-active {
+    background: rgba(99, 102, 241, 0.25) !important;
+    color: #00F0FF !important;
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+}
+
+:root[dark-mode="false"] .gj\:projects\:switch-active,
+:root:not([dark-mode="true"]) .gj\:projects\:switch-active {
+    background: rgba(99, 102, 241, 0.12) !important;
+    color: #4F46E5 !important;
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.2);
+}
+
+/* Controles específicos del 3D Deck (Contador + Autoplay) */
+.gj\:projects\:deck-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: opacity 0.3s ease;
+}
+
+.gj\:projects\:wrapper.gj\:projects\:mode-grid .gj\:projects\:deck-controls {
+    display: none !important;
 }
 
 .gj\:projects\:counter-pill {
     display: inline-flex;
     align-items: center;
-    column-gap: 4px;
-    padding: 6px 14px;
-    background-color: var(--gj-main-bg);
-    border: 1px solid var(--gj-border);
-    border-radius: 100px;
-    font-size: 13px;
+    column-gap: 6px;
+    padding: 5px 14px;
+    background: rgba(10, 11, 18, 0.9);
+    border: 1px solid rgba(0, 240, 255, 0.4);
+    border-radius: 6px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 12px;
     font-weight: 700;
-    color: var(--gj-gray);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    color: #00F0FF;
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.15);
+}
+
+:root[dark-mode="false"] .gj\:projects\:counter-pill,
+:root:not([dark-mode="true"]) .gj\:projects\:counter-pill {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(99, 102, 241, 0.35);
+    color: #4F46E5;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .gj\:projects\:counter-current {
-    color: var(--gj-fonts-light);
+    color: inherit;
     font-weight: 800;
 }
 
 .gj\:projects\:counter-divider {
-    opacity: 0.5;
+    opacity: 0.4;
 }
 
 .gj\:projects\:autoplay-btn {
     display: inline-flex;
     align-items: center;
     column-gap: 6px;
-    padding: 6px 14px;
-    background-color: var(--gj-main-bg);
-    border: 1px solid var(--gj-border);
-    border-radius: 100px;
+    padding: 5px 14px;
+    background: rgba(10, 11, 18, 0.9);
+    border: 1px solid rgba(99, 102, 241, 0.35);
+    border-radius: 6px;
     color: var(--gj-gray);
-    font-size: 12.5px;
-    font-weight: 600;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11.5px;
+    font-weight: 700;
     cursor: pointer;
     transition: all 0.25s ease;
 }
 
+:root[dark-mode="false"] .gj\:projects\:autoplay-btn,
+:root:not([dark-mode="true"]) .gj\:projects\:autoplay-btn {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(99, 102, 241, 0.35);
+    color: var(--gj-gray);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
 .gj\:projects\:autoplay-btn:hover {
-    border-color: var(--gj-border-focus);
-    color: var(--gj-fonts-light);
-    background-color: var(--gj-bg-overlay);
+    border-color: #00F0FF;
+    color: #00F0FF;
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.2);
+}
+
+:root[dark-mode="false"] .gj\:projects\:autoplay-btn:hover,
+:root:not([dark-mode="true"]) .gj\:projects\:autoplay-btn:hover {
+    border-color: #4F46E5;
+    color: #4F46E5;
+    background: rgba(99, 102, 241, 0.1);
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.25);
 }
 
 .gj\:projects\:autoplay-btn .gj\:projects\:icon-pause {
@@ -103,9 +205,18 @@
 }
 
 .gj\:projects\:autoplay-active {
-    border-color: #10B981 !important;
-    color: #10B981 !important;
-    background-color: rgba(16, 185, 129, 0.1) !important;
+    border-color: #00F0FF !important;
+    color: #00F0FF !important;
+    background-color: rgba(0, 240, 255, 0.12) !important;
+    box-shadow: 0 0 14px rgba(0, 240, 255, 0.3) !important;
+}
+
+:root[dark-mode="false"] .gj\:projects\:autoplay-active,
+:root:not([dark-mode="true"]) .gj\:projects\:autoplay-active {
+    border-color: #4F46E5 !important;
+    color: #4F46E5 !important;
+    background-color: rgba(99, 102, 241, 0.12) !important;
+    box-shadow: 0 0 14px rgba(99, 102, 241, 0.3) !important;
 }
 
 .gj\:projects\:autoplay-active .gj\:projects\:icon-play {
@@ -117,7 +228,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   Escenario 3D Depth Stack (Hero Stage)
+   Escenario Central: 3D Depth Stack (Modo Deck)
    -------------------------------------------------------------------------- */
 
 .gj\:projects\:stage {
@@ -130,29 +241,47 @@
     min-height: 480px;
     perspective: 1200px;
     margin-bottom: 24px;
+    transition: max-width 0.4s ease;
 }
 
 .gj\:projects\:arrow {
     position: absolute;
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    background-color: var(--gj-main-bg);
-    border: 1px solid var(--gj-border);
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    background: rgba(12, 14, 22, 0.9);
+    border: 1px solid rgba(99, 102, 241, 0.35);
     color: var(--gj-fonts-light);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 40;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+:root[dark-mode="false"] .gj\:projects\:arrow,
+:root:not([dark-mode="true"]) .gj\:projects\:arrow {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(99, 102, 241, 0.3);
+    color: #4F46E5;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 0 10px rgba(99, 102, 241, 0.15);
 }
 
 .gj\:projects\:arrow:hover {
-    border-color: var(--gj-border-focus);
-    transform: scale(1.12);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    border-color: #00F0FF;
+    color: #00F0FF;
+    transform: scale(1.08);
+    box-shadow: 0 0 16px #00F0FF;
+}
+
+:root[dark-mode="false"] .gj\:projects\:arrow:hover,
+:root:not([dark-mode="true"]) .gj\:projects\:arrow:hover {
+    border-color: #4F46E5;
+    color: #4F46E5;
+    background: rgba(99, 102, 241, 0.1);
+    box-shadow: 0 0 16px rgba(79, 70, 229, 0.35);
 }
 
 .gj\:projects\:arrow-prev {
@@ -176,13 +305,13 @@
 .gj\:projects\:card {
     position: absolute;
     inset: 0;
-    background-color: var(--gj-second-bg);
-    border: 1px solid var(--gj-border);
-    border-radius: 24px;
+    background: linear-gradient(180deg, rgba(20, 22, 32, 0.94) 0%, rgba(10, 11, 18, 0.97) 100%);
+    border: 1px solid rgba(99, 102, 241, 0.35);
+    border-radius: 14px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 24px rgba(99, 102, 241, 0.15);
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
                 opacity 0.5s ease,
                 filter 0.5s ease,
@@ -190,13 +319,47 @@
                 box-shadow 0.4s ease;
     cursor: pointer;
     backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     transform-origin: center center;
     will-change: transform, opacity, filter;
 }
 
+:root[dark-mode="false"] .gj\:projects\:card,
+:root:not([dark-mode="true"]) .gj\:projects\:card {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(245, 246, 250, 0.97) 100%);
+    border-color: rgba(99, 102, 241, 0.28);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
+}
+
 .gj\:projects\:card-active {
-    border-color: var(--brand-color, var(--gj-border-focus));
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2), 0 0 30px color-mix(in srgb, var(--brand-color, #6366F1) 25%, transparent);
+    border-color: #00F0FF;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 240, 255, 0.3);
+}
+
+:root[dark-mode="false"] .gj\:projects\:card-active,
+:root:not([dark-mode="true"]) .gj\:projects\:card-active {
+    border-color: #4F46E5;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12), 0 0 24px rgba(99, 102, 241, 0.25);
+}
+
+/* Acento láser superior de la tarjeta activa */
+.gj\:projects\:card-active::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 15%;
+    right: 15%;
+    height: 2px;
+    background: #00F0FF;
+    box-shadow: 0 0 10px #00F0FF;
+    z-index: 10;
+    pointer-events: none;
+}
+
+:root[dark-mode="false"] .gj\:projects\:card-active::before,
+:root:not([dark-mode="true"]) .gj\:projects\:card-active::before {
+    background: #4F46E5;
+    box-shadow: 0 0 8px #4F46E5;
 }
 
 .gj\:projects\:card-glow {
@@ -245,8 +408,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    flex-grow: 1;
-    background-color: var(--gj-second-bg);
+    flex: 1;
 }
 
 .gj\:projects\:card-header {
@@ -258,20 +420,32 @@
 .gj\:projects\:card-tags {
     display: flex;
     align-items: center;
-    column-gap: 10px;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
 .gj\:projects\:tag-category {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     font-size: 11px;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--brand-color, #6366F1);
+    color: #00F0FF;
+    padding: 2px 8px;
+    background: rgba(0, 240, 255, 0.1);
+    border: 1px solid rgba(0, 240, 255, 0.35);
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+}
+
+:root[dark-mode="false"] .gj\:projects\:tag-category,
+:root:not([dark-mode="true"]) .gj\:projects\:tag-category {
+    color: #4F46E5;
+    background: rgba(99, 102, 241, 0.1);
+    border-color: rgba(99, 102, 241, 0.3);
 }
 
 .gj\:projects\:tag-exp {
-    font-size: 11.5px;
-    font-weight: 600;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11px;
     color: var(--gj-gray);
 }
 
@@ -280,17 +454,17 @@
     font-weight: 800;
     color: var(--gj-fonts-light);
     margin: 0;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
 }
 
-/* Footer de la Tarjeta con Chips y Botón */
+/* Footer de la Tarjeta: Tecnologías & Botón CTA */
 .gj\:projects\:card-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 14px;
-    border-top: 1px solid var(--gj-border);
     gap: 12px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(99, 102, 241, 0.2);
 }
 
 .gj\:projects\:card-techs {
@@ -301,18 +475,27 @@
 }
 
 .gj\:projects\:tech-pill {
-    display: inline-block;
-    padding: 4px 10px;
-    background-color: var(--gj-main-bg);
-    border: 1px solid var(--gj-border);
-    border-radius: 6px;
-    font-size: 11.5px;
+    padding: 3px 8px;
+    background: rgba(99, 102, 241, 0.12);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 4px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11px;
     font-weight: 600;
-    color: var(--gj-fonts-light);
+    color: #00F0FF;
+    letter-spacing: 0.02em;
+}
+
+:root[dark-mode="false"] .gj\:projects\:tech-pill,
+:root:not([dark-mode="true"]) .gj\:projects\:tech-pill {
+    background: rgba(99, 102, 241, 0.1);
+    color: #4F46E5;
+    border-color: rgba(99, 102, 241, 0.28);
 }
 
 .gj\:projects\:tech-pill-more {
     color: var(--gj-gray);
+    border-color: rgba(99, 102, 241, 0.2);
 }
 
 .gj\:projects\:card-cta {
@@ -320,25 +503,45 @@
     align-items: center;
     column-gap: 8px;
     padding: 8px 16px;
-    background: linear-gradient(135deg, var(--brand-color, #6366F1) 0%, color-mix(in srgb, var(--brand-color, #6366F1) 80%, black) 100%);
-    color: #FFFFFF;
-    border: none;
-    border-radius: 10px;
-    font-size: 13px;
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(0, 240, 255, 0.5);
+    border-radius: 6px;
+    color: #00F0FF;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11.5px;
     font-weight: 700;
+    letter-spacing: 0.04em;
     cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.25s ease;
-    box-shadow: 0 4px 14px color-mix(in srgb, var(--brand-color, #6366F1) 35%, transparent);
+    transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.15);
+}
+
+:root[dark-mode="false"] .gj\:projects\:card-cta,
+:root:not([dark-mode="true"]) .gj\:projects\:card-cta {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: #4F46E5;
+    color: #4F46E5;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .gj\:projects\:card-cta:hover {
+    background: #00F0FF;
+    color: #06080E;
+    border-color: #00F0FF;
+    box-shadow: 0 0 18px #00F0FF;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px color-mix(in srgb, var(--brand-color, #6366F1) 50%, transparent);
+}
+
+:root[dark-mode="false"] .gj\:projects\:card-cta:hover,
+:root:not([dark-mode="true"]) .gj\:projects\:card-cta:hover {
+    background: #4F46E5;
+    border-color: #4F46E5;
+    color: #FFFFFF;
+    box-shadow: 0 0 14px rgba(79, 70, 229, 0.4);
 }
 
 /* --------------------------------------------------------------------------
-   Dock de Miniaturas Inferior (Quick Jump Dock)
+   Dock Flotante de Miniaturas (Navegación Rápida)
    -------------------------------------------------------------------------- */
 
 .gj\:projects\:dock-wrapper {
@@ -346,8 +549,12 @@
     max-width: 820px;
     display: flex;
     justify-content: center;
-    margin-bottom: 16px;
-    z-index: 30;
+    margin-bottom: 24px;
+    z-index: 20;
+}
+
+.gj\:projects\:wrapper.gj\:projects\:mode-grid .gj\:projects\:dock-wrapper {
+    display: none !important;
 }
 
 .gj\:projects\:dock {
@@ -355,34 +562,40 @@
     align-items: center;
     gap: 8px;
     padding: 8px 14px;
-    background-color: var(--gj-main-bg);
-    border: 1px solid var(--gj-border);
-    border-radius: 100px;
+    background: linear-gradient(180deg, rgba(20, 22, 32, 0.9) 0%, rgba(10, 11, 18, 0.96) 100%);
+    border: 1px solid rgba(99, 102, 241, 0.35);
+    border-radius: 12px;
     backdrop-filter: blur(20px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(99, 102, 241, 0.2);
     overflow-x: auto;
     scrollbar-width: none;
     max-width: 100%;
+    -webkit-overflow-scrolling: touch;
 }
 
-.gj\:projects\:dock::-webkit-scrollbar {
-    display: none;
+:root[dark-mode="false"] .gj\:projects\:dock,
+:root:not([dark-mode="true"]) .gj\:projects\:dock {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(99, 102, 241, 0.28);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
 .gj\:projects\:dock-item {
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    column-gap: 8px;
-    padding: 6px 14px;
-    background-color: transparent;
+    gap: 6px;
+    padding: 6px 12px;
+    background: transparent;
     border: 1px solid transparent;
-    border-radius: 100px;
+    border-radius: 6px;
     color: var(--gj-gray);
-    font-size: 12.5px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11.5px;
     font-weight: 600;
     cursor: pointer;
     white-space: nowrap;
-    transition: all 0.25s ease;
+    transition: all 0.22s ease;
 }
 
 .gj\:projects\:dock-dot {
@@ -390,24 +603,47 @@
     height: 6px;
     border-radius: 50%;
     background-color: var(--brand-color, var(--gj-gray));
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .gj\:projects\:dock-item:hover {
-    color: var(--gj-fonts-light);
-    background-color: var(--gj-bg-overlay);
+    color: #00F0FF;
+    background: rgba(99, 102, 241, 0.12);
+    border-color: rgba(0, 240, 255, 0.3);
+}
+
+:root[dark-mode="false"] .gj\:projects\:dock-item:hover,
+:root:not([dark-mode="true"]) .gj\:projects\:dock-item:hover {
+    color: #4F46E5;
+    background: rgba(99, 102, 241, 0.08);
+    border-color: rgba(99, 102, 241, 0.3);
 }
 
 .gj\:projects\:dock-item-active {
-    background-color: var(--gj-second-bg);
-    border-color: var(--brand-color, var(--gj-border-focus));
-    color: var(--gj-fonts-light);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    background: rgba(99, 102, 241, 0.25) !important;
+    border-color: #00F0FF !important;
+    color: #00F0FF !important;
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+}
+
+:root[dark-mode="false"] .gj\:projects\:dock-item-active,
+:root:not([dark-mode="true"]) .gj\:projects\:dock-item-active {
+    background: rgba(99, 102, 241, 0.12) !important;
+    border-color: #4F46E5 !important;
+    color: #4F46E5 !important;
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.2);
 }
 
 .gj\:projects\:dock-item-active .gj\:projects\:dock-dot {
-    transform: scale(1.4);
-    box-shadow: 0 0 6px var(--brand-color, #6366F1);
+    background-color: #00F0FF;
+    transform: scale(1.3);
+    box-shadow: 0 0 8px #00F0FF;
+}
+
+:root[dark-mode="false"] .gj\:projects\:dock-item-active .gj\:projects\:dock-dot,
+:root:not([dark-mode="true"]) .gj\:projects\:dock-item-active .gj\:projects\:dock-dot {
+    background-color: #4F46E5;
+    box-shadow: 0 0 6px #4F46E5;
 }
 
 .gj\:projects\:hint {
@@ -416,6 +652,10 @@
     text-align: center;
     margin: 0;
     opacity: 0.8;
+}
+
+.gj\:projects\:wrapper.gj\:projects\:mode-grid .gj\:projects\:hint {
+    display: none !important;
 }
 
 .gj\:projects\:hint kbd {
@@ -427,6 +667,82 @@
     border: 1px solid var(--gj-border);
     border-radius: 4px;
     color: var(--gj-fonts-light);
+}
+
+/* ==========================================================================
+   MODO MATRIZ HUD (Grid Catalogo Completo en Opción D)
+   ========================================================================== */
+
+.gj\:projects\:stage[data-view-mode="grid"] {
+    perspective: none !important;
+    min-height: auto !important;
+    max-width: 1140px !important;
+    margin-bottom: 40px !important;
+}
+
+.gj\:projects\:stage[data-view-mode="grid"] .gj\:projects\:arrow {
+    display: none !important;
+}
+
+.gj\:projects\:stage[data-view-mode="grid"] .gj\:projects\:deck {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important;
+    gap: 24px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    transform-style: flat !important;
+}
+
+.gj\:projects\:stage[data-view-mode="grid"] .gj\:projects\:card {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 440px !important;
+    transform: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    pointer-events: auto !important;
+    z-index: 1 !important;
+    animation: gjGridCardFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes gjGridCardFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.gj\:projects\:stage[data-view-mode="grid"] .gj\:projects\:card:hover {
+    transform: translateY(-6px) !important;
+    border-color: var(--brand-color, #00F0FF) !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45), 0 0 24px rgba(99, 102, 241, 0.25) !important;
+}
+
+:root[dark-mode="false"] .gj\:projects\:stage[data-view-mode="grid"] .gj\:projects\:card:hover,
+:root:not([dark-mode="true"]) .gj\:projects\:stage[data-view-mode="grid"] .gj\:projects\:card:hover {
+    border-color: var(--brand-color, #4F46E5) !important;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.1), 0 0 20px rgba(99, 102, 241, 0.2) !important;
+}
+
+/* Acento láser superior de cada tarjeta en modo matriz */
+.gj\:projects\:stage[data-view-mode="grid"] .gj\:projects\:card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, var(--brand-color, #00F0FF) 50%, transparent 100%);
+    opacity: 0.85;
+    pointer-events: none;
+    z-index: 10;
 }
 
 /* --------------------------------------------------------------------------
@@ -462,119 +778,103 @@
 }
 
 .gj\:modal\:projects\:action-button {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background-color: var(--gj-main-bg);
-    border: 1px solid var(--gj-border);
-    color: var(--gj-fonts-light);
+    width: 34px;
+    height: 34px;
+    border-radius: 6px;
+    background: rgba(99, 102, 241, 0.12);
+    border: 1px solid rgba(0, 240, 255, 0.35);
+    color: #00F0FF;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.22s ease;
+}
+
+:root[dark-mode="false"] .gj\:modal\:projects\:action-button,
+:root:not([dark-mode="true"]) .gj\:modal\:projects\:action-button {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: rgba(99, 102, 241, 0.35);
+    color: #4F46E5;
 }
 
 .gj\:modal\:projects\:action-button:hover {
-    border-color: var(--gj-border-focus);
-    transform: scale(1.1);
+    border-color: #00F0FF;
+    background: #00F0FF;
+    color: #06080E;
+    transform: scale(1.08);
+    box-shadow: 0 0 14px #00F0FF;
+}
+
+:root[dark-mode="false"] .gj\:modal\:projects\:action-button:hover,
+:root:not([dark-mode="true"]) .gj\:modal\:projects\:action-button:hover {
+    background: #4F46E5;
+    border-color: #4F46E5;
+    color: #FFFFFF;
+    box-shadow: 0 0 12px rgba(79, 70, 229, 0.4);
 }
 
 .gj\:modal\:projects\:banner {
     position: relative;
     width: 100%;
     max-height: 0;
-    opacity: 0;
     overflow: hidden;
-    transform: translateY(-20px);
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: max-height 0.4s ease;
+    border-radius: 12px;
 }
 
-.gj\:modal\:projects-resize .gj\:modal\:projects\:banner {
-    max-height: 240px;
-    opacity: 1;
-    transform: translateY(0);
+.gj\:modal\:projects\:banner-show {
+    max-height: 320px;
+    margin-bottom: 24px;
+}
+
+.gj\:modal\:projects\:banner-img {
+    width: 100%;
+    height: 100%;
+    max-height: 320px;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+    border-radius: 12px;
+}
+
+.gj\:modal\:projects\:info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
     margin-bottom: 20px;
 }
 
-.gj\:modal\:projects\:banner-image {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    object-position: top center;
-    border-radius: 14px;
-    border: 1px solid var(--gj-border);
-}
-
-.gj\:modal\:projects\:modal-wrapper {
-    padding: 12px 18px 24px;
-}
-
-.gj\:modal\:projects\:title {
-    font-size: 26px;
-    font-weight: 800;
-    color: var(--gj-fonts-light);
-    margin: 0 0 10px 0;
-    letter-spacing: -0.02em;
-}
-
-.gj\:modal\:projects\:cat-exp-wrapper {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-bottom: 18px;
-}
-
-.gj\:modal\:projects\:category,
-.gj\:modal\:projects\:experience {
-    font-size: 13.5px;
+.gj\:modal\:projects\:badge {
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 13px;
     font-weight: 600;
-    color: var(--gj-fonts-light);
-    margin: 0;
+}
+
+.gj\:modal\:projects\:category {
+    background-color: rgba(99, 102, 241, 0.1);
+    color: #6366F1;
+    border: 1px solid rgba(99, 102, 241, 0.25);
+}
+
+.gj\:modal\:projects\:experience {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: #10B981;
+    border: 1px solid rgba(16, 185, 129, 0.25);
 }
 
 .gj\:modal\:projects\:prefix-cat-exp {
-    color: var(--gj-gray);
-    font-weight: 500;
+    font-weight: 700;
+    opacity: 0.8;
 }
 
 .gj\:modal\:projects\:paragraphs {
-    display: flex;
-    flex-direction: column;
-    row-gap: 12px;
-    margin-bottom: 20px;
-    width: 100%;
-}
-
-/* Bloque de texto con tres puntos suspensivos cuando el modal está sin expandir */
-.modal:not(.gj\:modal\:projects-resize) .gj\:modal\:projects\:paragraph {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: 14.5px;
-    line-height: 1.6;
-    max-height: 4.8em;
-    color: var(--gj-fonts-light);
-    opacity: 0.9;
-    margin-bottom: 0;
-}
-
-.modal:not(.gj\:modal\:projects-resize) .gj\:modal\:projects\:paragraph:not(:first-child) {
-    display: none;
-}
-
-/* Bloque de texto completo cuando el modal está expandido */
-.gj\:modal\:projects-resize .gj\:modal\:projects\:paragraphs {
     margin-bottom: 24px;
-    row-gap: 14px;
 }
 
-.gj\:modal\:projects-resize .gj\:modal\:projects\:paragraph {
-    display: block;
-    max-height: none;
+.gj\:modal\:projects\:paragraph {
     overflow: visible;
     text-overflow: unset;
     -webkit-line-clamp: unset;
@@ -587,47 +887,68 @@
 }
 
 .gj\:modal\:projects\:section-title {
-    font-size: 12px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--gj-gray);
+    letter-spacing: 0.1em;
+    color: #00F0FF;
     margin-bottom: 12px;
 }
 
-/* Chips de Tecnologías */
+:root[dark-mode="false"] .gj\:modal\:projects\:section-title,
+:root:not([dark-mode="true"]) .gj\:modal\:projects\:section-title {
+    color: #4F46E5;
+}
+
+/* Chips de Tecnologías en el Modal */
 .gj\:modal\:projects\:tech-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
+    margin-bottom: 24px;
 }
 
 .gj\:modal\:projects\:tech-chip {
     display: inline-flex;
     align-items: center;
     column-gap: 8px;
-    padding: 7px 14px;
-    background-color: var(--gj-main-bg);
-    border: 1px solid var(--gj-border);
-    border-radius: 100px;
-    font-size: 13px;
+    padding: 5px 12px;
+    background: rgba(99, 102, 241, 0.12);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 4px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11.5px;
     font-weight: 600;
-    color: var(--gj-fonts-light);
-    transition: all 0.25s ease;
+    color: #00F0FF;
+    transition: all 0.22s ease;
+}
+
+:root[dark-mode="false"] .gj\:modal\:projects\:tech-chip,
+:root:not([dark-mode="true"]) .gj\:modal\:projects\:tech-chip {
+    background: rgba(99, 102, 241, 0.1);
+    color: #4F46E5;
+    border-color: rgba(99, 102, 241, 0.28);
 }
 
 .gj\:modal\:projects\:tech-chip:hover {
-    border-color: var(--chip-brand, var(--gj-border-focus));
-    background-color: var(--gj-bg-overlay);
-    transform: translateY(-2px);
+    border-color: #00F0FF;
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+:root[dark-mode="false"] .gj\:modal\:projects\:tech-chip:hover,
+:root:not([dark-mode="true"]) .gj\:modal\:projects\:tech-chip:hover {
+    border-color: #4F46E5;
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.25);
 }
 
 .gj\:modal\:projects\:tech-dot {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
-    background-color: var(--chip-brand, #6366F1);
-    box-shadow: 0 0 6px var(--chip-brand, #6366F1);
+    background-color: var(--chip-brand, #00F0FF);
+    box-shadow: 0 0 6px var(--chip-brand, #00F0FF);
 }
 
 /* Galería y Capturas de Pantalla en el Modal */
@@ -635,72 +956,72 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 14px;
-    margin-top: 8px;
+    margin-top: 14px;
 }
 
 .gj\:modal\:projects\:gallery-item {
     position: relative;
-    border-radius: 14px;
+    display: block;
+    height: 140px;
+    border-radius: 12px;
     overflow: hidden;
     border: 1px solid var(--gj-border);
-    background-color: var(--gj-dark-bg);
-    aspect-ratio: 16 / 10;
-    display: block;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: zoom-in;
     text-decoration: none;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                border-color 0.3s ease,
-                box-shadow 0.3s ease;
+    background-color: var(--gj-dark-bg);
 }
 
 .gj\:modal\:projects\:gallery-item:hover {
-    transform: translateY(-4px) scale(1.02);
     border-color: var(--gj-border-focus);
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
-.gj\:modal\:projects\:gallery-thumb {
+.gj\:modal\:projects\:gallery-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: top center;
     display: block;
     transition: transform 0.4s ease;
 }
 
-.gj\:modal\:projects\:gallery-item:hover .gj\:modal\:projects\:gallery-thumb {
+.gj\:modal\:projects\:gallery-item:hover .gj\:modal\:projects\:gallery-img {
     transform: scale(1.06);
 }
 
 .gj\:modal\:projects\:gallery-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, transparent 30%, rgba(10, 10, 14, 0.85) 100%);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.1) 60%, transparent 100%);
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 12px;
+    align-items: flex-end;
+    padding: 10px 12px;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.25s ease;
 }
 
 .gj\:modal\:projects\:gallery-item:hover .gj\:modal\:projects\:gallery-overlay {
     opacity: 1;
 }
 
-.gj\:modal\:projects\:gallery-icon {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(8px);
-    color: #FFFFFF;
+.gj\:modal\:projects\:gallery-caption-wrapper {
     display: flex;
     align-items: center;
+    column-gap: 8px;
+    width: 100%;
+}
+
+.gj\:modal\:projects\:gallery-icon {
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #FFFFFF;
+    flex-shrink: 0;
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -717,6 +1038,7 @@
 .gj\:projects\:card-cta:focus-visible,
 .gj\:projects\:dock-item:focus-visible,
 .gj\:projects\:autoplay-btn:focus-visible,
+.gj\:projects\:switch-btn:focus-visible,
 .gj\:modal\:projects\:action-button:focus-visible {
     outline: 2px solid var(--gj-border-focus);
     outline-offset: 2px;
@@ -761,6 +1083,17 @@
 
     .gj\:projects\:card-cta {
         justify-content: center;
+        width: 100%;
+    }
+
+    .gj\:projects\:header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+    }
+
+    .gj\:projects\:header-controls {
+        justify-content: space-between;
         width: 100%;
     }
 }

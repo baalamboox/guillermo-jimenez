@@ -8,17 +8,17 @@
     padding-inline: 16px;
     padding-top: 36px;
     padding-bottom: 96px;
-    animation: fadeInSkills 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: fadeInSkills 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes fadeInSkills {
-    from {
+    0% {
         opacity: 0;
-        transform: translateY(20px);
+        filter: brightness(1.2) contrast(1.05);
     }
-    to {
+    100% {
         opacity: 1;
-        transform: translateY(0);
+        filter: brightness(1) contrast(1);
     }
 }
 
@@ -42,40 +42,59 @@
 .gj\:skills\:tabs-pill {
     display: inline-flex;
     align-items: center;
-    background-color: var(--gj-main-bg);
-    border: 1px solid var(--gj-border);
-    border-radius: 100px;
+    background: rgba(10, 11, 18, 0.9);
+    border: 1px solid rgba(99, 102, 241, 0.35);
+    border-radius: 8px;
     padding: 4px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    gap: 3px;
+}
+
+:root[dark-mode="false"] .gj\:skills\:tabs-pill,
+:root:not([dark-mode="true"]) .gj\:skills\:tabs-pill {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(99, 102, 241, 0.3);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .gj\:skills\:tab-btn {
     display: inline-flex;
     align-items: center;
     column-gap: 8px;
-    padding: 8px 20px;
+    padding: 7px 16px;
     background: transparent;
-    border: none;
-    border-radius: 100px;
+    border: 1px solid transparent;
+    border-radius: 6px;
     color: var(--gj-gray);
-    font-size: 14px;
-    font-weight: 600;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 12px;
+    font-weight: 700;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.22s ease;
 }
 
 .gj\:skills\:tab-btn:hover {
-    color: var(--gj-fonts-light);
+    color: #00F0FF;
+    background: rgba(99, 102, 241, 0.1);
 }
 
 .gj\:skills\:tab-btn-active {
-    background-color: var(--gj-second-bg);
-    color: var(--gj-fonts-light);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    background: linear-gradient(180deg, rgba(99, 102, 241, 0.28) 0%, rgba(147, 51, 234, 0.18) 100%) !important;
+    border-color: #00F0FF !important;
+    color: #00F0FF !important;
+    box-shadow: 0 0 14px rgba(0, 240, 255, 0.25) !important;
+}
+
+:root[dark-mode="false"] .gj\:skills\:tab-btn-active,
+:root:not([dark-mode="true"]) .gj\:skills\:tab-btn-active {
+    background: rgba(99, 102, 241, 0.12) !important;
+    border-color: #4F46E5 !important;
+    color: #4F46E5 !important;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.2) !important;
 }
 
 .gj\:skills\:tab-icon {
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1;
 }
 
@@ -95,23 +114,40 @@
     position: absolute;
     width: 44px;
     height: 44px;
-    border-radius: 50%;
-    background-color: var(--gj-main-bg);
-    border: 1px solid var(--gj-border);
+    border-radius: 8px;
+    background: rgba(12, 14, 22, 0.9);
+    border: 1px solid rgba(99, 102, 241, 0.35);
     color: var(--gj-fonts-light);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 10;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+:root[dark-mode="false"] .gj\:skills\:stage-arrow,
+:root:not([dark-mode="true"]) .gj\:skills\:stage-arrow {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(99, 102, 241, 0.3);
+    color: #4F46E5;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 0 10px rgba(99, 102, 241, 0.15);
 }
 
 .gj\:skills\:stage-arrow:hover {
-    border-color: var(--gj-border-focus);
-    transform: scale(1.12);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    border-color: #00F0FF;
+    color: #00F0FF;
+    transform: scale(1.08);
+    box-shadow: 0 0 16px #00F0FF;
+}
+
+:root[dark-mode="false"] .gj\:skills\:stage-arrow:hover,
+:root:not([dark-mode="true"]) .gj\:skills\:stage-arrow:hover {
+    border-color: #4F46E5;
+    color: #4F46E5;
+    background: rgba(99, 102, 241, 0.1);
+    box-shadow: 0 0 16px rgba(79, 70, 229, 0.35);
 }
 
 .gj\:skills\:stage-arrow-prev {
@@ -122,19 +158,40 @@
     right: -22px;
 }
 
-/* Tarjeta Holográfica 3D */
+/* Tarjeta Holográfica 3D (Consola Cyber HUD) */
 .gj\:skills\:holo-card {
     position: relative;
     width: 100%;
-    background-color: var(--gj-second-bg);
-    border: 1px solid var(--gj-border);
-    border-radius: 24px;
+    background: linear-gradient(180deg, rgba(20, 22, 32, 0.94) 0%, rgba(10, 11, 18, 0.97) 100%);
+    border: 1px solid rgba(99, 102, 241, 0.35);
+    border-radius: 14px;
     padding: 36px 32px;
-    backdrop-filter: blur(16px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 24px rgba(99, 102, 241, 0.15);
     transform-style: preserve-3d;
-    transition: transform 0.15s ease-out, border-color 0.4s ease;
+    transition: transform 0.15s ease-out, border-color 0.4s ease, box-shadow 0.4s ease;
     overflow: hidden;
+}
+
+/* Acento láser superior decorativo */
+.gj\:skills\:holo-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, rgba(99, 102, 241, 0.8) 25%, #00F0FF 50%, rgba(99, 102, 241, 0.8) 75%, transparent 100%);
+    z-index: 10;
+    pointer-events: none;
+}
+
+:root[dark-mode="false"] .gj\:skills\:holo-card,
+:root:not([dark-mode="true"]) .gj\:skills\:holo-card {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(245, 246, 250, 0.97) 100%);
+    border-color: rgba(99, 102, 241, 0.28);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
 }
 
 .gj\:skills\:card-enter {
@@ -183,20 +240,34 @@
     display: inline-flex;
     align-items: center;
     column-gap: 4px;
-    padding: 4px 12px;
-    background-color: var(--gj-main-bg);
-    border: 1px solid var(--gj-border);
-    border-radius: 100px;
+    padding: 4px 10px;
+    background: rgba(10, 11, 18, 0.9);
+    border: 1px solid rgba(0, 240, 255, 0.4);
+    border-radius: 4px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     font-size: 11px;
     font-weight: 700;
-    color: var(--gj-gray);
+    color: #00F0FF;
     letter-spacing: 0.04em;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+:root[dark-mode="false"] .gj\:skills\:counter-badge,
+:root:not([dark-mode="true"]) .gj\:skills\:counter-badge {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(99, 102, 241, 0.35);
+    color: #4F46E5;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .gj\:skills\:counter-badge span {
-    color: var(--gj-fonts-light);
+    color: #FFFFFF;
     font-weight: 800;
+}
+
+:root[dark-mode="false"] .gj\:skills\:counter-badge span,
+:root:not([dark-mode="true"]) .gj\:skills\:counter-badge span {
+    color: #18181B;
 }
 
 /* Icono Holográfico 3D con Anillo de Luz */
@@ -274,24 +345,33 @@
     display: inline-flex;
     align-items: center;
     column-gap: 8px;
-    padding: 6px 14px;
-    background-color: var(--gj-main-bg);
-    border: 1px solid var(--gj-border);
-    border-radius: 100px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    transition: all 0.3s ease;
+    padding: 5px 12px;
+    background: rgba(12, 14, 22, 0.85);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.25s ease;
+}
+
+:root[dark-mode="false"] .gj\:skills\:badge-pill,
+:root:not([dark-mode="true"]) .gj\:skills\:badge-pill {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(99, 102, 241, 0.25);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .gj\:skills\:badge-pill:hover {
-    border-color: var(--badge-accent, var(--gj-border-focus));
+    border-color: var(--badge-accent, #00F0FF);
     transform: translateY(-1px);
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.25);
 }
 
 .gj\:skills\:badge-dot {
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
-    box-shadow: 0 0 8px var(--badge-accent, #6366F1);
+    background-color: var(--badge-accent, #00F0FF);
+    box-shadow: 0 0 8px var(--badge-accent, #00F0FF);
 }
 
 .gj\:skills\:badge-icon {
@@ -300,14 +380,15 @@
 }
 
 .gj\:skills\:badge-text {
-    font-size: 12.5px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 12px;
     font-weight: 600;
     color: var(--gj-fonts-light);
-    letter-spacing: 0.01em;
+    letter-spacing: 0.02em;
 }
 
 .gj\:skills\:badge-pill-secondary {
-    background-color: rgba(255, 255, 255, 0.03);
+    background: rgba(99, 102, 241, 0.12);
 }
 
 /* Competencias y Chips */
@@ -316,19 +397,25 @@
 }
 
 .gj\:skills\:topics-heading {
-    font-size: 11.5px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--gj-gray);
+    letter-spacing: 0.1em;
+    color: #00F0FF;
     margin-bottom: 14px;
     text-align: center;
+}
+
+:root[dark-mode="false"] .gj\:skills\:topics-heading,
+:root:not([dark-mode="true"]) .gj\:skills\:topics-heading {
+    color: #4F46E5;
 }
 
 .gj\:skills\:chips-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 8px;
     justify-content: center;
     list-style: none;
     padding: 0;
@@ -339,36 +426,57 @@
     display: inline-flex;
     align-items: center;
     column-gap: 8px;
-    padding: 8px 16px;
-    background-color: var(--gj-main-bg);
-    border: 1px solid var(--gj-border);
-    border-radius: 100px;
+    padding: 6px 14px;
+    background: rgba(12, 14, 22, 0.85);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    border-radius: 6px;
     color: var(--gj-fonts-light);
-    font-size: 13.5px;
-    font-weight: 500;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 12px;
+    font-weight: 600;
     cursor: default;
     user-select: none;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+:root[dark-mode="false"] .gj\:skills\:topic-chip,
+:root:not([dark-mode="true"]) .gj\:skills\:topic-chip {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(99, 102, 241, 0.2);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
 }
 
 .gj\:skills\:topic-chip:hover {
-    border-color: var(--chip-accent, var(--gj-border-focus));
-    background-color: var(--gj-bg-overlay);
+    border-color: var(--chip-accent, #00F0FF);
+    background: rgba(99, 102, 241, 0.15);
     color: var(--gj-fonts-light);
     transform: translateY(-2px);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+}
+
+:root[dark-mode="false"] .gj\:skills\:topic-chip:hover,
+:root:not([dark-mode="true"]) .gj\:skills\:topic-chip:hover {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: #4F46E5;
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.2);
 }
 
 .gj\:skills\:chip-check {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 800;
     line-height: 1;
+    color: #00F0FF;
     transition: transform 0.2s ease;
 }
 
+:root[dark-mode="false"] .gj\:skills\:chip-check,
+:root:not([dark-mode="true"]) .gj\:skills\:chip-check {
+    color: #4F46E5;
+}
+
 .gj\:skills\:topic-chip:hover .gj\:skills\:chip-check {
-    transform: scale(1.25);
+    transform: scale(1.2);
 }
 
 .gj\:skills\:chip-text {
@@ -389,16 +497,24 @@
     display: flex;
     align-items: flex-end;
     gap: 8px;
-    padding: 10px 16px;
-    background-color: var(--gj-main-bg);
-    border: 1px solid var(--gj-border);
-    border-radius: 20px;
+    padding: 8px 14px;
+    background: linear-gradient(180deg, rgba(20, 22, 32, 0.9) 0%, rgba(10, 11, 18, 0.96) 100%);
+    border: 1px solid rgba(99, 102, 241, 0.35);
+    border-radius: 12px;
     backdrop-filter: blur(20px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(99, 102, 241, 0.2);
     overflow-x: auto;
     scrollbar-width: none;
     max-width: 100%;
     -webkit-overflow-scrolling: touch;
+}
+
+:root[dark-mode="false"] .gj\:skills\:dock,
+:root:not([dark-mode="true"]) .gj\:skills\:dock {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(99, 102, 241, 0.28);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
 .gj\:skills\:dock::-webkit-scrollbar {
@@ -407,31 +523,38 @@
 
 .gj\:skills\:dock-item {
     position: relative;
-    width: 46px;
-    height: 46px;
-    min-width: 46px;
-    border-radius: 12px;
-    background-color: var(--gj-second-bg);
-    border: 1px solid var(--gj-border);
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    border-radius: 8px;
+    background: rgba(12, 14, 22, 0.88);
+    border: 1px solid rgba(99, 102, 241, 0.25);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    transition: transform 0.22s ease, background-color 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
     padding: 0;
 }
 
+:root[dark-mode="false"] .gj\:skills\:dock-item,
+:root:not([dark-mode="true"]) .gj\:skills\:dock-item {
+    background: rgba(240, 242, 248, 0.9);
+    border-color: rgba(99, 102, 241, 0.2);
+}
+
 .gj\:skills\:dock-item:hover {
-    border-color: var(--dock-accent, var(--gj-border-focus));
-    background-color: var(--gj-bg-overlay);
+    border-color: #00F0FF;
+    background: rgba(99, 102, 241, 0.15);
     transform: translateY(-2px);
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
 }
 
 .gj\:skills\:dock-item-active {
-    border-color: var(--dock-accent, var(--gj-border-focus));
-    background-color: var(--gj-bg-overlay);
+    border-color: #00F0FF !important;
+    background: rgba(99, 102, 241, 0.25) !important;
     transform: translateY(-4px);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08), 0 0 16px var(--dock-accent);
+    box-shadow: 0 0 16px #00F0FF;
 }
 
 .gj\:skills\:dock-item-active::after {
@@ -440,11 +563,11 @@
     bottom: -6px;
     left: 50%;
     transform: translateX(-50%);
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background-color: var(--dock-accent, #6366F1);
-    box-shadow: 0 0 8px var(--dock-accent, #6366F1);
+    width: 12px;
+    height: 2px;
+    border-radius: 2px;
+    background-color: #00F0FF;
+    box-shadow: 0 0 8px #00F0FF;
 }
 
 .gj\:skills\:dock-svg {
@@ -458,29 +581,30 @@
 .gj\:skills\:dock-svg svg {
     width: 24px;
     height: 24px;
-    color: var(--dock-accent, #6366F1);
+    color: var(--dock-accent, #00F0FF);
 }
 
-/* Tooltip Estilizado Glassmorphic */
+/* Tooltip Estilizado Cyber HUD */
 .gj\:skills\:dock-tooltip {
     position: absolute;
     top: -34px;
     left: 50%;
     transform: translateX(-50%) translateY(4px);
-    background-color: var(--gj-second-bg);
-    color: var(--gj-fonts-light);
-    border: 1px solid var(--gj-border);
+    background: rgba(10, 11, 18, 0.95);
+    border: 1px solid rgba(0, 240, 255, 0.4);
+    border-radius: 4px;
+    color: #00F0FF;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     font-size: 11px;
     font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 8px;
+    letter-spacing: 0.06em;
+    padding: 3px 8px;
     white-space: nowrap;
-    opacity: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 8px rgba(0, 240, 255, 0.2);
     pointer-events: none;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
     z-index: 30;
-    backdrop-filter: blur(12px);
 }
 
 .gj\:skills\:dock-tooltip::after {

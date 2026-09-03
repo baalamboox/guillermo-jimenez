@@ -4,17 +4,17 @@
     margin-inline: auto;
     max-width: 1060px;
     width: 100%;
-    animation: fadeInIde 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: fadeInIde 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes fadeInIde {
-    from {
+    0% {
         opacity: 0;
-        transform: translateY(24px);
+        filter: brightness(1.2) contrast(1.05);
     }
-    to {
+    100% {
         opacity: 1;
-        transform: translateY(0);
+        filter: brightness(1) contrast(1);
     }
 }
 
@@ -70,17 +70,48 @@
 }
 
 /* --------------------------------------------------------------------------
-   Ventana del IDE (VS Code / Neovim Style)
+   Ventana del IDE (Consola Cyber HUD)
    -------------------------------------------------------------------------- */
 
 .gj\:ide\:window {
-    background-color: var(--gj-second-bg);
-    border: 1px solid var(--gj-border);
-    border-radius: 22px;
+    background: linear-gradient(180deg, rgba(20, 22, 32, 0.92) 0%, rgba(10, 11, 18, 0.96) 100%);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(99, 102, 241, 0.35);
+    border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(56, 189, 248, 0.08);
+    box-shadow: 
+        0 0 0 1px rgba(0, 0, 0, 0.75),
+        0 24px 60px rgba(0, 0, 0, 0.65),
+        0 0 35px -5px rgba(99, 102, 241, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        inset 0 -1px 0 rgba(0, 240, 255, 0.15);
     display: flex;
     flex-direction: column;
+    position: relative;
+}
+
+/* Acento láser superior de la consola HUD */
+.gj\:ide\:window::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, rgba(99, 102, 241, 0.8) 25%, #00F0FF 50%, rgba(99, 102, 241, 0.8) 75%, transparent 100%);
+    z-index: 20;
+    pointer-events: none;
+}
+
+:root[dark-mode="false"] .gj\:ide\:window,
+:root:not([dark-mode="true"]) .gj\:ide\:window {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 242, 248, 0.96) 100%);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    box-shadow: 
+        0 20px 50px -10px rgba(0, 0, 0, 0.12),
+        0 2px 10px rgba(99, 102, 241, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 /* Barra de Título del IDE */
@@ -89,8 +120,14 @@
     align-items: center;
     justify-content: space-between;
     padding: 12px 20px;
-    background-color: var(--gj-main-bg);
-    border-bottom: 1px solid var(--gj-border);
+    background: rgba(12, 14, 20, 0.95);
+    border-bottom: 1px solid rgba(99, 102, 241, 0.25);
+}
+
+:root[dark-mode="false"] .gj\:ide\:titlebar,
+:root:not([dark-mode="true"]) .gj\:ide\:titlebar {
+    background: rgba(243, 244, 248, 0.95);
+    border-bottom: 1px solid rgba(99, 102, 241, 0.2);
 }
 
 .gj\:ide\:traffic-lights {
@@ -100,15 +137,15 @@
 }
 
 .gj\:ide\:light {
-    width: 12px;
-    height: 12px;
+    width: 11px;
+    height: 11px;
     border-radius: 50%;
     display: block;
 }
 
-.gj\:ide\:light-close { background-color: #EF4444; }
-.gj\:ide\:light-minimize { background-color: #F59E0B; }
-.gj\:ide\:light-maximize { background-color: #10B981; }
+.gj\:ide\:light-close { background-color: #EF4444; box-shadow: 0 0 6px rgba(239, 68, 68, 0.4); }
+.gj\:ide\:light-minimize { background-color: #F59E0B; box-shadow: 0 0 6px rgba(245, 158, 11, 0.4); }
+.gj\:ide\:light-maximize { background-color: #10B981; box-shadow: 0 0 6px rgba(16, 185, 129, 0.4); }
 
 .gj\:ide\:breadcrumbs {
     display: flex;
@@ -120,42 +157,71 @@
 }
 
 .gj\:ide\:breadcrumb-file {
-    color: var(--gj-fonts-light);
+    color: #00F0FF;
     font-weight: 700;
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.35);
+}
+
+:root[dark-mode="false"] .gj\:ide\:breadcrumb-file,
+:root:not([dark-mode="true"]) .gj\:ide\:breadcrumb-file {
+    color: #4F46E5;
+    text-shadow: none;
 }
 
 .gj\:ide\:branch-tag {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    font-size: 11.5px;
-    font-weight: 600;
-    color: var(--gj-gray);
+    gap: 6px;
+    padding: 3px 8px;
+    background: rgba(99, 102, 241, 0.12);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 4px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: #00F0FF;
+    letter-spacing: 0.04em;
+}
+
+:root[dark-mode="false"] .gj\:ide\:branch-tag,
+:root:not([dark-mode="true"]) .gj\:ide\:branch-tag {
+    background: rgba(99, 102, 241, 0.1);
+    color: #4F46E5;
+    border-color: rgba(99, 102, 241, 0.3);
 }
 
 /* Barra de Pestañas (Tabbar) */
 .gj\:ide\:tabbar {
     display: flex;
     align-items: center;
-    background-color: var(--gj-main-bg);
-    border-bottom: 1px solid var(--gj-border);
+    background: rgba(10, 11, 16, 0.9);
+    border-bottom: 1px solid rgba(99, 102, 241, 0.25);
     overflow-x: auto;
+    padding-left: 8px;
+    gap: 4px;
+}
+
+:root[dark-mode="false"] .gj\:ide\:tabbar,
+:root:not([dark-mode="true"]) .gj\:ide\:tabbar {
+    background: rgba(235, 237, 244, 0.95);
+    border-bottom: 1px solid rgba(99, 102, 241, 0.2);
 }
 
 .gj\:ide\:tab {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 12px 20px;
+    padding: 10px 18px;
     background: transparent;
-    border: none;
-    border-right: 1px solid var(--gj-border);
+    border: 1px solid transparent;
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    font-size: 13px;
+    font-size: 12.5px;
     font-weight: 600;
     color: var(--gj-gray);
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
     outline: none;
     white-space: nowrap;
 }
@@ -191,7 +257,7 @@
     position: relative;
     padding: 24px;
     min-height: 420px;
-    background-color: var(--gj-second-bg);
+    background: transparent;
 }
 
 .gj\:ide\:panel {
@@ -219,15 +285,21 @@
 
 .gj\:ide\:code-block {
     display: flex;
-    background-color: var(--gj-main-bg);
-    border: 1px solid var(--gj-border);
-    border-radius: 16px;
+    background: rgba(8, 9, 14, 0.95);
+    border: 1px solid rgba(99, 102, 241, 0.28);
+    border-radius: 10px;
     padding: 22px 18px;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     font-size: 13.5px;
     line-height: 1.7;
     overflow-x: auto;
-    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 2px 12px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+:root[dark-mode="false"] .gj\:ide\:code-block,
+:root:not([dark-mode="true"]) .gj\:ide\:code-block {
+    background: #0D1117;
+    border-color: rgba(99, 102, 241, 0.3);
 }
 
 .gj\:ide\:gutter {
@@ -235,13 +307,13 @@
     flex-direction: column;
     padding-right: 16px;
     margin-right: 16px;
-    border-right: 1px solid var(--gj-border);
+    border-right: 1px solid rgba(99, 102, 241, 0.25);
     user-select: none;
 }
 
 .gj\:ide\:line-num {
-    color: var(--gj-gray);
-    opacity: 0.45;
+    color: #6366F1;
+    opacity: 0.6;
     text-align: right;
 }
 
@@ -252,25 +324,33 @@
     font-family: inherit;
 }
 
-/* Sintaxis Tokens de Código */
-.tok-kw { color: #F43F5E; font-weight: 700; }
-.tok-type { color: #38BDF8; font-weight: 600; }
+/* Sintaxis Tokens de Código Cyber HUD */
+.tok-kw { color: #FF3366; font-weight: 700; text-shadow: 0 0 6px rgba(255, 51, 102, 0.3); }
+.tok-type { color: #00F0FF; font-weight: 600; text-shadow: 0 0 8px rgba(0, 240, 255, 0.35); }
 .tok-var { color: #FBBF24; font-weight: 600; }
 .tok-key { color: #A78BFA; }
-.tok-str { color: #34D399; }
+.tok-str { color: #00FF9D; text-shadow: 0 0 6px rgba(0, 255, 157, 0.3); }
 .tok-bool { color: #FB923C; font-weight: 700; }
 .tok-num { color: #F472B6; font-weight: 700; }
 
 /* Live Preview Card */
 .gj\:ide\:preview-card {
-    background-color: var(--gj-main-bg);
-    border: 1px solid var(--gj-border);
-    border-radius: 16px;
+    background: rgba(12, 14, 22, 0.88);
+    border: 1px solid rgba(99, 102, 241, 0.32);
+    border-radius: 10px;
     padding: 24px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    position: relative;
+}
+
+:root[dark-mode="false"] .gj\:ide\:preview-card,
+:root:not([dark-mode="true"]) .gj\:ide\:preview-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(99, 102, 241, 0.25);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
 }
 
 .gj\:ide\:preview-header {
@@ -291,7 +371,8 @@
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid var(--gj-border);
+    border: 2px solid #6366F1;
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.45);
 }
 
 .gj\:ide\:preview-status-dot {
@@ -301,9 +382,10 @@
     width: 13px;
     height: 13px;
     border-radius: 50%;
-    background-color: #10B981;
-    border: 2px solid var(--gj-main-bg);
-    box-shadow: 0 0 8px #10B981;
+    background-color: #00F0FF;
+    border: 2px solid #0C0E16;
+    box-shadow: 0 0 10px #00F0FF;
+    animation: gjCyberDotPulse 2s ease-in-out infinite alternate;
 }
 
 .gj\:ide\:preview-name {
@@ -316,9 +398,17 @@
 
 .gj\:ide\:preview-role {
     font-size: 13.5px;
-    font-weight: 600;
-    color: var(--gj-border-focus);
+    font-weight: 700;
+    color: #00F0FF;
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+    font-family: ui-monospace, SFMono-Regular, monospace;
     margin: 0 0 6px 0;
+}
+
+:root[dark-mode="false"] .gj\:ide\:preview-role,
+:root:not([dark-mode="true"]) .gj\:ide\:preview-role {
+    color: #4F46E5;
+    text-shadow: none;
 }
 
 .gj\:ide\:preview-location {
@@ -340,13 +430,13 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
     padding-top: 16px;
-    border-top: 1px solid var(--gj-border);
+    border-top: 1px solid rgba(99, 102, 241, 0.25);
 }
 
 .gj\:ide\:stat-chip {
-    background-color: var(--gj-second-bg);
-    border: 1px solid var(--gj-border);
-    border-radius: 12px;
+    background: rgba(18, 20, 30, 0.85);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    border-radius: 6px;
     padding: 10px 8px;
     text-align: center;
     display: flex;
@@ -355,23 +445,45 @@
     transition: all 0.2s ease;
 }
 
+:root[dark-mode="false"] .gj\:ide\:stat-chip,
+:root:not([dark-mode="true"]) .gj\:ide\:stat-chip {
+    background: rgba(240, 242, 248, 0.85);
+    border-color: rgba(99, 102, 241, 0.2);
+}
+
 .gj\:ide\:stat-chip:hover {
-    border-color: var(--gj-border-focus);
+    border-color: #00F0FF;
+    background: rgba(99, 102, 241, 0.15);
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
     transform: translateY(-2px);
+}
+
+:root[dark-mode="false"] .gj\:ide\:stat-chip:hover,
+:root:not([dark-mode="true"]) .gj\:ide\:stat-chip:hover {
+    border-color: #4F46E5;
+    background: rgba(99, 102, 241, 0.1);
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.2);
 }
 
 .gj\:ide\:stat-chip-val {
     font-size: 17px;
     font-weight: 800;
-    color: var(--gj-fonts-light);
+    color: #00F0FF;
+    font-family: ui-monospace, SFMono-Regular, monospace;
+}
+
+:root[dark-mode="false"] .gj\:ide\:stat-chip-val,
+:root:not([dark-mode="true"]) .gj\:ide\:stat-chip-val {
+    color: #4F46E5;
 }
 
 .gj\:ide\:stat-chip-lbl {
-    font-size: 10.5px;
-    font-weight: 600;
+    font-size: 10px;
+    font-weight: 700;
     color: var(--gj-gray);
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.06em;
+    font-family: ui-monospace, SFMono-Regular, monospace;
 }
 
 /* Pestaña: journey.json */
@@ -382,20 +494,27 @@
 }
 
 .gj\:ide\:journey-card {
-    background-color: var(--gj-main-bg);
-    border: 1px solid var(--gj-border);
-    border-radius: 16px;
+    background: rgba(12, 14, 22, 0.85);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    border-radius: 10px;
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
     transition: all 0.25s ease;
+    position: relative;
+}
+
+:root[dark-mode="false"] .gj\:ide\:journey-card,
+:root:not([dark-mode="true"]) .gj\:ide\:journey-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(99, 102, 241, 0.2);
 }
 
 .gj\:ide\:journey-card:hover {
-    border-color: var(--exp-brand, var(--gj-border-focus));
+    border-color: var(--exp-brand, #00F0FF);
     transform: translateY(-3px);
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3), 0 0 16px rgba(99, 102, 241, 0.25);
 }
 
 .gj\:ide\:journey-top {
@@ -405,6 +524,16 @@
     font-family: ui-monospace, SFMono-Regular, monospace;
     font-size: 11.5px;
     color: var(--gj-gray);
+}
+
+.gj\:ide\:journey-num {
+    color: #00F0FF;
+    font-weight: 700;
+}
+
+:root[dark-mode="false"] .gj\:ide\:journey-num,
+:root:not([dark-mode="true"]) .gj\:ide\:journey-num {
+    color: #4F46E5;
 }
 
 .gj\:ide\:journey-company {
@@ -417,7 +546,7 @@
 .gj\:ide\:journey-role {
     font-size: 13px;
     font-weight: 600;
-    color: var(--exp-brand, var(--gj-border-focus));
+    color: var(--exp-brand, #00F0FF);
     margin: 0;
 }
 
@@ -438,12 +567,19 @@
 
 .gj\:ide\:journey-tech {
     padding: 3px 8px;
-    background-color: var(--gj-second-bg);
-    border: 1px solid var(--gj-border);
-    border-radius: 6px;
+    background: rgba(99, 102, 241, 0.12);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 4px;
+    font-family: ui-monospace, SFMono-Regular, monospace;
     font-size: 11px;
     font-weight: 600;
-    color: var(--gj-fonts-light);
+    color: #00F0FF;
+}
+
+:root[dark-mode="false"] .gj\:ide\:journey-tech,
+:root:not([dark-mode="true"]) .gj\:ide\:journey-tech {
+    background: rgba(99, 102, 241, 0.1);
+    color: #4F46E5;
 }
 
 /* Pestaña: hobbies.yaml */
@@ -454,19 +590,26 @@
 }
 
 .gj\:ide\:hobbie-card {
-    background-color: var(--gj-main-bg);
-    border: 1px solid var(--gj-border);
-    border-radius: 18px;
+    background: rgba(12, 14, 22, 0.85);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    border-radius: 10px;
     overflow: hidden;
     transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
+    position: relative;
+}
+
+:root[dark-mode="false"] .gj\:ide\:hobbie-card,
+:root:not([dark-mode="true"]) .gj\:ide\:hobbie-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(99, 102, 241, 0.2);
 }
 
 .gj\:ide\:hobbie-card:hover {
-    border-color: var(--h-brand, var(--gj-border-focus));
-    transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    border-color: var(--h-brand, #00F0FF);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3), 0 0 16px rgba(0, 240, 255, 0.2);
 }
 
 .gj\:ide\:hobbie-img-box {
@@ -484,7 +627,7 @@
 }
 
 .gj\:ide\:hobbie-card:hover .gj\:ide\:hobbie-img {
-    transform: scale(1.05);
+    transform: scale(1.04);
 }
 
 .gj\:ide\:hobbie-icon {
@@ -493,14 +636,14 @@
     right: 12px;
     width: 36px;
     height: 36px;
-    border-radius: 50%;
-    background-color: var(--gj-main-bg);
+    border-radius: 6px;
+    background: rgba(10, 11, 18, 0.9);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 18px;
-    border: 1px solid var(--gj-border);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(0, 240, 255, 0.4);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35), 0 0 10px rgba(0, 240, 255, 0.2);
 }
 
 .gj\:ide\:hobbie-info {
@@ -533,19 +676,33 @@
 }
 
 .gj\:ide\:setup-card {
-    background-color: var(--gj-main-bg);
-    border: 1px solid var(--gj-border);
-    border-radius: 16px;
+    background: rgba(12, 14, 22, 0.85);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    border-radius: 10px;
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 8px;
     transition: all 0.25s ease;
+    position: relative;
+}
+
+:root[dark-mode="false"] .gj\:ide\:setup-card,
+:root:not([dark-mode="true"]) .gj\:ide\:setup-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(99, 102, 241, 0.2);
 }
 
 .gj\:ide\:setup-card:hover {
-    border-color: var(--gj-border-focus);
-    transform: translateY(-2px);
+    border-color: #00F0FF;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25), 0 0 16px rgba(0, 240, 255, 0.2);
+}
+
+:root[dark-mode="false"] .gj\:ide\:setup-card:hover,
+:root:not([dark-mode="true"]) .gj\:ide\:setup-card:hover {
+    border-color: #4F46E5;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08), 0 0 14px rgba(99, 102, 241, 0.2);
 }
 
 .gj\:ide\:setup-card-icon {
@@ -553,10 +710,16 @@
 }
 
 .gj\:ide\:setup-card-title {
-    font-size: 15px;
+    font-family: ui-monospace, SFMono-Regular, monospace;
+    font-size: 14.5px;
     font-weight: 700;
-    color: var(--gj-fonts-light);
+    color: #00F0FF;
     margin: 0;
+}
+
+:root[dark-mode="false"] .gj\:ide\:setup-card-title,
+:root:not([dark-mode="true"]) .gj\:ide\:setup-card-title {
+    color: #4F46E5;
 }
 
 .gj\:ide\:setup-card-text {
@@ -567,14 +730,33 @@
 }
 
 /* --------------------------------------------------------------------------
-   Terminal Interactiva Integrada (CLI / Bash)
+   Terminal Interactiva Integrada (CLI / Bash - Cyber HUD Console)
    -------------------------------------------------------------------------- */
 
 .gj\:ide\:terminal {
-    background-color: #080C14;
-    border-top: 1px solid var(--gj-border);
+    background: #06080E;
+    border-top: 1px solid rgba(99, 102, 241, 0.35);
     padding: 18px 22px;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    position: relative;
+}
+
+/* Láser decorativo superior de la terminal */
+.gj\:ide\:terminal::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 20px;
+    right: 20px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, #00F0FF 50%, transparent 100%);
+    pointer-events: none;
+}
+
+:root[dark-mode="false"] .gj\:ide\:terminal,
+:root:not([dark-mode="true"]) .gj\:ide\:terminal {
+    background: #0F141C;
+    border-top: 1px solid rgba(99, 102, 241, 0.3);
 }
 
 .gj\:ide\:terminal-header {
@@ -590,10 +772,11 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 11.5px;
+    font-size: 11px;
     font-weight: 700;
-    color: var(--gj-gray);
-    letter-spacing: 0.05em;
+    color: #00F0FF;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
 }
 
 .gj\:ide\:terminal-quick-btns {
@@ -604,22 +787,24 @@
 }
 
 .gj\:ide\:quick-cmd {
-    background-color: var(--gj-second-bg);
-    border: 1px solid var(--gj-border);
-    border-radius: 6px;
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(0, 240, 255, 0.35);
+    border-radius: 4px;
     padding: 4px 10px;
     font-family: inherit;
-    font-size: 11.5px;
-    font-weight: 600;
-    color: #F8FAFC;
+    font-size: 11px;
+    font-weight: 700;
+    color: #00F0FF;
+    letter-spacing: 0.04em;
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
 .gj\:ide\:quick-cmd:hover {
-    background-color: var(--gj-border-focus);
-    color: #FFFFFF;
-    border-color: var(--gj-border-focus);
+    background: #00F0FF;
+    color: #06080E;
+    border-color: #00F0FF;
+    box-shadow: 0 0 12px #00F0FF;
     transform: translateY(-1px);
 }
 
@@ -638,11 +823,11 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    color: #38BDF8;
+    color: #00F0FF;
 }
 
 .gj\:ide\:term-prompt-prefix {
-    color: #10B981;
+    color: #00F0FF;
     font-weight: 700;
 }
 
@@ -656,12 +841,12 @@
     padding-left: 8px;
 }
 
-.term-highlight { color: #38BDF8; font-weight: 700; }
+.term-highlight { color: #00F0FF; font-weight: 700; text-shadow: 0 0 6px rgba(0, 240, 255, 0.3); }
 .term-bold { font-weight: 700; color: #F8FAFC; margin: 0 0 4px 0; }
 .term-muted { color: #94A3B8; font-size: 12px; margin: 0; }
 .term-text { margin: 0; }
-.term-error { color: #F87171; margin: 0; }
-.term-link { color: #38BDF8; text-decoration: underline; font-weight: 600; }
+.term-error { color: #FF3366; margin: 0; }
+.term-link { color: #00F0FF; text-decoration: underline; font-weight: 600; }
 .term-status { color: #E2E8F0; }
 
 .term-cmd-list {
@@ -674,9 +859,9 @@
 }
 
 .term-box {
-    background-color: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 8px;
+    background-color: rgba(99, 102, 241, 0.08);
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    border-radius: 6px;
     padding: 10px 14px;
 }
 
@@ -685,12 +870,12 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    border-top: 1px dashed rgba(255, 255, 255, 0.12);
+    border-top: 1px dashed rgba(99, 102, 241, 0.25);
     padding-top: 12px;
 }
 
 .gj\:ide\:terminal-prompt {
-    color: #10B981;
+    color: #00F0FF;
     font-weight: 700;
     font-size: 13px;
     white-space: nowrap;
@@ -707,10 +892,10 @@
 }
 
 .gj\:ide\:terminal-submit {
-    background: var(--gj-second-bg);
-    border: 1px solid var(--gj-border);
-    border-radius: 6px;
-    color: var(--gj-fonts-light);
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(0, 240, 255, 0.4);
+    border-radius: 4px;
+    color: #00F0FF;
     padding: 3px 10px;
     cursor: pointer;
     font-size: 13px;
@@ -719,9 +904,10 @@
 }
 
 .gj\:ide\:terminal-submit:hover {
-    color: #FFFFFF;
-    background-color: var(--gj-border-focus);
-    border-color: var(--gj-border-focus);
+    color: #06080E;
+    background-color: #00F0FF;
+    border-color: #00F0FF;
+    box-shadow: 0 0 12px #00F0FF;
 }
 
 /* --------------------------------------------------------------------------

@@ -10,17 +10,17 @@
     padding-top: 36px;
     padding-bottom: 96px;
     position: relative;
-    animation: fadeInHome 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: fadeInHome 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes fadeInHome {
-    from {
+    0% {
         opacity: 0;
-        transform: translateY(20px);
+        filter: brightness(1.2) contrast(1.05);
     }
-    to {
+    100% {
         opacity: 1;
-        transform: translateY(0);
+        filter: brightness(1) contrast(1);
     }
 }
 
@@ -44,11 +44,11 @@
     max-width: 440px;
 }
 
-/* Ondas Expansivas (Sonar Pulse Waves) */
+/* Ondas Expansivas (Sonar Pulse Waves Cyber HUD) */
 .gj\:home\:pulse-wave {
     position: absolute;
     border-radius: 50%;
-    border: 1.5px solid rgba(99, 102, 241, 0.45);
+    border: 1.5px solid rgba(0, 240, 255, 0.45);
     width: 330px;
     height: 330px;
     pointer-events: none;
@@ -59,29 +59,29 @@
 
 .gj\:home\:pulse-wave-2 {
     animation-delay: 2.25s;
-    border-color: rgba(236, 72, 153, 0.35);
+    border-color: rgba(99, 102, 241, 0.45);
 }
 
-/* Resplandor Cónico Giratorio de Luz Líquida */
+/* Resplandor Cónico Giratorio de Reactor Cyber HUD */
 .gj\:home\:conic-glow {
     position: absolute;
     width: 360px;
     height: 360px;
     border-radius: 50%;
-    background: conic-gradient(from 0deg, #6366F1, #EC4899, #06B6D4, #A855F7, #6366F1);
+    background: conic-gradient(from 0deg, #6366F1, #00F0FF, #8B5CF6, #00F0FF, #6366F1);
     filter: blur(32px);
-    opacity: 0.55;
+    opacity: 0.5;
     pointer-events: none;
     z-index: 0;
-    animation: gjRotateConic 10s linear infinite;
+    animation: gjRotateConic 12s linear infinite;
     will-change: transform;
 }
 
 :root[dark-mode="true"] .gj\:home\:conic-glow {
-    opacity: 0.45;
+    opacity: 0.4;
 }
 
-/* Destellos y Chispas Luminosas */
+/* Destellos y Chispas Luminosas de Telemetría */
 .gj\:home\:sparkle {
     position: absolute;
     pointer-events: none;
@@ -94,8 +94,8 @@
 .gj\:home\:sparkle-1 {
     top: 14%;
     right: -2%;
-    font-size: 22px;
-    color: #EC4899;
+    font-size: 20px;
+    color: #00F0FF;
     animation-delay: 0s;
 }
 
@@ -103,7 +103,7 @@
     bottom: 12%;
     left: -6%;
     font-size: 18px;
-    color: #06B6D4;
+    color: #8B5CF6;
     animation-delay: 1.2s;
 }
 
@@ -111,11 +111,11 @@
     top: 2%;
     left: 20%;
     font-size: 15px;
-    color: #F59E0B;
+    color: #10B981;
     animation-delay: 2.1s;
 }
 
-/* Marco del Avatar con Borde Iluminado */
+/* Marco del Avatar con Anillo Cyber HUD */
 .gj\:home\:avatar-frame {
     width: 330px;
     height: 330px;
@@ -123,8 +123,8 @@
     position: relative;
     z-index: 1;
     padding: 5px;
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.8), rgba(236, 72, 153, 0.8), rgba(6, 182, 212, 0.8));
-    box-shadow: 0 20px 48px -10px rgba(99, 102, 241, 0.35);
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.85), rgba(99, 102, 241, 0.85), rgba(139, 92, 246, 0.85));
+    box-shadow: 0 20px 48px -10px rgba(0, 240, 255, 0.25), 0 0 30px rgba(99, 102, 241, 0.3);
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
 }
 
@@ -177,28 +177,40 @@
     display: flex;
     align-items: center;
     column-gap: 10px;
-    padding: 10px 18px;
-    background-color: var(--gj-second-bg);
-    border: 1px solid var(--gj-border);
-    border-radius: 100px;
-    box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.12);
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--gj-text-primary);
+    padding: 7px 16px;
+    background: rgba(10, 11, 18, 0.92);
+    border: 1px solid rgba(0, 240, 255, 0.4);
+    border-radius: 6px;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4), 0 0 14px rgba(0, 240, 255, 0.2);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #00F0FF;
     white-space: nowrap;
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     pointer-events: auto;
     transform: translate(var(--badge-x, 0px), var(--badge-y, 0px));
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.25s ease;
+}
+
+:root[dark-mode="false"] .gj\:home\:floating-badge,
+:root:not([dark-mode="true"]) .gj\:home\:floating-badge {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(99, 102, 241, 0.4);
+    color: #4F46E5;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), 0 0 10px rgba(99, 102, 241, 0.15);
 }
 
 .gj\:home\:floating-badge:hover {
-    border-color: var(--gj-border-focus);
-    box-shadow: 0 14px 36px -4px rgba(99, 102, 241, 0.25);
+    border-color: #00F0FF;
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 240, 255, 0.35);
+    transform: translate(var(--badge-x, 0px), calc(var(--badge-y, 0px) - 2px)) scale(1.02);
 }
 
 .gj\:home\:badge-icon {
-    font-size: 16px;
+    font-size: 15px;
     display: inline-block;
 }
 
@@ -219,27 +231,47 @@
     align-items: center;
     column-gap: 10px;
     width: fit-content;
-    padding: 6px 16px;
-    background-color: var(--gj-second-bg);
-    border: 1px solid var(--gj-border);
-    border-radius: 100px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    padding: 5px 14px;
+    background: rgba(10, 11, 18, 0.9);
+    border: 1px solid rgba(0, 240, 255, 0.4);
+    border-radius: 6px;
+    box-shadow: 0 0 14px rgba(0, 240, 255, 0.15);
+}
+
+:root[dark-mode="false"] .gj\:home\:status-pill,
+:root:not([dark-mode="true"]) .gj\:home\:status-pill {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(99, 102, 241, 0.35);
+    box-shadow: 0 2px 10px rgba(99, 102, 241, 0.1);
 }
 
 .gj\:home\:status-dot {
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
+    background-color: #00F0FF;
+    box-shadow: 0 0 8px #00F0FF, 0 0 14px #00F0FF;
+    animation: gjCyberDotPulse 2s infinite alternate;
+}
+
+:root[dark-mode="false"] .gj\:home\:status-dot,
+:root:not([dark-mode="true"]) .gj\:home\:status-dot {
     background-color: #10B981;
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-    animation: gjPulseDot 2s infinite;
+    box-shadow: 0 0 6px #10B981;
 }
 
 .gj\:home\:status-text {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--gj-text-secondary);
-    letter-spacing: -0.01em;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #00F0FF;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+:root[dark-mode="false"] .gj\:home\:status-text,
+:root:not([dark-mode="true"]) .gj\:home\:status-text {
+    color: #4F46E5;
 }
 
 /* Título Principal */
@@ -300,49 +332,197 @@
 }
 
 .gj\:home\:btn-primary,
-.gj\:home\:btn-secondary {
+.gj\:home\:btn-secondary,
+.gj\:home\:btn-cv {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     column-gap: 10px;
-    padding: 13px 26px;
-    border-radius: 14px;
-    font-size: 15px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14.5px;
     font-weight: 600;
     text-decoration: none;
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Botón Principal: Ver Proyectos */
 .gj\:home\:btn-primary {
-    background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #4F46E5 0%, #6366F1 45%, #9333EA 100%);
+    background-size: 200% 200%;
     color: #FFFFFF !important;
-    border: 1px solid transparent;
-    box-shadow: 0 8px 24px -4px rgba(99, 102, 241, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    box-shadow: 0 8px 26px -4px rgba(99, 102, 241, 0.5);
+    animation: gjPrimaryGradientShift 6s ease-in-out infinite alternate;
+    z-index: 1;
+}
+
+.gj\:home\:btn-primary::before {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    background: linear-gradient(135deg, #6366F1, #8B5CF6, #EC4899);
+    border-radius: 16px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    filter: blur(10px);
+}
+
+.gj\:home\:btn-primary::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+        90deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.4) 50%, 
+        transparent 100%
+    );
+    transform: skewX(-20deg);
+    animation: gjPrimaryShimmer 4s ease-in-out infinite;
+    animation-delay: 2s;
+    pointer-events: none;
 }
 
 .gj\:home\:btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 28px -2px rgba(99, 102, 241, 0.55);
-    background: linear-gradient(135deg, #4F46E5 0%, #4338CA 100%);
+    box-shadow: 0 14px 34px -3px rgba(99, 102, 241, 0.7);
+    filter: brightness(1.08);
+}
+
+.gj\:home\:btn-primary:hover::before {
+    opacity: 0.85;
+}
+
+.gj\:home\:btn-primary:hover .gj\:layout\:svg-wrapper {
+    transform: translateX(4px);
+}
+
+.gj\:home\:btn-primary .gj\:layout\:svg-wrapper {
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .gj\:home\:btn-primary:active {
     transform: translateY(0);
 }
 
+/* Botón Destacado: Descargar CV */
+.gj\:home\:btn-cv {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #059669 0%, #0D9488 45%, #0284C7 100%);
+    background-size: 200% 200%;
+    color: #FFFFFF !important;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    box-shadow: 0 8px 26px -4px rgba(13, 148, 136, 0.5);
+    animation: gjCvGradientShift 6s ease-in-out infinite alternate;
+    z-index: 1;
+}
+
+.gj\:home\:btn-cv::before {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    background: linear-gradient(135deg, #10B981, #06B6D4, #3B82F6);
+    border-radius: 16px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    filter: blur(10px);
+}
+
+.gj\:home\:btn-cv::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+        90deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.4) 50%, 
+        transparent 100%
+    );
+    transform: skewX(-20deg);
+    animation: gjCvShimmer 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.gj\:home\:btn-cv:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 34px -3px rgba(13, 148, 136, 0.7);
+    filter: brightness(1.08);
+}
+
+.gj\:home\:btn-cv:hover::before {
+    opacity: 0.85;
+}
+
+.gj\:home\:btn-cv:hover .gj\:layout\:svg-wrapper {
+    transform: translateY(2px);
+}
+
+.gj\:home\:btn-cv .gj\:layout\:svg-wrapper {
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.gj\:home\:btn-cv:active {
+    transform: translateY(0);
+}
+
+.gj\:home\:btn-cv-tag {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.22);
+    color: #FFFFFF;
+    letter-spacing: 0.05em;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    margin-left: 2px;
+}
+
 .gj\:home\:btn-secondary {
-    background-color: var(--gj-second-bg);
-    color: var(--gj-text-primary);
-    border: 1px solid var(--gj-border);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    background: rgba(99, 102, 241, 0.12);
+    color: #00F0FF;
+    border: 1px solid rgba(0, 240, 255, 0.4);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 13.5px;
+    letter-spacing: 0.04em;
+}
+
+:root[dark-mode="false"] .gj\:home\:btn-secondary,
+:root:not([dark-mode="true"]) .gj\:home\:btn-secondary {
+    background: rgba(99, 102, 241, 0.1);
+    color: #4F46E5;
+    border-color: rgba(99, 102, 241, 0.35);
+    box-shadow: 0 2px 10px rgba(99, 102, 241, 0.1);
 }
 
 .gj\:home\:btn-secondary:hover {
-    background-color: var(--gj-bg-overlay);
-    border-color: var(--gj-border-focus);
-    color: var(--gj-text-primary);
+    background-color: #00F0FF;
+    border-color: #00F0FF;
+    color: #06080E;
     transform: translateY(-2px);
+    box-shadow: 0 0 16px #00F0FF;
+}
+
+:root[dark-mode="false"] .gj\:home\:btn-secondary:hover,
+:root:not([dark-mode="true"]) .gj\:home\:btn-secondary:hover {
+    background-color: #4F46E5;
+    color: #FFFFFF;
+    border-color: #4F46E5;
+    box-shadow: 0 4px 16px rgba(79, 70, 229, 0.35);
 }
 
 .gj\:home\:btn-secondary:active {
@@ -355,15 +535,21 @@
     flex-direction: column;
     row-gap: 10px;
     padding-top: 12px;
-    border-top: 1px solid var(--gj-border);
+    border-top: 1px solid rgba(99, 102, 241, 0.25);
 }
 
 .gj\:home\:stack-label {
-    font-size: 12px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--gj-text-muted);
+    letter-spacing: 0.1em;
+    color: #00F0FF;
+}
+
+:root[dark-mode="false"] .gj\:home\:stack-label,
+:root:not([dark-mode="true"]) .gj\:home\:stack-label {
+    color: #4F46E5;
 }
 
 .gj\:home\:stack-badges {
@@ -377,16 +563,39 @@
     display: inline-flex;
     align-items: center;
     column-gap: 8px;
-    padding: 7px 14px;
-    background-color: var(--gj-second-bg);
-    border: 1px solid var(--gj-border);
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--gj-text-secondary);
+    padding: 6px 12px;
+    background: rgba(12, 14, 22, 0.85);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    border-radius: 6px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--gj-fonts-light);
     text-decoration: none;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
+}
+
+:root[dark-mode="false"] .gj\:home\:tech-chip,
+:root:not([dark-mode="true"]) .gj\:home\:tech-chip {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(99, 102, 241, 0.2);
+}
+
+.gj\:home\:tech-chip:hover {
+    border-color: #00F0FF;
+    color: #00F0FF;
+    background: rgba(99, 102, 241, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+}
+
+:root[dark-mode="false"] .gj\:home\:tech-chip:hover,
+:root:not([dark-mode="true"]) .gj\:home\:tech-chip:hover {
+    border-color: #4F46E5;
+    color: #4F46E5;
+    background: rgba(99, 102, 241, 0.08);
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.2);
 }
 
 .gj\:home\:tech-chip-svg {
@@ -414,6 +623,7 @@
 /* Accesibilidad Focus Visible */
 .gj\:home\:btn-primary:focus-visible,
 .gj\:home\:btn-secondary:focus-visible,
+.gj\:home\:btn-cv:focus-visible,
 .gj\:home\:tech-chip:focus-visible {
     outline: 2px solid var(--gj-border-focus);
     outline-offset: 2px;
@@ -476,6 +686,42 @@
     }
 }
 
+@keyframes gjCvGradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes gjCvShimmer {
+    0%, 65% {
+        left: -120%;
+    }
+    100% {
+        left: 220%;
+    }
+}
+
+@keyframes gjPrimaryGradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes gjPrimaryShimmer {
+    0%, 65% {
+        left: -120%;
+    }
+    100% {
+        left: 220%;
+    }
+}
+
 @keyframes gjFloatTop {
     0%, 100% { transform: translateY(0px); }
     50% { transform: translateY(-8px); }
@@ -500,13 +746,18 @@
 
 /* Reducción de Movimiento */
 @media (prefers-reduced-motion: reduce) {
+    .gj\:home\:hero,
     .gj\:home\:pulse-wave,
     .gj\:home\:conic-glow,
     .gj\:home\:sparkle,
     .gj\:home\:title-gradient,
     .gj\:home\:status-dot,
     .gj\:home\:badge-top-container,
-    .gj\:home\:badge-bottom-container {
+    .gj\:home\:badge-bottom-container,
+    .gj\:home\:btn-primary,
+    .gj\:home\:btn-primary::after,
+    .gj\:home\:btn-cv,
+    .gj\:home\:btn-cv::after {
         animation: none !important;
         transition: none !important;
     }
@@ -574,7 +825,8 @@
     }
 
     .gj\:home\:btn-primary,
-    .gj\:home\:btn-secondary {
+    .gj\:home\:btn-secondary,
+    .gj\:home\:btn-cv {
         width: 100%;
     }
 }

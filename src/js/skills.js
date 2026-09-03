@@ -133,7 +133,15 @@ document.addEventListener("DOMContentLoaded", () => {
             item.setAttribute("aria-selected", isMatch ? "true" : "false");
             if (isMatch) {
                 item.classList.add("gj:skills:dock-item-active");
-                item.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+                if (dockContainer) {
+                    const containerWidth = dockContainer.clientWidth;
+                    const itemLeft = item.offsetLeft;
+                    const itemWidth = item.clientWidth;
+                    dockContainer.scrollTo({
+                        left: itemLeft - (containerWidth / 2) + (itemWidth / 2),
+                        behavior: "smooth"
+                    });
+                }
             } else {
                 item.classList.remove("gj:skills:dock-item-active");
             }
