@@ -2,20 +2,50 @@ import { Modal } from "bootstrap";
 import PhotoSwipeLightbox from "photoswipe/lightbox";
 import PhotoSwipe from "photoswipe";
 import data from "../data/data.js";
+import { audioEngine } from "./audio-engine.js";
+
+let projectsAbortController = null;
+let autoplayInterval = null;
+let lightbox = null;
+
+const cleanupProjects = () => {
+    if (autoplayInterval) {
+        clearInterval(autoplayInterval);
+        autoplayInterval = null;
+    }
+    if (lightbox) {
+        try {
+            lightbox.destroy();
+        } catch (e) {}
+        lightbox = null;
+    }
+    if (projectsAbortController) {
+        projectsAbortController.abort();
+        projectsAbortController = null;
+    }
+};
+
+document.addEventListener("astro:before-swap", cleanupProjects);
 
 const initProjects = () => {
-    const projectKeys = Object.keys(data.projects);
-    const totalProjects = projectKeys.length;
-    let currentIndex = 0;
-    let autoplayInterval = null;
-    let isAutoplayRunning = false;
-    let currentViewMode = "deck"; // "deck" | "grid"
+    cleanupProjects();
 
     // Elementos del DOM
     const wrapper = document.getElementById("gjProjectsWrapper");
     const stage = document.getElementById("gjProjectsStage");
     const deck = document.getElementById("gjDeckStack");
-    const cards = Array.from(deck?.querySelectorAll(".gj\\:projects\\:card") || []);
+    if (!deck) return;
+
+    projectsAbortController = new AbortController();
+    const { signal } = projectsAbortController;
+
+    const projectKeys = Object.keys(data.projects);
+    const totalProjects = projectKeys.length;
+    let currentIndex = 0;
+    let isAutoplayRunning = false;
+    let currentViewMode = "deck"; // "deck" | "grid"
+
+    const cards = Array.from(deck.querySelectorAll(".gj\\:projects\\:card") || []);
     const prevBtn = document.getElementById("deckPrevBtn");
     const nextBtn = document.getElementById("deckNextBtn");
     const currentNumEl = document.getElementById("deckCurrentNum");
@@ -29,7 +59,6 @@ const initProjects = () => {
     const switchGridBtn = document.getElementById("switchGridBtn");
 
     // Inicializar PhotoSwipe 5 Lightbox para el Modal
-    let lightbox = null;
     try {
         lightbox = new PhotoSwipeLightbox({
             gallery: "#gjModalProjectsGallery",
@@ -39,6 +68,19 @@ const initProjects = () => {
             bgOpacity: 0.9,
             padding: { top: 20, bottom: 20, left: 20, right: 20 }
         });
+
+        // Asegurar que la relación de aspecto siempre respete las dimensiones naturales de la imagen
+        lightbox.addFilter("domItemData", (itemData, element, linkEl) => {
+            const img = linkEl?.querySelector("img");
+            if (img && img.naturalWidth > 0 && img.naturalHeight > 0) {
+                itemData.w = img.naturalWidth;
+                itemData.h = img.naturalHeight;
+                itemData.width = img.naturalWidth;
+                itemData.height = img.naturalHeight;
+            }
+            return itemData;
+        });
+
         lightbox.init();
     } catch (err) {
         console.warn("PhotoSwipe init warning:", err);
@@ -84,110 +126,125 @@ const initProjects = () => {
                 card.style.opacity = `${opacity}`;
                 card.style.filter = `blur(${blur}px) grayscale(35%)`;
                 card.style.zIndex = `${20 - diff}`;
-                card.style.pointerEvents = diff === 1 ? "auto" : "none";
+                card.style.pointerEvents = "auto";
             } else {
-                // Tarjetas anteriores (salen por la izquierda)
+                // Tarjetas anteriores en el mazo (salen hacia la izquierda con perspectiva)
                 card.classList.remove("gj:projects:card-active");
-                const offsetX = diff * 90;
-                card.style.transform = `translate3d(${offsetX}px, 15px, -180px) scale(0.7) rotateY(-12deg)`;
-                card.style.opacity = "0";
-                card.style.filter = "blur(8px)";
-                card.style.zIndex = "0";
+                const offsetX = Math.max(diff * 50, -220);
+                const offsetY = Math.abs(diff) * -12;
+                const offsetZ = diff * 65;
+                const scale = Math.max(0.65, 1 - Math.abs(diff) * 0.08);
+                const opacity = Math.max(0, 1 - Math.abs(diff) * 0.35);
+
+                card.style.transform = `translate3d(${offsetX}px, ${offsetY}px, ${offsetZ}px) scale(${scale}) rotateY(12deg)`;
+                card.style.opacity = `${opacity}`;
+                card.style.filter = "blur(3px) grayscale(50%)";
+                card.style.zIndex = `${10 + diff}`;
                 card.style.pointerEvents = "none";
             }
         });
 
-        // 2. Actualizar Contador Superior
+        // 2. Actualizar HUD de Telemetría Numérica
         if (currentNumEl) {
             currentNumEl.textContent = String(currentIndex + 1).padStart(2, "0");
         }
 
-        // 3. Actualizar Dock de Miniaturas
-        thumbnailItems.forEach((item, i) => {
-            const isMatch = i === currentIndex;
-            item.setAttribute("aria-selected", isMatch ? "true" : "false");
-            if (isMatch) {
-                item.classList.add("gj:projects:dock-item-active");
-                item.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-            } else {
-                item.classList.remove("gj:projects:dock-item-active");
+        // 3. Sincronizar Dock de Miniaturas
+        thumbnailItems.forEach((thumb, i) => {
+            const isActive = i === currentIndex;
+            thumb.classList.toggle("gj:projects:dock-item-active", isActive);
+            thumb.setAttribute("aria-selected", isActive ? "true" : "false");
+
+            if (isActive) {
+                thumb.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
             }
         });
 
-        // 4. Aura ambiental reactiva
-        if (typeof window !== "undefined" && window.setAuraGradient && currentProject?.brand_color) {
-            window.setAuraGradient(currentProject.brand_color);
+        // 4. Sincronizar Aura Ambiental con el color de marca del proyecto
+        if (window.setAuraGradient && currentProject && currentProject.brand_color) {
+            const color = currentProject.brand_color;
+            const gradient = `radial-gradient(circle, ${color}DD 0%, ${color}44 45%, transparent 75%)`;
+            window.setAuraGradient(gradient);
         }
     };
 
-    const nextProject = () => updateDeck(currentIndex + 1);
-    const prevProject = () => updateDeck(currentIndex - 1);
+    const nextProject = () => {
+        updateDeck(currentIndex + 1);
+    };
+
+    const prevProject = () => {
+        updateDeck(currentIndex - 1);
+    };
 
     // --------------------------------------------------------------------------
-    // Conmutador de Modo de Vista (Hybrid View Switcher: Deck vs Matriz Grid)
+    // Controlador de Modos de Visualización (3D Deck vs Matriz Grid)
     // --------------------------------------------------------------------------
     const setViewMode = (mode) => {
         currentViewMode = mode;
 
         if (mode === "grid") {
-            wrapper?.classList.add("gj:projects:mode-grid");
+            stopAutoplay();
             stage?.setAttribute("data-view-mode", "grid");
+            wrapper?.classList.add("gj:projects:mode-grid");
             switchGridBtn?.classList.add("gj:projects:switch-active");
             switchGridBtn?.setAttribute("aria-pressed", "true");
             switchDeckBtn?.classList.remove("gj:projects:switch-active");
             switchDeckBtn?.setAttribute("aria-pressed", "false");
 
-            stopAutoplay();
-
-            // Limpiar estilos inline 3D para que la cuadrícula CSS tome el control pleno
+            // Limpiar transforms en línea para que el Grid CSS controle el layout
             cards.forEach((card) => {
                 card.style.transform = "";
                 card.style.opacity = "";
                 card.style.filter = "";
                 card.style.zIndex = "";
                 card.style.pointerEvents = "";
-                card.classList.remove("gj:projects:card-active");
             });
         } else {
-            wrapper?.classList.remove("gj:projects:mode-grid");
             stage?.setAttribute("data-view-mode", "deck");
+            wrapper?.classList.remove("gj:projects:mode-grid");
             switchDeckBtn?.classList.add("gj:projects:switch-active");
             switchDeckBtn?.setAttribute("aria-pressed", "true");
             switchGridBtn?.classList.remove("gj:projects:switch-active");
             switchGridBtn?.setAttribute("aria-pressed", "false");
 
-            // Recalcular mazo 3D en la posición actual
             updateDeck(currentIndex);
         }
     };
 
-    if (switchDeckBtn) {
-        switchDeckBtn.addEventListener("click", () => setViewMode("deck"));
-    }
-    if (switchGridBtn) {
-        switchGridBtn.addEventListener("click", () => setViewMode("grid"));
-    }
+    // Eventos de Selector de Vista
+    switchDeckBtn?.addEventListener("click", () => {
+        audioEngine.playLaserClick();
+        setViewMode("deck");
+    }, { signal });
 
-    // Navegación por flechas en el mazo 3D
+    switchGridBtn?.addEventListener("click", () => {
+        audioEngine.playLaserClick();
+        setViewMode("grid");
+    }, { signal });
+
+    // Eventos de Navegación del Deck
     prevBtn?.addEventListener("click", (e) => {
         e.stopPropagation();
+        audioEngine.playLaserClick();
         prevProject();
-    });
+    }, { signal });
 
     nextBtn?.addEventListener("click", (e) => {
         e.stopPropagation();
+        audioEngine.playLaserClick();
         nextProject();
-    });
+    }, { signal });
 
     // Navegación por Dock de Miniaturas
     thumbnailItems.forEach((item, index) => {
         item.addEventListener("click", (e) => {
             e.stopPropagation();
+            audioEngine.playNavPulse();
             if (currentViewMode === "grid") {
                 setViewMode("deck");
             }
             updateDeck(index);
-        });
+        }, { signal });
     });
 
     // Clic en tarjetas
@@ -209,7 +266,7 @@ const initProjects = () => {
                     updateDeck(index);
                 }
             }
-        });
+        }, { signal });
     });
 
     // Navegación por Teclado
@@ -230,14 +287,14 @@ const initProjects = () => {
                 openProjectModal(key);
             }
         }
-    });
+    }, { signal });
 
     // Gestos Táctiles Swipe en Modo 3D
     let touchStartX = 0;
     if (stage) {
         stage.addEventListener("touchstart", (e) => {
             touchStartX = e.changedTouches[0].screenX;
-        }, { passive: true });
+        }, { signal, passive: true });
 
         stage.addEventListener("touchend", (e) => {
             if (modalProjects && modalProjects.classList.contains("show")) return;
@@ -248,24 +305,36 @@ const initProjects = () => {
                 if (diff > 0) nextProject();
                 else prevProject();
             }
-        }, { passive: true });
+        }, { signal, passive: true });
     }
 
     // Autoplay Controller
     const startAutoplay = () => {
         isAutoplayRunning = true;
         playPauseBtn?.classList.add("gj:projects:autoplay-active");
+        playPauseBtn?.setAttribute("aria-pressed", "true");
+        playPauseBtn?.setAttribute("aria-label", "Pausar presentación automática");
+        const autoplayText = playPauseBtn?.querySelector(".gj\\:projects\\:autoplay-text");
+        if (autoplayText) autoplayText.textContent = "Pausa";
         autoplayInterval = setInterval(nextProject, 4500);
     };
 
     const stopAutoplay = () => {
         isAutoplayRunning = false;
         playPauseBtn?.classList.remove("gj:projects:autoplay-active");
-        if (autoplayInterval) clearInterval(autoplayInterval);
+        playPauseBtn?.setAttribute("aria-pressed", "false");
+        playPauseBtn?.setAttribute("aria-label", "Reproducir presentación automática");
+        const autoplayText = playPauseBtn?.querySelector(".gj\\:projects\\:autoplay-text");
+        if (autoplayText) autoplayText.textContent = "Autoplay";
+        if (autoplayInterval) {
+            clearInterval(autoplayInterval);
+            autoplayInterval = null;
+        }
     };
 
     if (playPauseBtn) {
         playPauseBtn.addEventListener("click", () => {
+            audioEngine.playLaserClick();
             if (currentViewMode === "grid") {
                 setViewMode("deck");
                 startAutoplay();
@@ -273,7 +342,7 @@ const initProjects = () => {
             }
             if (isAutoplayRunning) stopAutoplay();
             else startAutoplay();
-        });
+        }, { signal });
     }
 
     // --------------------------------------------------------------------------
@@ -294,21 +363,44 @@ const initProjects = () => {
         }
 
         // Elementos del Modal
-        const titleEl = modalEl.querySelector(".gj\\:modal\\:projects\\:title");
-        const catEl = modalEl.querySelector(".gj\\:modal\\:projects\\:category");
-        const expEl = modalEl.querySelector(".gj\\:modal\\:projects\\:experience");
+        const headerTitleLabel = modalEl.querySelector("#gjModalProjectsLabel");
+        const titleEl = modalEl.querySelector("#gjModalProjectTitle") || modalEl.querySelector(".gj\\:modal\\:projects\\:title");
+        const catBadge = modalEl.querySelector("#gjModalCategoryBadge");
+        const expBadge = modalEl.querySelector("#gjModalExpBadge");
+        const bannerContainer = modalEl.querySelector(".gj\\:modal\\:projects\\:banner");
         const bannerEl = modalEl.querySelector("#gjModalProjectsBanner");
         const paragraphsEl = modalEl.querySelector(".gj\\:modal\\:projects\\:paragraphs");
         const techListEl = modalEl.querySelector("#gjModalProjectsTechList");
         const gallerySection = modalEl.querySelector("#gjModalProjectsGallerySection");
         const galleryGrid = modalEl.querySelector("#gjModalProjectsGallery");
 
+        // Inyectar color de marca dinámico al modal
+        modalEl.style.setProperty("--modal-brand-color", currentProject.brand_color || "#00F0FF");
+
+        if (headerTitleLabel) headerTitleLabel.textContent = currentProject.title;
         if (titleEl) titleEl.textContent = currentProject.title;
-        if (catEl) catEl.innerHTML = `<span class="gj:modal:projects:prefix-cat-exp">Categoría: </span>${currentProject.category}`;
-        if (expEl) expEl.innerHTML = `<span class="gj:modal:projects:prefix-cat-exp">Experiencia: </span>${currentProject.experience_time}`;
+        
+        if (catBadge) {
+            const content = catBadge.querySelector(".gj\\:modal\\:projects\\:badge-content");
+            if (content) content.textContent = currentProject.category;
+            else catBadge.textContent = currentProject.category;
+        }
+
+        if (expBadge) {
+            const content = expBadge.querySelector(".gj\\:modal\\:projects\\:badge-content");
+            if (content) content.textContent = currentProject.experience_time;
+            else expBadge.textContent = currentProject.experience_time;
+        }
+        
         if (bannerEl) {
-            bannerEl.src = `./src/assets/img/projects/${idProject}/${currentProject.screenshot}.png`;
+            // Obtener imagen de la tarjeta activa en el DOM o fallback estático en public/
+            const targetCard = cards.find(c => c.getAttribute("data-id-project") === idProject);
+            const optimizedSrc = targetCard?.getAttribute("data-img-src");
+            bannerEl.src = optimizedSrc || `/img/projects/${idProject}/${currentProject.screenshot}.png`;
             bannerEl.alt = `Captura de pantalla de ${currentProject.title}`;
+            if (bannerContainer) {
+                bannerContainer.classList.add("gj:modal:projects:banner-show");
+            }
         }
 
         // Párrafos dinámicos de descripción
@@ -338,7 +430,7 @@ const initProjects = () => {
             galleryGrid.innerHTML = currentProject.screenshots_gallery
                 .map((item) => `
                     <a 
-                        href="./src/assets/img/projects/${idProject}${item.src}" 
+                        href="${item.src}" 
                         data-pswp-width="${item.width || 1200}" 
                         data-pswp-height="${item.height || 800}" 
                         target="_blank" 
@@ -348,7 +440,7 @@ const initProjects = () => {
                         aria-label="Ver captura completa: ${item.title}"
                     >
                         <img 
-                            src="./src/assets/img/projects/${idProject}${item.src}" 
+                            src="${item.src}" 
                             alt="${item.title}" 
                             loading="lazy" 
                             class="gj:modal:projects:gallery-img"
@@ -357,7 +449,7 @@ const initProjects = () => {
                             <div class="gj:modal:projects:gallery-caption-wrapper">
                                 <span class="gj:modal:projects:gallery-icon">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 11.99 14 9.5 14zm.5-7H9v2H7v1h2v2h1v-2h2V9h-2z"/>
+                                        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zm.5-7H9v2H7v1h2v2h1v-2h2V9h-2z"/>
                                     </svg>
                                 </span>
                                 <span class="gj:modal:projects:gallery-caption">${item.title}</span>
@@ -366,6 +458,23 @@ const initProjects = () => {
                     </a>
                 `)
                 .join("");
+
+            // Sincronizar dinámicamente dimensiones naturales en caso de que alguna imagen cargue asíncronamente
+            galleryGrid.querySelectorAll(".gj\\:modal\\:projects\\:gallery-item").forEach((link) => {
+                const img = link.querySelector("img");
+                if (!img) return;
+                const updateNaturalDimensions = () => {
+                    if (img.naturalWidth > 0 && img.naturalHeight > 0) {
+                        link.setAttribute("data-pswp-width", String(img.naturalWidth));
+                        link.setAttribute("data-pswp-height", String(img.naturalHeight));
+                    }
+                };
+                if (img.complete) {
+                    updateNaturalDimensions();
+                } else {
+                    img.addEventListener("load", updateNaturalDimensions, { once: true });
+                }
+            });
         } else if (gallerySection) {
             gallerySection.style.display = "none";
         }
@@ -394,6 +503,14 @@ const initProjects = () => {
     window.closeProjectModal = () => {
         const modalEl = document.getElementById("gjModalProjects");
         if (!modalEl) return;
+        const bannerContainer = modalEl.querySelector(".gj\\:modal\\:projects\\:banner");
+        const bannerEl = modalEl.querySelector("#gjModalProjectsBanner");
+        if (bannerContainer) {
+            bannerContainer.classList.remove("gj:modal:projects:banner-show");
+        }
+        if (bannerEl) {
+            bannerEl.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'%3E%3C/svg%3E";
+        }
         try {
             const modalInstance = Modal.getInstance(modalEl);
             if (modalInstance) {
@@ -426,25 +543,42 @@ const initProjects = () => {
             e.stopPropagation();
             const idProject = btn.getAttribute("data-id-project") || projectKeys[currentIndex];
             openProjectModal(idProject);
-        });
+        }, { signal });
     });
 
     if (modalProjects) {
         modalProjects.addEventListener("hidden.bs.modal", () => {
             modalProjects.querySelector(".modal-dialog")?.classList.remove("modal-lg");
             modalProjects.classList.remove("gj:modal:projects-resize");
+            const bannerContainer = modalProjects.querySelector(".gj\\:modal\\:projects\\:banner");
+            const bannerEl = modalProjects.querySelector("#gjModalProjectsBanner");
+            if (bannerContainer) {
+                bannerContainer.classList.remove("gj:modal:projects:banner-show");
+            }
+            if (bannerEl) {
+                bannerEl.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'%3E%3C/svg%3E";
+            }
             if (currentViewMode === "deck") {
                 updateDeck(currentIndex);
             }
-        });
+        }, { signal });
     }
 
-    // Inicialización del Deck
+    // Soporte para scroll horizontal con rueda del ratón en el dock de miniaturas
+    if (thumbnailsContainer) {
+        thumbnailsContainer.addEventListener("wheel", (e) => {
+            if (e.deltaY !== 0) {
+                e.preventDefault();
+                thumbnailsContainer.scrollLeft += e.deltaY;
+            }
+        }, { signal, passive: false });
+    }
+
+    // Inicialización del Deck (posicionamiento inicial estático sin animación ni salto)
     updateDeck(0, true);
+    requestAnimationFrame(() => {
+        deck.classList.add("gj:projects:deck-ready");
+    });
 };
 
-if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initProjects);
-} else {
-    initProjects();
-}
+document.addEventListener("astro:page-load", initProjects);

@@ -1,6 +1,10 @@
 import data from "../data/data.js";
+import { audioEngine } from "./audio-engine.js";
 
 const initAboutMe = () => {
+    const terminalOutput = document.getElementById("gjTerminalOutput");
+    if (!terminalOutput) return;
+
     // --------------------------------------------------------------------------
     // 1. Manejador de Pestañas del IDE
     // --------------------------------------------------------------------------
@@ -46,7 +50,13 @@ const initAboutMe = () => {
     tabs.forEach((tab) => {
         tab.addEventListener("click", () => {
             const tabId = tab.getAttribute("data-tab-id");
-            if (tabId) activateTab(tabId);
+            if (tabId) {
+                audioEngine.playNavPulse();
+                activateTab(tabId);
+            }
+        });
+        tab.addEventListener("mouseenter", () => {
+            audioEngine.playHoverTick();
         });
     });
 
@@ -55,7 +65,6 @@ const initAboutMe = () => {
     // --------------------------------------------------------------------------
     const terminalForm = document.getElementById("gjTerminalForm");
     const terminalInput = document.getElementById("gjTerminalInput");
-    const terminalOutput = document.getElementById("gjTerminalOutput");
     const quickCmdBtns = Array.from(document.querySelectorAll(".gj\\:ide\\:quick-cmd") || []);
 
     const history = [];
@@ -186,6 +195,7 @@ const initAboutMe = () => {
                 if (terminalOutput) {
                     terminalOutput.innerHTML = "";
                 }
+                audioEngine.playLaserClick();
                 break;
 
             case "sudo":
@@ -201,13 +211,21 @@ const initAboutMe = () => {
     if (terminalForm && terminalInput) {
         terminalForm.addEventListener("submit", (e) => {
             e.preventDefault();
+            audioEngine.playKeyClick("Enter");
             const val = terminalInput.value;
             terminalInput.value = "";
             executeCommand(val);
         });
 
-        // Navegación por historial con teclas ↑ y ↓
+        // Sonido de teclado mecánico al escribir y navegación por historial con teclas ↑ y ↓
         terminalInput.addEventListener("keydown", (e) => {
+            // Ignorar modificadores solos (Shift, Ctrl, Alt, Meta, CapsLock)
+            if (!["Shift", "Control", "Alt", "Meta", "CapsLock", "Tab"].includes(e.key)) {
+                if (e.key !== "Enter") {
+                    audioEngine.playKeyClick(e.key);
+                }
+            }
+
             if (e.key === "ArrowUp") {
                 if (history.length > 0 && historyIndex > 0) {
                     historyIndex--;
@@ -225,11 +243,17 @@ const initAboutMe = () => {
         });
     }
 
-    // Botones de Comandos Rápidos
+    // Botones de Comandos Rápidos con sonido mecánico al accionar y hover tick
     quickCmdBtns.forEach((btn) => {
         btn.addEventListener("click", () => {
             const cmd = btn.getAttribute("data-cmd");
-            if (cmd) executeCommand(cmd);
+            if (cmd) {
+                audioEngine.playKeyClick("Enter");
+                executeCommand(cmd);
+            }
+        });
+        btn.addEventListener("mouseenter", () => {
+            audioEngine.playHoverTick();
         });
     });
 
@@ -237,8 +261,4 @@ const initAboutMe = () => {
     activateTab("profile");
 };
 
-if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initAboutMe);
-} else {
-    initAboutMe();
-}
+document.addEventListener("astro:page-load", initAboutMe);

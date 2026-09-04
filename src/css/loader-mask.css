@@ -1,168 +1,813 @@
+/* ==========================================================================
+   MÁSCARA DE CARGA - CONCEPTO 5: APPLE STUDIO MINIMALIST
+   (Liquid Mesh Gradient + Dynamic Island Floating Capsule + Glassmorphism)
+   ========================================================================== */
+
+:root {
+    --gj-lm-bg: #07090E;
+    --gj-lm-grad-1: #4F46E5; /* Indigo Profundo */
+    --gj-lm-grad-2: #8B5CF6; /* Violeta Vibrante */
+    --gj-lm-grad-3: #06B6D4; /* Cian Eléctrico */
+    --gj-lm-grad-4: #EC4899; /* Rosa Neón */
+    --gj-lm-grad-accent: #3B82F6; /* Azul Eléctrico */
+    --gj-lm-pill-bg: rgba(18, 22, 34, 0.75);
+    --gj-lm-pill-border: rgba(255, 255, 255, 0.12);
+    --gj-lm-pill-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    --gj-lm-pill-text: #F8FAFC;
+    --gj-lm-pill-sub: rgba(248, 250, 252, 0.65);
+    --gj-lm-dot-color: #06B6D4;
+    --gj-lm-card-bg: rgba(255, 255, 255, 0.035);
+    --gj-lm-card-border: rgba(255, 255, 255, 0.12);
+    --gj-lm-card-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+:root[dark-mode="false"],
+:root:not([dark-mode="true"]) {
+    --gj-lm-bg: #F8FAFC;
+    --gj-lm-grad-1: #6366F1; /* Iris Elegante */
+    --gj-lm-grad-2: #A855F7; /* Púrpura Radiante */
+    --gj-lm-grad-3: #0EA5E9; /* Azul Cielo */
+    --gj-lm-grad-4: #F43F5E; /* Coral Atardecer */
+    --gj-lm-grad-accent: #818CF8; /* Índigo Suave */
+    --gj-lm-pill-bg: rgba(255, 255, 255, 0.88);
+    --gj-lm-pill-border: rgba(0, 0, 0, 0.08);
+    --gj-lm-pill-shadow: 0 16px 40px -10px rgba(79, 70, 229, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    --gj-lm-pill-text: #0F172A;
+    --gj-lm-pill-sub: rgba(15, 23, 42, 0.65);
+    --gj-lm-dot-color: #6366F1;
+    --gj-lm-card-bg: rgba(255, 255, 255, 0.75);
+    --gj-lm-card-border: rgba(255, 255, 255, 0.9);
+    --gj-lm-card-shadow: 0 24px 60px -15px rgba(99, 102, 241, 0.16), inset 0 1px 1px rgba(255, 255, 255, 1);
+}
+
+/* ==========================================================================
+   Contenedor Principal Fijo (Full Screen Viewport)
+   ========================================================================== */
+
 .gj\:lm\:wrapper {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    background-color: var(--gj-lm-bg);
     display: flex;
     align-items: center;
-    background-color: var(--gj-main-bg);
-    flex-direction: column;
     justify-content: center;
-    left: 0;
-    min-height: 100vh;
-    opacity: 1;
+    flex-direction: column;
+    z-index: 999999;
+    overflow: hidden;
+    pointer-events: auto;
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   Atmósfera Aurora Líquida de Fondo (Apple Studio Ambient Aurora)
+   ========================================================================== */
+
+.gj\:lm\:ambient-aurora {
     position: absolute;
-    padding: 24px;
-    top: 0;
-    transition: all 1s ease-in-out;
-    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 650px;
+    height: 650px;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
 }
 
-.gj\:lm\:section {
+.gj\:lm\:aurora-sphere {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(85px);
+    will-change: transform;
+    opacity: 0.5;
+}
+
+:root[dark-mode="false"] .gj\:lm\:aurora-sphere,
+:root:not([dark-mode="true"]) .gj\:lm\:aurora-sphere {
+    opacity: 0.28;
+    filter: blur(75px);
+}
+
+.gj\:lm\:aurora-1 {
+    width: 380px;
+    height: 380px;
+    background: radial-gradient(circle, var(--gj-lm-grad-1) 0%, transparent 70%);
+    top: 10%;
+    left: 15%;
+    animation: gjAuroraDrift1 11s ease-in-out infinite alternate;
+}
+
+.gj\:lm\:aurora-2 {
+    width: 330px;
+    height: 330px;
+    background: radial-gradient(circle, var(--gj-lm-grad-3) 0%, transparent 70%);
+    bottom: 10%;
+    right: 15%;
+    animation: gjAuroraDrift2 13s ease-in-out infinite alternate;
+}
+
+.gj\:lm\:aurora-3 {
+    width: 290px;
+    height: 290px;
+    background: radial-gradient(circle, var(--gj-lm-grad-4) 0%, transparent 70%);
+    top: 35%;
+    left: 35%;
+    animation: gjAuroraDrift3 9s ease-in-out infinite alternate;
+}
+
+@keyframes gjAuroraDrift1 {
+    0% { transform: translate(0, 0) scale(0.95); }
+    100% { transform: translate(45px, 40px) scale(1.15); }
+}
+
+@keyframes gjAuroraDrift2 {
+    0% { transform: translate(0, 0) scale(1.1); }
+    100% { transform: translate(-50px, -35px) scale(0.9); }
+}
+
+@keyframes gjAuroraDrift3 {
+    0% { transform: translate(0, 0) scale(0.85); opacity: 0.35; }
+    100% { transform: translate(-30px, 35px) scale(1.2); opacity: 0.6; }
+}
+
+/* ==========================================================================
+   Escenario Central (Apple Spring Physics Entrance)
+   ========================================================================== */
+
+.gj\:lm\:stage {
+    position: relative;
+    z-index: 5;
     display: flex;
-    align-items: center;
     flex-direction: column;
-    justify-content: center;
-    opacity: 1;
-    row-gap: 50px;
-    transition: opacity 2s ease-in-out;
-}
-
-.gj\:lm\:complete-name {
-    color: var(--gj-fonts-light);
-    font-size: 64px;
+    align-items: center;
     text-align: center;
-}
-
-.gj\:lm\:logo {
-    height: 100%;
-    max-height: 223px;
-    max-width: 320px;
-    min-height: 174px;
-    min-width: 250px;
-    padding-inline: 48px;
+    row-gap: 22px;
+    padding: 24px;
+    max-width: 480px;
     width: 100%;
+    animation: gjAppleSpringIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.gj\:lm\:bullets {
+@keyframes gjAppleSpringIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.92) translateY(16px);
+        filter: blur(12px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0px);
+    }
+}
+
+/* ==========================================================================
+   Tarjeta Esculpida en Cristal Líquido (Glassmorphism & Lens Flare)
+   ========================================================================== */
+
+.gj\:lm\:brand-card {
+    position: relative;
     display: flex;
     align-items: center;
-    background-color: var(--gj-second-bg);
-    border-radius: 100px;
-    column-gap: 11px;
     justify-content: center;
-    padding-block: 7px;
-    padding-inline: 14px;
+    width: 180px;
+    height: 126px;
+    border-radius: 30px;
+    background: var(--gj-lm-card-bg);
+    border: 1px solid var(--gj-lm-card-border);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    box-shadow: var(--gj-lm-card-shadow);
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.4s ease;
 }
 
-.gj\:lm\:bullet {
-    background-color: var(--gj-fonts-light);
-    border-radius: 100%;
+/* Reflejo óptico cinemático que cruza la tarjeta */
+.gj\:lm\:card-lens-flare {
+    position: absolute;
+    inset: -50%;
+    background: linear-gradient(
+        115deg,
+        transparent 35%,
+        rgba(255, 255, 255, 0.22) 50%,
+        transparent 65%
+    );
+    transform: translateX(-100%);
+    animation: gjCardSheen 4.2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+    pointer-events: none;
 }
 
-.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(1) {
-    background-color: #707070;
-    height: 4px;
-    width: 4px;
+:root[dark-mode="false"] .gj\:lm\:card-lens-flare,
+:root:not([dark-mode="true"]) .gj\:lm\:card-lens-flare {
+    background: linear-gradient(
+        115deg,
+        transparent 35%,
+        rgba(255, 255, 255, 0.6) 50%,
+        transparent 65%
+    );
 }
 
-.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(2) {
-    background-color: #707070;
-    height: 6px;
+@keyframes gjCardSheen {
+    0% { transform: translateX(-120%); }
+    40%, 100% { transform: translateX(120%); }
+}
+
+/* ==========================================================================
+   Monograma GJ con Liquid Mesh Gradient
+   ========================================================================== */
+
+.gj\:lm\:apple-logo {
+    width: 132px;
+    height: auto;
+    filter: drop-shadow(0 10px 24px rgba(79, 70, 229, 0.35));
+    transition: filter 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root[dark-mode="false"] .gj\:lm\:apple-logo,
+:root:not([dark-mode="true"]) .gj\:lm\:apple-logo {
+    filter: drop-shadow(0 10px 24px rgba(99, 102, 241, 0.22));
+}
+
+/* Blobs de color líquido en movimiento continuo dentro del monograma */
+.gj\:lm\:liquid-blob {
+    mix-blend-mode: hard-light;
+    filter: blur(26px);
+    will-change: transform;
+}
+
+.gj\:lm\:liquid-blob-1 {
+    animation: gjBlobFlow1 5.2s ease-in-out infinite alternate;
+}
+
+.gj\:lm\:liquid-blob-2 {
+    animation: gjBlobFlow2 6.4s ease-in-out infinite alternate;
+}
+
+.gj\:lm\:liquid-blob-3 {
+    animation: gjBlobFlow3 4.8s ease-in-out infinite alternate;
+}
+
+@keyframes gjBlobFlow1 {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(55px, 30px) scale(1.22); }
+    100% { transform: translate(-35px, 45px) scale(0.92); }
+}
+
+@keyframes gjBlobFlow2 {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-45px, -30px) scale(1.2); }
+    100% { transform: translate(35px, -20px) scale(1.08); }
+}
+
+@keyframes gjBlobFlow3 {
+    0% { transform: translate(0, 0) scale(0.88); opacity: 0.6; }
+    50% { transform: translate(-35px, 35px) scale(1.28); opacity: 0.95; }
+    100% { transform: translate(25px, -25px) scale(1); opacity: 0.7; }
+}
+
+/* Bisel de cristal translúcido en los bordes del logo */
+.gj\:lm\:glass-bevel {
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+:root[dark-mode="false"] .gj\:lm\:glass-bevel,
+:root:not([dark-mode="true"]) .gj\:lm\:glass-bevel {
+    stroke: rgba(255, 255, 255, 0.7);
+}
+
+/* ==========================================================================
+   Tipografía de Identidad Apple Studio
+   ========================================================================== */
+
+.gj\:lm\:meta-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 6px;
+    z-index: 3;
+}
+
+.gj\:lm\:name {
+    font-size: clamp(23px, 4.4vw, 32px);
+    font-weight: 700;
+    color: var(--gj-lm-pill-text);
+    letter-spacing: -0.03em;
+    margin: 0;
+    line-height: 1.15;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", Roboto, sans-serif;
+}
+
+.gj\:lm\:subtitle {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gj-lm-pill-sub);
+    margin: 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* ==========================================================================
+   Dynamic Island Floating Pill Capsule
+   ========================================================================== */
+
+.gj\:lm\:dynamic-pill {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 8px;
+    padding: 10px 18px 12px 18px;
+    background: var(--gj-lm-pill-bg);
+    border: 1px solid var(--gj-lm-pill-border);
+    border-radius: 9999px;
+    box-shadow: var(--gj-lm-pill-shadow);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    width: clamp(230px, 75vw, 260px);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.35s ease;
+}
+
+.gj\:lm\:pill-status {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 11px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-weight: 600;
+    color: var(--gj-lm-pill-text);
+}
+
+.gj\:lm\:pill-indicator {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 10px;
+    height: 10px;
+}
+
+.gj\:lm\:pill-dot {
     width: 6px;
-}
-
-.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(3) {
-    background-color: #707070;
-    height: 8px;
-    width: 8px;
-}
-
-.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(4) {
-    background-color: #707070;
-    height: 10px;
-    width: 10px;
-}
-
-.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(5) {
-    height: 10px;
-    width: 10px;
-}
-
-.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(6) {
-    height: 10px;
-    width: 10px;
-}
-.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(7) {
-    height: 10px;
-    width: 10px;
-}
-.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(8) {
-    height: 10px;
-    width: 10px;
-}
-.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(9) {
-    height: 10px;
-    width: 10px;
-}
-.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(10) {
-    height: 10px;
-    width: 10px;
-}
-.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(11) {
-    height: 10px;
-    width: 10px;
-}
-.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(12) {
-    height: 10px;
-    width: 10px;
-}
-.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(13) {
-    background-color: #707070;
-    height: 10px;
-    width: 10px;
-}
-.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(14) {
-    background-color: #707070;
-    height: 8px;
-    width: 8px;
-}
-.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(15) {
-    background-color: #707070;
     height: 6px;
-    width: 6px;
-}
-.gj\:lm\:bullets > .gj\:lm\:bullet:nth-child(16) {
-    background-color: #707070;
-    height: 4px;
-    width: 4px;
+    border-radius: 50%;
+    background-color: var(--gj-lm-dot-color);
+    box-shadow: 0 0 8px var(--gj-lm-dot-color);
 }
 
-.gj\:content-loaded
-.gj\:lm\:section {
+.gj\:lm\:pill-wave {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1.5px solid var(--gj-lm-dot-color);
+    animation: gjPillWave 1.8s ease-out infinite;
     opacity: 0;
 }
 
-.gj\:lm\:hidden
-.gj\:lm\:wrapper {
-    opacity: 0;
+@keyframes gjPillWave {
+    0% { transform: scale(0.6); opacity: 0.9; }
+    100% { transform: scale(2.3); opacity: 0; }
 }
 
-.gj\:lm\:remove
-.gj\:lm\:wrapper {
+.gj\:lm\:pill-text {
+    color: var(--gj-lm-pill-sub);
+    letter-spacing: 0.08em;
+    font-size: 10.5px;
+}
+
+.gj\:lm\:pill-sep {
+    color: var(--gj-lm-pill-border);
+    user-select: none;
+}
+
+.gj\:lm\:pill-pct {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+    color: var(--gj-lm-dot-color);
+    font-weight: 700;
+}
+
+/* Micro barra de progreso líquida */
+.gj\:lm\:pill-track {
+    width: 100%;
+    height: 4px;
+    border-radius: 9999px;
+    background: rgba(125, 125, 125, 0.22);
+    overflow: hidden;
+    position: relative;
+}
+
+:root[dark-mode="false"] .gj\:lm\:pill-track,
+:root:not([dark-mode="true"]) .gj\:lm\:pill-track {
+    background: rgba(0, 0, 0, 0.09);
+}
+
+.gj\:lm\:pill-fill {
+    width: 0%;
+    height: 100%;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, var(--gj-lm-grad-3), var(--gj-lm-grad-1), var(--gj-lm-grad-4));
+    background-size: 200% 100%;
+    box-shadow: 0 0 10px var(--gj-lm-dot-color), 0 0 4px var(--gj-lm-grad-1);
+    animation: gjGradShift 3s linear infinite;
+    will-change: width;
+}
+
+@keyframes gjGradShift {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+/* ==========================================================================
+   Selector de Modo de Ingreso (Con Audio // Silencioso)
+   ========================================================================== */
+
+.gj\:lm\:actions-group {
     display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 440px;
+    z-index: 15;
 }
 
-@media only screen and (max-height: 480px) {
-    .gj\:lm\:complete-name {
-        font-size: 36px;
+.gj\:lm\:actions-group.gj\:lm\:actions-ready {
+    display: flex;
+    animation: gjActionsSpring 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes gjActionsSpring {
+    0% {
+        opacity: 0;
+        transform: translateY(14px) scale(0.92);
+        filter: blur(8px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0px);
     }
 }
 
-@media only screen and (max-width: 768px) {
-    .gj\:lm\:complete-name {
-        font-size: 36px;
+.gj\:lm\:choice-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    column-gap: 10px;
+    padding: 10px 18px;
+    border-radius: 9999px;
+    cursor: pointer;
+    text-decoration: none;
+    user-select: none;
+    flex: 1;
+    min-width: 175px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.25s ease,
+                background 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+.gj\:lm\:choice-icon {
+    font-size: 16px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.gj\:lm\:choice-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 2px;
+    text-align: left;
+}
+
+.gj\:lm\:choice-title {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+
+.gj\:lm\:choice-sub {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 8.5px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.75;
+    line-height: 1;
+}
+
+/* 1. Botón "Ingresar con Audio" */
+.gj\:lm\:choice-sound {
+    border: 1px solid rgba(0, 240, 255, 0.55);
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.35) 0%, rgba(6, 182, 212, 0.25) 100%);
+    color: #FFFFFF;
+    box-shadow: 0 0 24px rgba(0, 240, 255, 0.25), inset 0 1px 1.5px rgba(255, 255, 255, 0.45);
+    animation: gjSoundChoicePulse 2.2s ease-in-out infinite;
+}
+
+.gj\:lm\:choice-sound .gj\:lm\:choice-sub {
+    color: #00F0FF;
+}
+
+:root[dark-mode="false"] .gj\:lm\:choice-sound,
+:root:not([dark-mode="true"]) .gj\:lm\:choice-sound {
+    border: 1px solid rgba(79, 70, 229, 0.55);
+    background: linear-gradient(135deg, rgba(79, 70, 229, 0.16) 0%, rgba(6, 182, 212, 0.14) 100%);
+    color: #18181B;
+    box-shadow: 0 4px 18px rgba(79, 70, 229, 0.18), inset 0 1px 1.5px rgba(255, 255, 255, 0.8);
+    animation: gjSoundChoicePulseLight 2.2s ease-in-out infinite;
+}
+
+:root[dark-mode="false"] .gj\:lm\:choice-sound .gj\:lm\:choice-sub,
+:root:not([dark-mode="true"]) .gj\:lm\:choice-sound .gj\:lm\:choice-sub {
+    color: #4F46E5;
+}
+
+.gj\:lm\:choice-sound:hover {
+    transform: translateY(-2px) scale(1.03) !important;
+    border-color: #00F0FF !important;
+    box-shadow: 0 0 32px rgba(0, 240, 255, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.6) !important;
+}
+
+.gj\:lm\:choice-sound:active {
+    transform: translateY(0px) scale(0.98) !important;
+}
+
+@keyframes gjSoundChoicePulse {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(0, 240, 255, 0.25), 0 0 40px rgba(99, 102, 241, 0.15);
+        border-color: rgba(0, 240, 255, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 32px rgba(0, 240, 255, 0.55), 0 0 55px rgba(99, 102, 241, 0.3);
+        border-color: rgba(0, 240, 255, 0.9);
+        transform: translateY(-1px) scale(1.02);
     }
 }
 
-@media only screen and (max-width: 480px) {
-    .gj\:lm\:section {
-        row-gap: 25px;
+@keyframes gjSoundChoicePulseLight {
+    0%, 100% {
+        box-shadow: 0 4px 18px rgba(79, 70, 229, 0.18);
+        border-color: rgba(79, 70, 229, 0.45);
+    }
+    50% {
+        box-shadow: 0 6px 26px rgba(79, 70, 229, 0.32);
+        border-color: rgba(79, 70, 229, 0.8);
+        transform: translateY(-1px) scale(1.02);
+    }
+}
+
+/* 2. Botón "Modo Silencioso" */
+.gj\:lm\:choice-mute {
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--gj-lm-pill-text, #E2E8F0);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+:root[dark-mode="false"] .gj\:lm\:choice-mute,
+:root:not([dark-mode="true"]) .gj\:lm\:choice-mute {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: rgba(0, 0, 0, 0.04);
+    color: #52525B;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.gj\:lm\:choice-mute:hover {
+    transform: translateY(-2px) scale(1.02) !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    border-color: rgba(255, 255, 255, 0.35) !important;
+    color: #FFFFFF !important;
+}
+
+:root[dark-mode="false"] .gj\:lm\:choice-mute:hover,
+:root:not([dark-mode="true"]) .gj\:lm\:choice-mute:hover {
+    background: rgba(0, 0, 0, 0.08) !important;
+    border-color: rgba(0, 0, 0, 0.25) !important;
+    color: #18181B !important;
+}
+
+.gj\:lm\:choice-mute:active {
+    transform: translateY(0px) scale(0.98) !important;
+}
+
+/* ==========================================================================
+   Cyber HUD Audio Cue (Interactividad y Desbloqueo de Autoplay)
+   ========================================================================== */
+
+.gj\:lm\:audio-cue {
+    display: inline-flex;
+    align-items: center;
+    column-gap: 8px;
+    padding: 6px 14px;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gj-lm-pill-sub);
+    user-select: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: gjAudioCuePulse 2.4s ease-in-out infinite;
+}
+
+:root[dark-mode="false"] .gj\:lm\:audio-cue,
+:root:not([dark-mode="true"]) .gj\:lm\:audio-cue {
+    background: rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    color: rgba(15, 23, 42, 0.6);
+}
+
+.gj\:lm\:audio-cue:hover,
+.gj\:lm\:audio-cue.gj\:lm\:audio-active {
+    background: rgba(6, 182, 212, 0.12);
+    border-color: rgba(6, 182, 212, 0.35);
+    color: var(--gj-lm-dot-color);
+    box-shadow: 0 0 16px rgba(6, 182, 212, 0.2);
+}
+
+.gj\:lm\:audio-cue-wave {
+    display: inline-flex;
+    align-items: flex-end;
+    column-gap: 2.5px;
+    height: 10px;
+}
+
+.gj\:lm\:audio-bar {
+    width: 2px;
+    height: 3px;
+    border-radius: 1px;
+    background-color: currentColor;
+    transition: height 0.2s ease;
+}
+
+.gj\:lm\:audio-cue.gj\:lm\:audio-active .gj\:lm\:audio-bar:nth-child(1) {
+    animation: gjAudioBar1 0.7s ease-in-out infinite alternate;
+}
+.gj\:lm\:audio-cue.gj\:lm\:audio-active .gj\:lm\:audio-bar:nth-child(2) {
+    animation: gjAudioBar2 0.5s ease-in-out infinite alternate 0.15s;
+}
+.gj\:lm\:audio-cue.gj\:lm\:audio-active .gj\:lm\:audio-bar:nth-child(3) {
+    animation: gjAudioBar3 0.6s ease-in-out infinite alternate 0.3s;
+}
+
+@keyframes gjAudioBar1 {
+    0% { height: 3px; }
+    100% { height: 10px; }
+}
+@keyframes gjAudioBar2 {
+    0% { height: 2px; }
+    100% { height: 11px; }
+}
+@keyframes gjAudioBar3 {
+    0% { height: 4px; }
+    100% { height: 9px; }
+}
+
+@keyframes gjAudioCuePulse {
+    0%, 100% { opacity: 0.7; transform: translateY(0); }
+    50% { opacity: 1; transform: translateY(-1px); }
+}
+
+/* ==========================================================================
+   Estado Completado (100% Progress / Apple Bloom Pulse)
+   ========================================================================== */
+
+.gj\:lm\:wrapper.gj\:lm\:complete .gj\:lm\:brand-card {
+    transform: scale(1.05);
+    box-shadow: 0 28px 65px -10px rgba(79, 70, 229, 0.45),
+                inset 0 1px 2px rgba(255, 255, 255, 0.4);
+}
+
+:root[dark-mode="false"] .gj\:lm\:wrapper.gj\:lm\:complete .gj\:lm\:brand-card,
+:root:not([dark-mode="true"]) .gj\:lm\:wrapper.gj\:lm\:complete .gj\:lm\:brand-card {
+    box-shadow: 0 28px 65px -10px rgba(99, 102, 241, 0.28),
+                inset 0 1px 2px rgba(255, 255, 255, 1);
+}
+
+.gj\:lm\:wrapper.gj\:lm\:complete .gj\:lm\:dynamic-pill {
+    transform: scale(1.03);
+}
+
+/* ==========================================================================
+   Salida Cinemática: Apple Keynote Zoom & Dissolve
+   ========================================================================== */
+
+.gj\:lm\:exit {
+    opacity: 0 !important;
+    filter: blur(14px) !important;
+    transform: scale(1.08) !important;
+    pointer-events: none !important;
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.gj\:lm\:remove {
+    display: none !important;
+}
+
+/* ==========================================================================
+   Responsividad & Accesibilidad (Mobile <= 540px)
+   ========================================================================== */
+
+@media only screen and (max-width: 540px) {
+    .gj\:lm\:brand-card {
+        width: 154px;
+        height: 108px;
+        border-radius: 24px;
+    }
+
+    .gj\:lm\:apple-logo {
+        width: 112px;
+    }
+
+    .gj\:lm\:ambient-aurora {
+        width: 440px;
+        height: 440px;
+    }
+
+    .gj\:lm\:aurora-1 { width: 260px; height: 260px; }
+    .gj\:lm\:aurora-2 { width: 220px; height: 220px; }
+    .gj\:lm\:aurora-3 { width: 200px; height: 200px; }
+
+    .gj\:lm\:name {
+        font-size: 24px;
+    }
+
+    .gj\:lm\:subtitle {
+        font-size: 10px;
+        letter-spacing: 0.12em;
+    }
+
+    .gj\:lm\:dynamic-pill {
+        width: 224px;
+        padding: 8px 14px 10px 14px;
+    }
+
+    .gj\:lm\:actions-group {
+        flex-direction: column;
+        width: 100%;
+        max-width: 280px;
+        gap: 8px;
+    }
+
+    .gj\:lm\:choice-btn {
+        width: 100%;
+        padding: 9px 16px;
+    }
+
+    .gj\:lm\:choice-title {
+        font-size: 10.5px;
+    }
+
+    .gj\:lm\:choice-sub {
+        font-size: 8px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .gj\:lm\:wrapper,
+    .gj\:lm\:exit {
+        transition: none !important;
+    }
+
+    .gj\:lm\:stage,
+    .gj\:lm\:aurora-1,
+    .gj\:lm\:aurora-2,
+    .gj\:lm\:aurora-3,
+    .gj\:lm\:liquid-blob-1,
+    .gj\:lm\:liquid-blob-2,
+    .gj\:lm\:liquid-blob-3,
+    .gj\:lm\:card-lens-flare,
+    .gj\:lm\:pill-wave,
+    .gj\:lm\:pill-fill {
+        animation: none !important;
+    }
+
+    .gj\:lm\:exit {
+        display: none !important;
     }
 }

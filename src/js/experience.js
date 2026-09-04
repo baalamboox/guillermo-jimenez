@@ -1,8 +1,24 @@
 import data from "../data/data.js";
 
+let experienceAbortController = null;
+
+const cleanupExperience = () => {
+    if (experienceAbortController) {
+        experienceAbortController.abort();
+        experienceAbortController = null;
+    }
+};
+
+document.addEventListener("astro:before-swap", cleanupExperience);
+
 const initExperience = () => {
+    cleanupExperience();
+
     const listItems = Array.from(document.querySelectorAll(".gj\\:experience\\:list-item") || []);
     if (listItems.length === 0) return;
+
+    experienceAbortController = new AbortController();
+    const { signal } = experienceAbortController;
 
     let currentIndex = 0;
     const experiences = data.experience || [];
@@ -53,14 +69,10 @@ const initExperience = () => {
             e.preventDefault();
             setActiveItem((currentIndex - 1 + listItems.length) % listItems.length);
         }
-    });
+    }, { signal });
 
     // Activar el primer elemento y su aura inicial
     setActiveItem(0);
 };
 
-if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initExperience);
-} else {
-    initExperience();
-}
+document.addEventListener("astro:page-load", initExperience);

@@ -234,9 +234,9 @@ const data = {
             "brand_color" : "#555555",
             "technologies" : ["React", "JavaScript", "HTML5", "CSS3", "Bootstrap", ".NET"],
             "screenshots_gallery" : [
-                { "src": "/screenshots/screen-1.png", "title": "Portal de Comercio Electrónico y Catálogo Apple", "width": 1200, "height": 800 },
-                { "src": "/screenshots/screen-2.png", "title": "Embudo de Compra y Proceso de Checkout", "width": 1200, "height": 800 },
-                { "src": "/screenshots/screen-3.png", "title": "Portal Empresarial MacStore B2B", "width": 1200, "height": 800 }
+                { "src": "/screenshots/screen-1.png", "title": "Portal de Comercio Electrónico y Catálogo Apple", "width": 1904, "height": 983 },
+                { "src": "/screenshots/screen-2.png", "title": "Embudo de Compra y Proceso de Checkout", "width": 474, "height": 906 },
+                { "src": "/screenshots/screen-3.png", "title": "Portal Empresarial MacStore B2B", "width": 476, "height": 907 }
             ],
             "description" : "Durante mi experiencia en MacStore, participé activamente en el desarrollo y mantenimiento de la interfaz de usuario del sitio web oficial de retail Apple en México, enfocándome en mejorar la experiencia del cliente mediante interfaces intuitivas, accesibles y visualmente atractivas.\nTrabajé con tecnologías como HTML5, CSS3, JavaScript y React para la maquetación y desarrollo de componentes dinámicos, asegurando compatibilidad responsive en distintos dispositivos. También colaboré en la optimización del embudo de compra, gestión del carrito interactivo y validaciones seguras en el proceso de checkout."
         },
@@ -248,8 +248,8 @@ const data = {
             "brand_color" : "#E1007A",
             "technologies" : ["React", "TypeScript", "Tailwind CSS", "HTML5", "CSS3", "REST APIs"],
             "screenshots_gallery" : [
-                { "src": "/screenshots/screen-4.png", "title": "Catálogo Departamental y Filtros en Tiempo Real", "width": 1200, "height": 800 },
-                { "src": "/screenshots/screen-5.png", "title": "Vista Detallada de Producto y Disponibilidad", "width": 1200, "height": 800 }
+                { "src": "/screenshots/screen-4.png", "title": "Catálogo Departamental y Filtros en Tiempo Real", "width": 1912, "height": 985 },
+                { "src": "/screenshots/screen-5.png", "title": "Vista Detallada de Producto y Disponibilidad", "width": 1909, "height": 971 }
             ],
             "description" : "En Liverpool, formé parte del equipo frontend responsable de modernizar módulos clave del portal de comercio electrónico departamental más grande de México.\nImplementé interfaces modulares de alta velocidad con React y TypeScript, reduciendo tiempos de renderizado en catlogos con miles de productos. Desarrollé filtros dinámicos en tiempo real, mejoras en el sistema de búsqueda y optimizaciones de accesibilidad conforme a estándares WCAG."
         },
@@ -261,8 +261,8 @@ const data = {
             "brand_color" : "#00A4EF",
             "technologies" : ["TypeScript", "React", "Fluent UI", "Node.js", "Azure", "HTML5"],
             "screenshots_gallery" : [
-                { "src": "/screenshots/screen-6.png", "title": "Dashboard Corporativo con Design System Fluent UI", "width": 1200, "height": 800 },
-                { "src": "/screenshots/screen-7.png", "title": "Módulo de Gestión y Flujos de Alta Concurrencia", "width": 1200, "height": 800 }
+                { "src": "/screenshots/screen-6.png", "title": "Dashboard Corporativo con Design System Fluent UI", "width": 1917, "height": 992 },
+                { "src": "/screenshots/screen-7.png", "title": "Módulo de Gestión y Flujos de Alta Concurrencia", "width": 474, "height": 906 }
             ],
             "description" : "Durante mi colaboración en proyectos del ecosistema Microsoft, desarrollé plataformas y portales corporativos orientados a la productividad y gestión empresarial.\nDiseñé componentes altamente reutilizables aplicando el Design System Fluent UI, garantizando consistencia visual multiplataforma y tipado robusto con TypeScript. Integré servicios en la nube de Azure y optimicé la arquitectura frontend para flujos de trabajo de alta concurrencia."
         },
@@ -274,8 +274,8 @@ const data = {
             "brand_color" : "#820AD1",
             "technologies" : ["React", "TypeScript", "Tailwind CSS", "Microfrontends", "Node.js"],
             "screenshots_gallery" : [
-                { "src": "/screenshots/screen-8.png", "title": "Onboarding Digital y Solicitud de Tarjeta de Crédito", "width": 1200, "height": 800 },
-                { "src": "/screenshots/screen-1.png", "title": "Panel de Control Financiero y Movimientos", "width": 1200, "height": 800 }
+                { "src": "/screenshots/screen-8.png", "title": "Onboarding Digital y Solicitud de Tarjeta de Crédito", "width": 476, "height": 922 },
+                { "src": "/screenshots/screen-1.png", "title": "Panel de Control Financiero y Movimientos", "width": 1904, "height": 983 }
             ],
             "description" : "En Nu Bank, colaboré en el desarrollo de experiencias web para productos financieros y onboarding digital de clientes.\nConstruí microfrontends responsivos con React y Tailwind CSS, priorizando la seguridad en el manejo de datos, la claridad en el flujo de solicitud de tarjetas y cuentas, y una interacción visual ágil que refleja la identidad fresca y moderna de la fintech."
         },
@@ -287,8 +287,8 @@ const data = {
             "brand_color" : "#001E50",
             "technologies" : ["JavaScript", "HTML5", "CSS3", "Bootstrap", "Web Animations", "SASS"],
             "screenshots_gallery" : [
-                { "src": "/screenshots/screen-2.png", "title": "Configurador Interactivo de Modelos Vehiculares", "width": 1200, "height": 800 },
-                { "src": "/screenshots/screen-3.png", "title": "Cotizador de Financiamiento y Agendado de Test Drive", "width": 1200, "height": 800 }
+                { "src": "/screenshots/screen-2.png", "title": "Configurador Interactivo de Modelos Vehiculares", "width": 474, "height": 906 },
+                { "src": "/screenshots/screen-3.png", "title": "Cotizador de Financiamiento y Agendado de Test Drive", "width": 476, "height": 907 }
             ],
             "description" : "Para Volkswagen, desarrollé configuradores interactivos y páginas de aterrizaje dinámicas para el lanzamiento de nuevos modelos vehiculares.\nImplementé vistas 360° interactivas, cotizadores de financiamiento en tiempo real y módulos para agendar pruebas de manejo en concesionarias, optimizando la tasa de conversión en campañas publicitarias a nivel nacional."
         },
@@ -300,8 +300,8 @@ const data = {
             "brand_color" : "#0071DC",
             "technologies" : ["React", "TypeScript", "CSS Modules", "Redux", "REST APIs", "Node.js"],
             "screenshots_gallery" : [
-                { "src": "/screenshots/screen-4.png", "title": "Plataforma On Demand y Supermercado en Línea", "width": 1200, "height": 800 },
-                { "src": "/screenshots/screen-5.png", "title": "Carrito Inteligente y Selección de Franja de Entrega", "width": 1200, "height": 800 }
+                { "src": "/screenshots/screen-4.png", "title": "Plataforma On Demand y Supermercado en Línea", "width": 1912, "height": 985 },
+                { "src": "/screenshots/screen-5.png", "title": "Carrito Inteligente y Selección de Franja de Entrega", "width": 1909, "height": 971 }
             ],
             "description" : "En Walmart, participé en la mejora continua de la plataforma de compras en línea y entrega a domicilio (On Demand & Pickup).\nOptimicé la velocidad de carga de la página de inicio y categorías de producto, implementé el sistema de recomendaciones personalizadas y mejoré la sincronización del carrito de compras en tiempo real entre sesiones de usuario."
         },
@@ -313,8 +313,8 @@ const data = {
             "brand_color" : "#0066B1",
             "technologies" : ["React", "Tailwind CSS", "Framer Motion", "TypeScript", "HTML5"],
             "screenshots_gallery" : [
-                { "src": "/screenshots/screen-6.png", "title": "Showcase Digital de Vehículos Eléctricos BMW i", "width": 1200, "height": 800 },
-                { "src": "/screenshots/screen-7.png", "title": "Configurador Personalizado M Sport y Paquetes de Lujo", "width": 1200, "height": 800 }
+                { "src": "/screenshots/screen-6.png", "title": "Showcase Digital de Vehículos Eléctricos BMW i", "width": 1917, "height": 992 },
+                { "src": "/screenshots/screen-7.png", "title": "Configurador Personalizado M Sport y Paquetes de Lujo", "width": 474, "height": 906 }
             ],
             "description" : "En BMW, creé experiencias digitales premium para la exhibición de la gama de vehículos de lujo y modelos eléctricos BMW i.\nDiseñé interfaces inmersivas con micro-animaciones fluidas, galerías multimedia en alta definición y un cotizador personalizado de especificaciones de equipamiento y paquetes M Sport."
         },
@@ -326,8 +326,8 @@ const data = {
             "brand_color" : "#5865F2",
             "technologies" : ["React", "TypeScript", "WebSockets", "Node.js", "Tailwind CSS"],
             "screenshots_gallery" : [
-                { "src": "/screenshots/screen-8.png", "title": "Dashboard de Moderación y Métricas de Servidores", "width": 1200, "height": 800 },
-                { "src": "/screenshots/screen-1.png", "title": "Panel de Integración de Bots y Webhooks en Tiempo Real", "width": 1200, "height": 800 }
+                { "src": "/screenshots/screen-8.png", "title": "Dashboard de Moderación y Métricas de Servidores", "width": 476, "height": 922 },
+                { "src": "/screenshots/screen-1.png", "title": "Panel de Integración de Bots y Webhooks en Tiempo Real", "width": 1904, "height": 983 }
             ],
             "description" : "Participé en el desarrollo de dashboards web de administración de servidores, integración de bots comunitarios y herramientas interactivas de moderación en Discord.\nImplementé interfaces basadas en WebSockets para la actualización instantánea de métricas de canales y roles, garantizando una experiencia de usuario fluida, reactiva y de baja latencia."
         }
@@ -432,7 +432,7 @@ const data = {
                     "Integración de REST APIs & WebSockets"
                 ],
                 "skills_pill" : ["React", "TypeScript", "Astro", "Tailwind CSS", "Node.js", "WCAG a11y"],
-                "image" : "./src/assets/img/beach-me.jpg"
+                "image" : "/img/beach-me.jpg"
             },
             "creative" : {
                 "id" : "creative",
@@ -450,7 +450,7 @@ const data = {
                     "Armonía cromática y estética Dark Mode"
                 ],
                 "skills_pill" : ["Sound Design", "Fotografía", "UI Motion", "Figma", "Color Theory", "Storytelling"],
-                "image" : "./src/assets/img/hobbies/hobbie-02.jpg"
+                "image" : "/img/hobbies/hobbie-02.jpg"
             },
             "gamer" : {
                 "id" : "gamer",
@@ -468,7 +468,7 @@ const data = {
                     "Exploración de Nuevas Tecnologías y Realidad Mixta"
                 ],
                 "skills_pill" : ["Game UI/HUD", "PC Hardware", "Low-Latency UX", "Periféricos", "VR/Spatial", "Benchmark"],
-                "image" : "./src/assets/img/hobbies/hobbie-01.jpg"
+                "image" : "/img/hobbies/hobbie-01.jpg"
             }
         },
         "hobbies" : [
@@ -476,7 +476,7 @@ const data = {
                 "id" : "gaming",
                 "title" : "Videojuegos & Tecnología",
                 "icon" : "🎮",
-                "image" : "./src/assets/img/hobbies/hobbie-01.jpg",
+                "image" : "/img/hobbies/hobbie-01.jpg",
                 "brand_color" : "#8B5CF6",
                 "description" : "Me apasiona explorar mundos virtuales inmersivos, analizar las mecánicas de juego innovadoras y la arquitectura de interfaces y accesibilidad en motores de videojuegos contemporáneos."
             },
@@ -484,7 +484,7 @@ const data = {
                 "id" : "music",
                 "title" : "Música & Creación Sonora",
                 "icon" : "🎧",
-                "image" : "./src/assets/img/hobbies/hobbie-02.jpg",
+                "image" : "/img/hobbies/hobbie-02.jpg",
                 "brand_color" : "#06B6D4",
                 "description" : "La música es mi canal de enfoque y creatividad diario. Disfruto descubrir géneros como synthwave, electrónica experimental y ambient lo-fi que potencian mis sesiones de desarrollo de software."
             },
@@ -492,7 +492,7 @@ const data = {
                 "id" : "travel",
                 "title" : "Viajes & Fotografía",
                 "icon" : "✈️",
-                "image" : "./src/assets/img/hobbies/hobbie-03.jpg",
+                "image" : "/img/hobbies/hobbie-03.jpg",
                 "brand_color" : "#F59E0B",
                 "description" : "Explorar nuevos paisajes, culturas y entornos urbanos me permite enriquecer mi perspectiva visual y encontrar inspiración estética para diseñar interfaces frescas y atractivas."
             }

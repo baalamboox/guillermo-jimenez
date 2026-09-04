@@ -739,6 +739,8 @@
     padding: 18px 22px;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     position: relative;
+    color: #E2E8F0;
+    transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 /* Láser decorativo superior de la terminal */
@@ -751,12 +753,19 @@
     height: 1px;
     background: linear-gradient(90deg, transparent 0%, #00F0FF 50%, transparent 100%);
     pointer-events: none;
+    transition: background 0.3s ease;
 }
 
 :root[dark-mode="false"] .gj\:ide\:terminal,
 :root:not([dark-mode="true"]) .gj\:ide\:terminal {
-    background: #0F141C;
-    border-top: 1px solid rgba(99, 102, 241, 0.3);
+    background: #F8FAFC;
+    border-top: 1px solid rgba(99, 102, 241, 0.22);
+    color: #1E293B;
+}
+
+:root[dark-mode="false"] .gj\:ide\:terminal::before,
+:root:not([dark-mode="true"]) .gj\:ide\:terminal::before {
+    background: linear-gradient(90deg, transparent 0%, #6366F1 50%, transparent 100%);
 }
 
 .gj\:ide\:terminal-header {
@@ -777,6 +786,12 @@
     color: #00F0FF;
     letter-spacing: 0.08em;
     text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
+:root[dark-mode="false"] .gj\:ide\:terminal-title,
+:root:not([dark-mode="true"]) .gj\:ide\:terminal-title {
+    color: #4F46E5;
 }
 
 .gj\:ide\:terminal-quick-btns {
@@ -808,6 +823,21 @@
     transform: translateY(-1px);
 }
 
+:root[dark-mode="false"] .gj\:ide\:quick-cmd,
+:root:not([dark-mode="true"]) .gj\:ide\:quick-cmd {
+    background: rgba(99, 102, 241, 0.08);
+    border: 1px solid rgba(99, 102, 241, 0.28);
+    color: #4F46E5;
+}
+
+:root[dark-mode="false"] .gj\:ide\:quick-cmd:hover,
+:root:not([dark-mode="true"]) .gj\:ide\:quick-cmd:hover {
+    background: #4F46E5;
+    color: #FFFFFF;
+    border-color: #4F46E5;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35);
+}
+
 .gj\:ide\:terminal-output {
     max-height: 180px;
     overflow-y: auto;
@@ -817,6 +847,17 @@
     margin-bottom: 12px;
     font-size: 13px;
     line-height: 1.55;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(99, 102, 241, 0.3) transparent;
+}
+
+.gj\:ide\:terminal-output::-webkit-scrollbar {
+    width: 6px;
+}
+
+.gj\:ide\:terminal-output::-webkit-scrollbar-thumb {
+    background: rgba(99, 102, 241, 0.3);
+    border-radius: 4px;
 }
 
 .gj\:ide\:term-cmd-entry {
@@ -824,30 +865,140 @@
     align-items: center;
     gap: 8px;
     color: #00F0FF;
+    transition: color 0.3s ease;
+}
+
+:root[dark-mode="false"] .gj\:ide\:term-cmd-entry,
+:root:not([dark-mode="true"]) .gj\:ide\:term-cmd-entry {
+    color: #4F46E5;
 }
 
 .gj\:ide\:term-prompt-prefix {
     color: #00F0FF;
     font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+:root[dark-mode="false"] .gj\:ide\:term-prompt-prefix,
+:root:not([dark-mode="true"]) .gj\:ide\:term-prompt-prefix {
+    color: #4F46E5;
 }
 
 .gj\:ide\:term-cmd-text {
     color: #F8FAFC;
     font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+:root[dark-mode="false"] .gj\:ide\:term-cmd-text,
+:root:not([dark-mode="true"]) .gj\:ide\:term-cmd-text {
+    color: #0F172A;
 }
 
 .gj\:ide\:term-response {
     color: #E2E8F0;
     padding-left: 8px;
+    transition: color 0.3s ease;
 }
 
-.term-highlight { color: #00F0FF; font-weight: 700; text-shadow: 0 0 6px rgba(0, 240, 255, 0.3); }
-.term-bold { font-weight: 700; color: #F8FAFC; margin: 0 0 4px 0; }
-.term-muted { color: #94A3B8; font-size: 12px; margin: 0; }
-.term-text { margin: 0; }
-.term-error { color: #FF3366; margin: 0; }
-.term-link { color: #00F0FF; text-decoration: underline; font-weight: 600; }
-.term-status { color: #E2E8F0; }
+:root[dark-mode="false"] .gj\:ide\:term-response,
+:root:not([dark-mode="true"]) .gj\:ide\:term-response {
+    color: #334155;
+}
+
+.gj\:ide\:term-line,
+.term-welcome {
+    color: #CBD5E1;
+    margin: 0;
+    transition: color 0.3s ease;
+}
+
+:root[dark-mode="false"] .gj\:ide\:term-line,
+:root:not([dark-mode="true"]) .gj\:ide\:term-line,
+:root[dark-mode="false"] .term-welcome,
+:root:not([dark-mode="true"]) .term-welcome {
+    color: #475569;
+}
+
+.term-highlight { 
+    color: #00F0FF; 
+    font-weight: 700; 
+    text-shadow: 0 0 6px rgba(0, 240, 255, 0.3); 
+    transition: color 0.3s ease;
+}
+
+:root[dark-mode="false"] .term-highlight,
+:root:not([dark-mode="true"]) .term-highlight {
+    color: #4F46E5;
+    text-shadow: none;
+}
+
+.term-bold { 
+    font-weight: 700; 
+    color: #F8FAFC; 
+    margin: 0 0 4px 0; 
+    transition: color 0.3s ease;
+}
+
+:root[dark-mode="false"] .term-bold,
+:root:not([dark-mode="true"]) .term-bold {
+    color: #0F172A;
+}
+
+.term-muted { 
+    color: #94A3B8; 
+    font-size: 12px; 
+    margin: 0; 
+    transition: color 0.3s ease;
+}
+
+:root[dark-mode="false"] .term-muted,
+:root:not([dark-mode="true"]) .term-muted {
+    color: #64748B;
+}
+
+.term-text { 
+    color: #E2E8F0;
+    margin: 0; 
+    transition: color 0.3s ease;
+}
+
+:root[dark-mode="false"] .term-text,
+:root:not([dark-mode="true"]) .term-text {
+    color: #334155;
+}
+
+.term-error { 
+    color: #FF3366; 
+    margin: 0; 
+}
+
+:root[dark-mode="false"] .term-error,
+:root:not([dark-mode="true"]) .term-error {
+    color: #DC2626;
+}
+
+.term-link { 
+    color: #00F0FF; 
+    text-decoration: underline; 
+    font-weight: 600; 
+    transition: color 0.3s ease;
+}
+
+:root[dark-mode="false"] .term-link,
+:root:not([dark-mode="true"]) .term-link {
+    color: #4F46E5;
+}
+
+.term-status { 
+    color: #E2E8F0; 
+    transition: color 0.3s ease;
+}
+
+:root[dark-mode="false"] .term-status,
+:root:not([dark-mode="true"]) .term-status {
+    color: #334155;
+}
 
 .term-cmd-list {
     list-style: none;
@@ -863,6 +1014,14 @@
     border: 1px solid rgba(0, 240, 255, 0.2);
     border-radius: 6px;
     padding: 10px 14px;
+    transition: all 0.3s ease;
+}
+
+:root[dark-mode="false"] .term-box,
+:root:not([dark-mode="true"]) .term-box {
+    background-color: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(99, 102, 241, 0.22);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 /* Prompt Input */
@@ -872,6 +1031,12 @@
     gap: 8px;
     border-top: 1px dashed rgba(99, 102, 241, 0.25);
     padding-top: 12px;
+    transition: border-color 0.3s ease;
+}
+
+:root[dark-mode="false"] .gj\:ide\:terminal-prompt-form,
+:root:not([dark-mode="true"]) .gj\:ide\:terminal-prompt-form {
+    border-top: 1px dashed rgba(99, 102, 241, 0.28);
 }
 
 .gj\:ide\:terminal-prompt {
@@ -879,16 +1044,38 @@
     font-weight: 700;
     font-size: 13px;
     white-space: nowrap;
+    transition: color 0.3s ease;
+}
+
+:root[dark-mode="false"] .gj\:ide\:terminal-prompt,
+:root:not([dark-mode="true"]) .gj\:ide\:terminal-prompt {
+    color: #4F46E5;
 }
 
 .gj\:ide\:terminal-input {
     flex: 1;
+    min-width: 0;
     background: transparent;
     border: none;
     outline: none;
     font-family: inherit;
     font-size: 13px;
     color: #F8FAFC;
+    transition: color 0.3s ease;
+}
+
+.gj\:ide\:terminal-input::placeholder {
+    color: rgba(148, 163, 184, 0.6);
+}
+
+:root[dark-mode="false"] .gj\:ide\:terminal-input,
+:root:not([dark-mode="true"]) .gj\:ide\:terminal-input {
+    color: #0F172A;
+}
+
+:root[dark-mode="false"] .gj\:ide\:terminal-input::placeholder,
+:root:not([dark-mode="true"]) .gj\:ide\:terminal-input::placeholder {
+    color: rgba(100, 116, 139, 0.65);
 }
 
 .gj\:ide\:terminal-submit {
@@ -908,6 +1095,21 @@
     background-color: #00F0FF;
     border-color: #00F0FF;
     box-shadow: 0 0 12px #00F0FF;
+}
+
+:root[dark-mode="false"] .gj\:ide\:terminal-submit,
+:root:not([dark-mode="true"]) .gj\:ide\:terminal-submit {
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    color: #4F46E5;
+}
+
+:root[dark-mode="false"] .gj\:ide\:terminal-submit:hover,
+:root:not([dark-mode="true"]) .gj\:ide\:terminal-submit:hover {
+    color: #FFFFFF;
+    background-color: #4F46E5;
+    border-color: #4F46E5;
+    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.35);
 }
 
 /* --------------------------------------------------------------------------
@@ -934,5 +1136,34 @@
 
     .gj\:ide\:terminal-quick-btns {
         display: none;
+    }
+
+    .gj\:ide\:hobbies-grid,
+    .gj\:ide\:setup-grid {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    }
+}
+
+@media only screen and (max-width: 540px) {
+    .gj\:ide\:titlebar {
+        padding: 10px 14px;
+    }
+
+    .gj\:ide\:breadcrumbs {
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 11px;
+    }
+
+    .gj\:ide\:branch-tag {
+        display: none;
+    }
+
+    .gj\:ide\:hobbies-grid,
+    .gj\:ide\:setup-grid,
+    .gj\:ide\:journey-grid {
+        grid-template-columns: 1fr;
     }
 }

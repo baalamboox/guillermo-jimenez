@@ -321,7 +321,11 @@
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     transform-origin: center center;
-    will-change: transform, opacity, filter;
+}
+
+/* Evitar animación o desplazamiento de tarjetas en la primera carga del mazo */
+.gj\:projects\:deck:not(.gj\:projects\:deck-ready) .gj\:projects\:card {
+    transition: none !important;
 }
 
 :root[dark-mode="false"] .gj\:projects\:card,
@@ -334,6 +338,7 @@
 .gj\:projects\:card-active {
     border-color: #00F0FF;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 240, 255, 0.3);
+    will-change: transform, opacity, filter;
 }
 
 :root[dark-mode="false"] .gj\:projects\:card-active,
@@ -574,6 +579,10 @@
     -webkit-overflow-scrolling: touch;
 }
 
+.gj\:projects\:dock::-webkit-scrollbar {
+    display: none;
+}
+
 :root[dark-mode="false"] .gj\:projects\:dock,
 :root:not([dark-mode="true"]) .gj\:projects\:dock {
     background: rgba(255, 255, 255, 0.95);
@@ -686,7 +695,7 @@
 
 .gj\:projects\:stage[data-view-mode="grid"] .gj\:projects\:deck {
     display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)) !important;
     gap: 24px !important;
     width: 100% !important;
     max-width: 100% !important;
@@ -746,15 +755,72 @@
 }
 
 /* --------------------------------------------------------------------------
-   Modal de Detalles de Proyectos (#gjModalProjects)
+   Modal de Detalles de Proyectos (#gjModalProjects) - Rediseño HUD Cyber
    -------------------------------------------------------------------------- */
 
+#gjModalProjects {
+    overflow: hidden !important;
+}
+
+#gjModalProjects .modal-dialog {
+    max-width: 820px;
+    width: calc(100% - 2rem);
+    margin: 1.75rem auto;
+    height: calc(100vh - 3.5rem);
+    max-height: calc(100vh - 3.5rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#gjModalProjects .modal-dialog.modal-lg,
+#gjModalProjects.gj\:modal\:projects-resize .modal-dialog {
+    max-width: 1080px;
+}
+
+#gjModalProjects .modal-content,
 .gj\:modal\:projects\:content {
-    background-color: var(--gj-second-bg);
-    border: 1px solid var(--gj-border);
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(180deg, rgba(16, 18, 28, 0.97) 0%, rgba(10, 11, 18, 0.99) 100%);
+    border: 1px solid rgba(99, 102, 241, 0.35);
+    border-radius: 20px;
+    overflow: hidden !important;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7), 0 0 35px rgba(0, 240, 255, 0.12);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    position: relative;
+    max-height: 100% !important;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+:root[dark-mode="false"] #gjModalProjects .modal-content,
+:root[dark-mode="false"] .gj\:modal\:projects\:content,
+:root:not([dark-mode="true"]) #gjModalProjects .modal-content,
+:root:not([dark-mode="true"]) .gj\:modal\:projects\:content {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 249, 253, 0.98) 100%);
+    border-color: rgba(99, 102, 241, 0.25);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.1), 0 0 24px rgba(99, 102, 241, 0.12);
+}
+
+/* Modal Header HUD */
+#gjModalProjects .modal-header,
+.gj\:modal\:projects\:header-container {
+    flex-shrink: 0;
+    padding: 18px 36px !important;
+    border-bottom: 1px solid rgba(99, 102, 241, 0.2) !important;
+    background: rgba(12, 14, 22, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+:root[dark-mode="false"] #gjModalProjects .modal-header,
+:root[dark-mode="false"] .gj\:modal\:projects\:header-container,
+:root:not([dark-mode="true"]) #gjModalProjects .modal-header,
+:root:not([dark-mode="true"]) .gj\:modal\:projects\:header-container {
+    background: rgba(245, 246, 252, 0.9);
+    border-bottom-color: rgba(99, 102, 241, 0.18) !important;
 }
 
 .gj\:modal\:projects\:header {
@@ -764,11 +830,31 @@
     width: 100%;
 }
 
-.gj\:modal\:projects\:header .modal-title {
-    font-size: 18px;
+.gj\:modal\:projects\:header-left {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2px;
+}
+
+.gj\:modal\:projects\:hud-tag {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #00F0FF;
+    letter-spacing: 0.14em;
+}
+
+:root[dark-mode="false"] .gj\:modal\:projects\:hud-tag,
+:root:not([dark-mode="true"]) .gj\:modal\:projects\:hud-tag {
+    color: #4F46E5;
+}
+
+.gj\:modal\:projects\:header-title {
+    font-size: 19px;
     font-weight: 800;
     color: var(--gj-fonts-light);
     margin: 0;
+    letter-spacing: -0.01em;
 }
 
 .gj\:modal\:projects\:action-buttons {
@@ -778,9 +864,9 @@
 }
 
 .gj\:modal\:projects\:action-button {
-    width: 34px;
-    height: 34px;
-    border-radius: 6px;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
     background: rgba(99, 102, 241, 0.12);
     border: 1px solid rgba(0, 240, 255, 0.35);
     color: #00F0FF;
@@ -788,7 +874,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.22s ease;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 :root[dark-mode="false"] .gj\:modal\:projects\:action-button,
@@ -814,86 +900,217 @@
     box-shadow: 0 0 12px rgba(79, 70, 229, 0.4);
 }
 
+/* Modal Body con Scroll Suave y Paddings Generosos */
+#gjModalProjects .modal-body,
+.gj\:modal\:projects\:body {
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: none !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    padding: 28px 36px 36px !important;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(99, 102, 241, 0.45) transparent;
+}
+
+#gjModalProjects .modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+#gjModalProjects .modal-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#gjModalProjects .modal-body::-webkit-scrollbar-thumb {
+    background-color: rgba(99, 102, 241, 0.4);
+    border-radius: 6px;
+}
+
+#gjModalProjects .modal-body::-webkit-scrollbar-thumb:hover {
+    background-color: #00F0FF;
+}
+
+.gj\:modal\:projects\:modal-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* Hero Banner Frame */
 .gj\:modal\:projects\:banner {
     position: relative;
     width: 100%;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.4s ease;
-    border-radius: 12px;
+    transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), margin-bottom 0.3s ease;
+    border-radius: 14px;
+    background-color: var(--gj-dark-bg);
 }
 
 .gj\:modal\:projects\:banner-show {
-    max-height: 320px;
+    max-height: 340px;
     margin-bottom: 24px;
+    border: 1px solid rgba(99, 102, 241, 0.28);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
 }
 
-.gj\:modal\:projects\:banner-img {
+:root[dark-mode="false"] .gj\:modal\:projects\:banner-show,
+:root:not([dark-mode="true"]) .gj\:modal\:projects\:banner-show {
+    border-color: rgba(99, 102, 241, 0.22);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.gj\:modal\:projects\:banner-laser {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, var(--modal-brand-color, #00F0FF) 50%, transparent 100%);
+    z-index: 5;
+    opacity: 0.9;
+}
+
+.gj\:modal\:projects\:banner-gradient {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(0deg, rgba(10, 11, 18, 0.75) 0%, transparent 50%);
+    z-index: 2;
+}
+
+:root[dark-mode="false"] .gj\:modal\:projects\:banner-gradient,
+:root:not([dark-mode="true"]) .gj\:modal\:projects\:banner-gradient {
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.65) 0%, transparent 50%);
+}
+
+.gj\:modal\:projects\:banner-img,
+.gj\:modal\:projects\:banner-image {
     width: 100%;
     height: 100%;
-    max-height: 320px;
+    max-height: 340px;
     object-fit: cover;
     object-position: top;
     display: block;
-    border-radius: 12px;
+    border-radius: 14px;
 }
 
-.gj\:modal\:projects\:info {
+/* Título y Metadatos */
+.gj\:modal\:projects\:title-row {
+    margin-bottom: 12px;
+}
+
+.gj\:modal\:projects\:title {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--gj-fonts-light);
+    margin: 0;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+}
+
+.gj\:modal\:projects\:specs-bar {
     display: flex;
     align-items: center;
-    gap: 12px;
+    column-gap: 10px;
+    row-gap: 8px;
     flex-wrap: wrap;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
 }
 
 .gj\:modal\:projects\:badge {
+    display: inline-flex;
+    align-items: center;
+    column-gap: 7px;
     padding: 6px 14px;
-    border-radius: 100px;
-    font-size: 13px;
-    font-weight: 600;
+    border-radius: 8px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.gj\:modal\:projects\:badge-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .gj\:modal\:projects\:category {
-    background-color: rgba(99, 102, 241, 0.1);
-    color: #6366F1;
-    border: 1px solid rgba(99, 102, 241, 0.25);
+    background-color: rgba(0, 240, 255, 0.1);
+    color: #00F0FF;
+    border: 1px solid rgba(0, 240, 255, 0.35);
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.1);
+}
+
+:root[dark-mode="false"] .gj\:modal\:projects\:category,
+:root:not([dark-mode="true"]) .gj\:modal\:projects\:category {
+    background-color: rgba(79, 70, 229, 0.1);
+    color: #4F46E5;
+    border-color: rgba(79, 70, 229, 0.3);
+    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.08);
 }
 
 .gj\:modal\:projects\:experience {
     background-color: rgba(16, 185, 129, 0.1);
     color: #10B981;
-    border: 1px solid rgba(16, 185, 129, 0.25);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.1);
 }
 
-.gj\:modal\:projects\:prefix-cat-exp {
-    font-weight: 700;
-    opacity: 0.8;
+:root[dark-mode="false"] .gj\:modal\:projects\:experience,
+:root:not([dark-mode="true"]) .gj\:modal\:projects\:experience {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: #059669;
+    border-color: rgba(16, 185, 129, 0.3);
 }
 
-.gj\:modal\:projects\:paragraphs {
-    margin-bottom: 24px;
+/* Tarjeta de Resumen / Descripción */
+.gj\:modal\:projects\:card-description {
+    background: rgba(20, 24, 38, 0.45);
+    border: 1px solid rgba(99, 102, 241, 0.22);
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin-bottom: 26px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
-.gj\:modal\:projects\:paragraph {
-    overflow: visible;
-    text-overflow: unset;
-    -webkit-line-clamp: unset;
-    -webkit-box-orient: unset;
-    font-size: 14.5px;
-    line-height: 1.7;
-    color: var(--gj-fonts-light);
-    opacity: 0.9;
-    margin-bottom: 12px;
+:root[dark-mode="false"] .gj\:modal\:projects\:card-description,
+:root:not([dark-mode="true"]) .gj\:modal\:projects\:card-description {
+    background: rgba(245, 246, 252, 0.9);
+    border-color: rgba(99, 102, 241, 0.2);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.gj\:modal\:projects\:section-header {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+    margin-bottom: 14px;
+}
+
+.gj\:modal\:projects\:section-hud-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--modal-brand-color, #00F0FF);
+    box-shadow: 0 0 8px var(--modal-brand-color, #00F0FF);
+    flex-shrink: 0;
 }
 
 .gj\:modal\:projects\:section-title {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    font-size: 11px;
+    font-size: 11.5px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: #00F0FF;
-    margin-bottom: 12px;
+    margin: 0;
 }
 
 :root[dark-mode="false"] .gj\:modal\:projects\:section-title,
@@ -901,27 +1118,47 @@
     color: #4F46E5;
 }
 
-/* Chips de Tecnologías en el Modal */
+.gj\:modal\:projects\:paragraphs {
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+}
+
+.gj\:modal\:projects\:paragraph {
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: var(--gj-fonts-light);
+    opacity: 0.92;
+    margin: 0;
+}
+
+/* Secciones: Tecnologías & Galería */
+.gj\:modal\:projects\:sections {
+    display: flex;
+    flex-direction: column;
+    row-gap: 26px;
+}
+
 .gj\:modal\:projects\:tech-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 24px;
+    gap: 8px;
 }
 
 .gj\:modal\:projects\:tech-chip {
     display: inline-flex;
     align-items: center;
     column-gap: 8px;
-    padding: 5px 12px;
+    padding: 6px 14px;
     background: rgba(99, 102, 241, 0.12);
-    border: 1px solid rgba(99, 102, 241, 0.3);
-    border-radius: 4px;
+    border: 1px solid rgba(99, 102, 241, 0.32);
+    border-radius: 6px;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     font-size: 11.5px;
     font-weight: 600;
     color: #00F0FF;
-    transition: all 0.22s ease;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: default;
 }
 
 :root[dark-mode="false"] .gj\:modal\:projects\:tech-chip,
@@ -933,14 +1170,14 @@
 
 .gj\:modal\:projects\:tech-chip:hover {
     border-color: #00F0FF;
-    box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
-    transform: translateY(-1px);
+    box-shadow: 0 0 14px rgba(0, 240, 255, 0.3);
+    transform: translateY(-2px);
 }
 
 :root[dark-mode="false"] .gj\:modal\:projects\:tech-chip:hover,
 :root:not([dark-mode="true"]) .gj\:modal\:projects\:tech-chip:hover {
     border-color: #4F46E5;
-    box-shadow: 0 0 10px rgba(99, 102, 241, 0.25);
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.25);
 }
 
 .gj\:modal\:projects\:tech-dot {
@@ -949,33 +1186,63 @@
     border-radius: 50%;
     background-color: var(--chip-brand, #00F0FF);
     box-shadow: 0 0 6px var(--chip-brand, #00F0FF);
+    flex-shrink: 0;
 }
 
-/* Galería y Capturas de Pantalla en el Modal */
+/* Galería de Capturas */
+.gj\:modal\:projects\:gallery-header {
+    justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: 6px;
+}
+
+.gj\:modal\:projects\:section-header-title {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+}
+
+.gj\:modal\:projects\:gallery-hint {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11px;
+    color: var(--gj-gray);
+    opacity: 0.85;
+}
+
 .gj\:modal\:projects\:gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 14px;
-    margin-top: 14px;
 }
 
 .gj\:modal\:projects\:gallery-item {
     position: relative;
     display: block;
-    height: 140px;
+    height: 145px;
     border-radius: 12px;
     overflow: hidden;
-    border: 1px solid var(--gj-border);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     cursor: zoom-in;
     text-decoration: none;
     background-color: var(--gj-dark-bg);
 }
 
+:root[dark-mode="false"] .gj\:modal\:projects\:gallery-item,
+:root:not([dark-mode="true"]) .gj\:modal\:projects\:gallery-item {
+    border-color: rgba(99, 102, 241, 0.2);
+}
+
 .gj\:modal\:projects\:gallery-item:hover {
-    border-color: var(--gj-border-focus);
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    border-color: #00F0FF;
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45), 0 0 16px rgba(0, 240, 255, 0.25);
+}
+
+:root[dark-mode="false"] .gj\:modal\:projects\:gallery-item:hover,
+:root:not([dark-mode="true"]) .gj\:modal\:projects\:gallery-item:hover {
+    border-color: #4F46E5;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1), 0 0 14px rgba(79, 70, 229, 0.25);
 }
 
 .gj\:modal\:projects\:gallery-img {
@@ -983,17 +1250,17 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.4s ease;
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .gj\:modal\:projects\:gallery-item:hover .gj\:modal\:projects\:gallery-img {
-    transform: scale(1.06);
+    transform: scale(1.08);
 }
 
 .gj\:modal\:projects\:gallery-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.1) 60%, transparent 100%);
+    background: linear-gradient(0deg, rgba(6, 8, 14, 0.9) 0%, rgba(6, 8, 14, 0.2) 60%, transparent 100%);
     display: flex;
     align-items: flex-end;
     padding: 10px 12px;
@@ -1019,10 +1286,10 @@
     width: 26px;
     height: 26px;
     border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: #FFFFFF;
+    background-color: rgba(0, 240, 255, 0.2);
+    color: #00F0FF;
     flex-shrink: 0;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(0, 240, 255, 0.4);
 }
 
 .gj\:modal\:projects\:gallery-caption {
@@ -1033,22 +1300,106 @@
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
 }
 
+/* Modal Footer */
+#gjModalProjects .modal-footer,
+.gj\:modal\:projects\:footer {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 36px !important;
+    border-top: 1px solid rgba(99, 102, 241, 0.2);
+    background: rgba(12, 14, 22, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+:root[dark-mode="false"] .gj\:modal\:projects\:footer,
+:root:not([dark-mode="true"]) .gj\:modal\:projects\:footer {
+    background: rgba(245, 246, 252, 0.85);
+    border-top-color: rgba(99, 102, 241, 0.18);
+}
+
+.gj\:modal\:projects\:footer-left {
+    display: flex;
+    align-items: center;
+}
+
+.gj\:modal\:projects\:footer-hint {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11px;
+    color: var(--gj-gray);
+    opacity: 0.85;
+}
+
+.gj\:modal\:projects\:footer-hint kbd {
+    display: inline-block;
+    padding: 2px 6px;
+    font-size: 10px;
+    font-weight: 700;
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(99, 102, 241, 0.35);
+    border-radius: 4px;
+    color: var(--gj-fonts-light);
+}
+
+.gj\:modal\:projects\:footer-close-btn {
+    display: inline-flex;
+    align-items: center;
+    column-gap: 8px;
+    padding: 7px 16px;
+    border-radius: 8px;
+    background: rgba(99, 102, 241, 0.12);
+    border: 1px solid rgba(0, 240, 255, 0.4);
+    color: #00F0FF;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root[dark-mode="false"] .gj\:modal\:projects\:footer-close-btn,
+:root:not([dark-mode="true"]) .gj\:modal\:projects\:footer-close-btn {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: rgba(79, 70, 229, 0.4);
+    color: #4F46E5;
+}
+
+.gj\:modal\:projects\:footer-close-btn:hover {
+    background: #00F0FF;
+    border-color: #00F0FF;
+    color: #06080E;
+    box-shadow: 0 0 16px #00F0FF;
+    transform: translateY(-1px);
+}
+
+:root[dark-mode="false"] .gj\:modal\:projects\:footer-close-btn:hover,
+:root:not([dark-mode="true"]) .gj\:modal\:projects\:footer-close-btn:hover {
+    background: #4F46E5;
+    border-color: #4F46E5;
+    color: #FFFFFF;
+    box-shadow: 0 0 14px rgba(79, 70, 229, 0.4);
+}
+
 /* Focus Visible */
 .gj\:projects\:arrow:focus-visible,
 .gj\:projects\:card-cta:focus-visible,
 .gj\:projects\:dock-item:focus-visible,
 .gj\:projects\:autoplay-btn:focus-visible,
 .gj\:projects\:switch-btn:focus-visible,
-.gj\:modal\:projects\:action-button:focus-visible {
+.gj\:modal\:projects\:action-button:focus-visible,
+.gj\:modal\:projects\:footer-close-btn:focus-visible {
     outline: 2px solid var(--gj-border-focus);
     outline-offset: 2px;
 }
 
 .modal-backdrop.show {
-    background-color: rgba(0, 0, 0, 0.55);
-    backdrop-filter: blur(16px);
+    background-color: rgba(6, 8, 14, 0.65);
+    backdrop-filter: blur(18px);
     opacity: 1;
-    -webkit-backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(18px);
 }
 
 /* --------------------------------------------------------------------------
@@ -1095,5 +1446,61 @@
     .gj\:projects\:header-controls {
         justify-content: space-between;
         width: 100%;
+    }
+
+    /* Modal Responsivo */
+    #gjModalProjects .modal-dialog {
+        width: calc(100% - 16px);
+        margin: 8px auto;
+        height: calc(100vh - 16px);
+        max-height: calc(100vh - 16px);
+    }
+
+    #gjModalProjects .modal-header,
+    .gj\:modal\:projects\:header-container {
+        padding: 14px 18px !important;
+    }
+
+    #gjModalProjects .modal-body,
+    .gj\:modal\:projects\:body {
+        padding: 16px 18px 24px !important;
+    }
+
+    #gjModalProjects .modal-footer,
+    .gj\:modal\:projects\:footer {
+        padding: 12px 18px !important;
+    }
+
+    .gj\:modal\:projects\:title {
+        font-size: 22px;
+    }
+
+    .gj\:modal\:projects\:banner-show {
+        max-height: 220px;
+        margin-bottom: 18px;
+    }
+
+    .gj\:modal\:projects\:card-description {
+        padding: 16px 16px;
+    }
+
+    .gj\:projects\:stage[data-view-mode="grid"] .gj\:projects\:deck {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+}
+
+@media only screen and (max-width: 540px) {
+    .gj\:modal\:projects\:footer-hint {
+        display: none;
+    }
+
+    .gj\:modal\:projects\:footer {
+        justify-content: center;
+    }
+
+    .gj\:modal\:projects\:footer-close-btn {
+        width: 100%;
+        justify-content: center;
     }
 }

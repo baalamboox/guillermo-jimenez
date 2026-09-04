@@ -1,9 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
 import "../css/projects.css";
 import data from "../data/data.js";
 const projectEntries = Object.entries(data.projects);
 const totalProjects = projectEntries.length;
+
+// Carga optimizada de capturas mediante Vite / Astro Assets
+const projectImages = import.meta.glob<{ default: ImageMetadata }>("../assets/img/projects/*/*.png", { eager: true });
 ---
 
 <Layout title="Proyectos">
@@ -58,7 +62,13 @@ const totalProjects = projectEntries.length;
                             <span class="gj:projects:counter-total" id="deckTotalNum">{String(totalProjects).padStart(2, "0")}</span>
                         </div>
 
-                        <button class="gj:projects:autoplay-btn" id="deckPlayPauseBtn" type="button" aria-label="Reproducir presentación automática">
+                        <button 
+                            class="gj:projects:autoplay-btn" 
+                            id="deckPlayPauseBtn" 
+                            type="button" 
+                            aria-label="Reproducir presentación automática"
+                            aria-pressed="false"
+                        >
                             <span class="gj:layout:svg-wrapper">
                                 <svg class="gj:projects:icon-play" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M8 5.14v13.72a.5.5 0 0 0 .77.42l10.59-6.86a.5.5 0 0 0 0-.84L8.77 4.72A.5.5 0 0 0 8 5.14z"/>
@@ -84,30 +94,46 @@ const totalProjects = projectEntries.length;
 
                 <!-- Contenedor del Mazo / Matriz -->
                 <div class="gj:projects:deck" id="gjDeckStack">
-                    {projectEntries.map(([key, project], index) => (
-                        <article 
-                            class={`gj:projects:card ${index === 0 ? "gj:projects:card-active" : ""}`}
-                            data-id-project={key}
-                            data-index={index}
-                            style={`--brand-color: ${project.brand_color}; --card-order: ${index};`}
-                            role="region"
-                            aria-label={`Proyecto ${project.title}`}
-                        >
-                            <!-- Resplandor reactivo de marca -->
-                            <div class="gj:projects:card-glow" aria-hidden="true"></div>
+                    {projectEntries.map(([key, project], index) => {
+                        const imgPath = `../assets/img/projects/${key}/${project.screenshot}.png`;
+                        const imageModule = projectImages[imgPath]?.default;
+                        const bannerSrc = imageModule ? imageModule.src : `/img/projects/${key}/${project.screenshot}.png`;
 
-                            <!-- Imagen / Captura del Proyecto -->
-                            <div class="gj:projects:card-visual">
-                                <picture>
-                                    <source srcset={`./src/assets/img/projects/${key}/${project.screenshot}.png`} />
-                                    <img 
-                                        class="gj:projects:card-img"
-                                        src={`./src/assets/img/projects/${key}/${project.screenshot}.png`} 
-                                        alt={`Captura del proyecto ${project.title} - ${project.category}`}
-                                        loading={index < 2 ? "eager" : "lazy"}
-                                    />
-                                </picture>
-                            </div>
+                        return (
+                            <article 
+                                class={`gj:projects:card ${index === 0 ? "gj:projects:card-active" : ""}`}
+                                data-id-project={key}
+                                data-index={index}
+                                data-img-src={bannerSrc}
+                                style={`--brand-color: ${project.brand_color}; --card-order: ${index};`}
+                                role="region"
+                                aria-label={`Proyecto ${project.title}`}
+                            >
+                                <!-- Resplandor reactivo de marca -->
+                                <div class="gj:projects:card-glow" aria-hidden="true"></div>
+
+                                <!-- Imagen / Captura del Proyecto -->
+                                <div class="gj:projects:card-visual">
+                                    {imageModule ? (
+                                        <Image 
+                                            class="gj:projects:card-img"
+                                            src={imageModule} 
+                                            alt={`Captura del proyecto ${project.title} - ${project.category}`}
+                                            width={720}
+                                            height={420}
+                                            format="webp"
+                                            quality={85}
+                                            loading={index < 2 ? "eager" : "lazy"}
+                                        />
+                                    ) : (
+                                        <img 
+                                            class="gj:projects:card-img"
+                                            src={`/img/projects/${key}/${project.screenshot}.png`} 
+                                            alt={`Captura del proyecto ${project.title} - ${project.category}`}
+                                            loading={index < 2 ? "eager" : "lazy"}
+                                        />
+                                    )}
+                                </div>
 
                             <!-- Panel de Contenido de la Tarjeta -->
                             <div class="gj:projects:card-body">
@@ -146,7 +172,8 @@ const totalProjects = projectEntries.length;
                                 </div>
                             </div>
                         </article>
-                    ))}
+                        );
+                    })}
                 </div>
 
                 <!-- Flecha Siguiente -->

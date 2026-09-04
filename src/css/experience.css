@@ -100,10 +100,21 @@
     box-shadow: 0 0 12px #00F0FF;
 }
 
+:root[dark-mode="false"] .gj\:experience\:list-item.gj\:experience\:list-item\:active .gj\:experience\:node-dot,
+:root:not([dark-mode="true"]) .gj\:experience\:list-item.gj\:experience\:list-item\:active .gj\:experience\:node-dot {
+    background-color: #4F46E5;
+    box-shadow: 0 0 12px rgba(79, 70, 229, 0.5);
+}
+
 .gj\:experience\:list-item.gj\:experience\:list-item\:active .gj\:experience\:node-pulse {
     opacity: 0.4;
     transform: scale(1.4);
     animation: nodePulseAnim 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+:root[dark-mode="false"] .gj\:experience\:list-item.gj\:experience\:list-item\:active .gj\:experience\:node-pulse,
+:root:not([dark-mode="true"]) .gj\:experience\:list-item.gj\:experience\:list-item\:active .gj\:experience\:node-pulse {
+    background-color: #4F46E5;
 }
 
 @keyframes nodePulseAnim {
@@ -167,6 +178,11 @@
     background: linear-gradient(90deg, transparent 0%, rgba(99, 102, 241, 0.8) 25%, #00F0FF 50%, rgba(99, 102, 241, 0.8) 75%, transparent 100%);
     z-index: 10;
     pointer-events: none;
+}
+
+:root[dark-mode="false"] .gj\:experience\:list-item.gj\:experience\:list-item\:active .gj\:experience\:card::before,
+:root:not([dark-mode="true"]) .gj\:experience\:list-item.gj\:experience\:list-item\:active .gj\:experience\:card::before {
+    background: linear-gradient(90deg, transparent 0%, rgba(99, 102, 241, 0.4) 25%, #4F46E5 50%, rgba(99, 102, 241, 0.4) 75%, transparent 100%);
 }
 
 /* Cabecera de la Tarjeta */
@@ -300,12 +316,27 @@
     align-self: center;
 }
 
+:root[dark-mode="false"] .gj\:experience\:list-item\:link,
+:root:not([dark-mode="true"]) .gj\:experience\:list-item\:link {
+    color: #4F46E5;
+    border-color: rgba(79, 70, 229, 0.35);
+    background: rgba(99, 102, 241, 0.1);
+}
+
 .gj\:experience\:list-item\:link:hover {
     background-color: #00F0FF;
     color: #06080E;
     border-color: #00F0FF;
     transform: scale(1.1) rotate(45deg);
     box-shadow: 0 0 14px #00F0FF;
+}
+
+:root[dark-mode="false"] .gj\:experience\:list-item\:link:hover,
+:root:not([dark-mode="true"]) .gj\:experience\:list-item\:link:hover {
+    background-color: #4F46E5;
+    color: #FFFFFF;
+    border-color: #4F46E5;
+    box-shadow: 0 0 14px rgba(79, 70, 229, 0.4);
 }
 
 /* Detalles Expansibles (Acordeón) */

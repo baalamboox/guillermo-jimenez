@@ -28,7 +28,8 @@ const initialTopics = initialSkill.mastered_topics.split(",");
         </header>
 
         <!-- Dock Flotante Estilo macOS / Cyber -->
-        <nav class="gj:skills:dock-wrapper" aria-label="Dock de Tecnologías">
+        <nav class="gj:skills:dock-wrapper" id="gjSkillsDockWrapper" aria-label="Dock de Tecnologías">
+            <div class="gj:skills:dock-tooltip" id="gjDockTooltip" role="tooltip" aria-hidden="true"></div>
             <div class="gj:skills:dock" id="gjSkillsDock" role="tablist" aria-label="Listado de Tecnologías">
                 {technicalSkills.map(([key, item], index) => (
                     <button 
@@ -45,7 +46,6 @@ const initialTopics = initialSkill.mastered_topics.split(",");
                         <span class="gj:layout:svg-wrapper gj:skills:dock-svg">
                             <svg><use href={`./src/assets/icons/gj.svg#${item.icon}`}></use></svg>
                         </span>
-                        <span class="gj:skills:dock-tooltip" role="tooltip">{item.title}</span>
                     </button>
                 ))}
             </div>

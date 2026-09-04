@@ -1,5 +1,28 @@
-document.addEventListener("DOMContentLoaded", () => {
+let homeAbortController = null;
+let homeRafId = null;
+
+const cleanupHome = () => {
+    if (homeRafId) {
+        cancelAnimationFrame(homeRafId);
+        homeRafId = null;
+    }
+    if (homeAbortController) {
+        homeAbortController.abort();
+        homeAbortController = null;
+    }
+};
+
+document.addEventListener("astro:before-swap", cleanupHome);
+
+const initHome = () => {
+    cleanupHome();
+
     const avatarWrapper = document.querySelector(".gj\\:home\\:avatar-wrapper");
+    if (!avatarWrapper) return;
+
+    homeAbortController = new AbortController();
+    const { signal } = homeAbortController;
+
     const badgeTop = document.querySelector(".gj\\:home\\:badge-top");
     const badgeBottom = document.querySelector(".gj\\:home\\:badge-bottom");
     const techChips = document.querySelectorAll(".gj\\:home\\:tech-chip");
@@ -29,13 +52,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (window.setAuraGradient) {
                     window.setAuraGradient(reactiveGradients[techKey]);
                 }
-            });
+            }, { signal });
 
             chip.addEventListener("mouseleave", () => {
                 if (window.resetAura) {
                     window.resetAura(250);
                 }
-            });
+            }, { signal });
         }
     });
 
@@ -45,13 +68,13 @@ document.addEventListener("DOMContentLoaded", () => {
             if (window.setAuraGradient) {
                 window.setAuraGradient(reactiveGradients.projects);
             }
-        });
+        }, { signal });
 
         btnPrimary.addEventListener("mouseleave", () => {
             if (window.resetAura) {
                 window.resetAura(250);
             }
-        });
+        }, { signal });
     }
 
     // Interacción con Botón Descargar CV (Aura Esmeralda/Cyan)
@@ -61,23 +84,22 @@ document.addEventListener("DOMContentLoaded", () => {
             if (window.setAuraGradient) {
                 window.setAuraGradient(cvAuraGradient);
             }
-        });
+        }, { signal });
 
         btnCv.addEventListener("mouseleave", () => {
             if (window.resetAura) {
                 window.resetAura(250);
             }
-        });
+        }, { signal });
     }
 
     // Parallax interactivo y Tilt 3D optimizado con requestAnimationFrame (60/120fps)
-    if (avatarWrapper && window.matchMedia("(min-width: 992px)").matches) {
+    if (window.matchMedia("(min-width: 992px)").matches) {
         let mouseX = 0;
         let mouseY = 0;
         let currentX = 0;
         let currentY = 0;
         let isMoving = false;
-        let rafId = null;
 
         const updateParallax = () => {
             // Suavizado exponencial (lerp)
@@ -107,9 +129,10 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             if (Math.abs(mouseX - currentX) > 0.01 || Math.abs(mouseY - currentY) > 0.01) {
-                rafId = requestAnimationFrame(updateParallax);
+                homeRafId = requestAnimationFrame(updateParallax);
             } else {
                 isMoving = false;
+                homeRafId = null;
             }
         };
 
@@ -122,20 +145,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (!isMoving) {
                 isMoving = true;
-                rafId = requestAnimationFrame(updateParallax);
+                homeRafId = requestAnimationFrame(updateParallax);
             }
-        });
+        }, { signal, passive: true });
 
         avatarWrapper.addEventListener("mouseleave", () => {
             mouseX = 0;
             mouseY = 0;
             if (!isMoving) {
                 isMoving = true;
-                rafId = requestAnimationFrame(updateParallax);
+                homeRafId = requestAnimationFrame(updateParallax);
             }
-        });
+        }, { signal, passive: true });
     }
-});
+};
 
-
-
+document.addEventListener("astro:page-load", initHome);

@@ -1,26 +1,95 @@
 import data from "../data/data.js";
+import { audioEngine } from "./audio-engine.js";
 
-document.addEventListener("DOMContentLoaded", () => {
+let skillsAbortController = null;
+
+const cleanupSkills = () => {
+    if (skillsAbortController) {
+        skillsAbortController.abort();
+        skillsAbortController = null;
+    }
+};
+
+document.addEventListener("astro:before-swap", cleanupSkills);
+
+const initSkills = () => {
+    cleanupSkills();
+
     const navList = document.getElementById("gjSkillsNavList");
     const dockContainer = document.getElementById("gjSkillsDock");
+    const dockWrapper = document.getElementById("gjSkillsDockWrapper");
+    const dockTooltip = document.getElementById("gjDockTooltip");
     const holoCard = document.getElementById("gjSkillsHoloCard");
     const stagePrevBtn = document.getElementById("stagePrevBtn");
     const stageNextBtn = document.getElementById("stageNextBtn");
     const stage = document.getElementById("gjSkillsStage");
 
+    if (!navList || !dockContainer || !holoCard) return;
+
+    skillsAbortController = new AbortController();
+    const { signal } = skillsAbortController;
+
     let currentType = "technical";
     let currentSkillKey = Object.keys(data.skills.technical)[0];
 
-    const generateTopicsHtml = (stringCommas, emphasisColor) => {
-        return stringCommas
-            .split(",")
+    const generateTopicsHtml = (topicsData, emphasisColor) => {
+        if (!topicsData) return "";
+        const topicsList = Array.isArray(topicsData)
+            ? topicsData
+            : typeof topicsData === "string"
+                ? topicsData.split(",")
+                : [];
+
+        return topicsList
             .map((topic) => `
                 <li class="gj:skills:topic-chip" style="--chip-accent: ${emphasisColor};">
                     <span class="gj:skills:chip-check" style="color: ${emphasisColor};">✓</span>
-                    <span class="gj:skills:chip-text">${topic.trim()}</span>
+                    <span class="gj:skills:chip-text">${String(topic).trim()}</span>
                 </li>
             `)
             .join("");
+    };
+
+    let currentTooltipTarget = null;
+
+    const positionTooltip = (targetItem) => {
+        if (!dockTooltip || !targetItem || !dockWrapper) return;
+        const title = targetItem.getAttribute("aria-label");
+        if (!title) return;
+
+        const itemRect = targetItem.getBoundingClientRect();
+        const wrapperRect = dockWrapper.getBoundingClientRect();
+
+        // Ocultar si el botón está fuera de la zona visible del dock por scroll
+        if (itemRect.right < wrapperRect.left || itemRect.left > wrapperRect.right) {
+            hideTooltip();
+            return;
+        }
+
+        dockTooltip.textContent = title;
+        const accent = targetItem.style.getPropertyValue("--dock-accent");
+        if (accent) {
+            dockTooltip.style.setProperty("--dock-tooltip-accent", accent.trim());
+        } else {
+            dockTooltip.style.removeProperty("--dock-tooltip-accent");
+        }
+
+        const leftPos = (itemRect.left - wrapperRect.left) + (itemRect.width / 2);
+        dockTooltip.style.left = `${leftPos}px`;
+        dockTooltip.classList.add("gj:skills:dock-tooltip-visible");
+        dockTooltip.setAttribute("aria-hidden", "false");
+    };
+
+    const showTooltip = (targetItem) => {
+        currentTooltipTarget = targetItem;
+        positionTooltip(targetItem);
+    };
+
+    const hideTooltip = () => {
+        if (!dockTooltip) return;
+        currentTooltipTarget = null;
+        dockTooltip.classList.remove("gj:skills:dock-tooltip-visible");
+        dockTooltip.setAttribute("aria-hidden", "true");
     };
 
     const renderDockItems = (typeSkill) => {
@@ -44,7 +113,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         <span class="gj:layout:svg-wrapper gj:skills:dock-svg">
                             <svg><use href="./src/assets/icons/gj.svg#${item.icon}"></use></svg>
                         </span>
-                        <span class="gj:skills:dock-tooltip" role="tooltip">${item.title}</span>
                     </button>
                 `;
             })
@@ -103,51 +171,44 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="gj:skills:holo-topics-wrapper">
                     <p class="gj:skills:topics-heading">Competencias y Especialidades</p>
                     <ul class="gj:skills:chips-grid">
-                        ${generateTopicsHtml(skill.mastered_topics, skill.emphasis_color)}
+                        ${generateTopicsHtml(skill.mastered_topics || skill.topics, skill.emphasis_color)}
                     </ul>
                 </div>
             </div>
         `;
 
-        // Animación de entrada
-        holoCard.classList.remove("gj:skills:card-enter");
-        requestAnimationFrame(() => {
-            holoCard.classList.add("gj:skills:card-enter");
-        });
-
-        // Actualizar Aura Ambiental
-        if (window.setAuraGradient && skill.emphasis_color) {
-            const gradient = `radial-gradient(circle, ${skill.emphasis_color}DD 0%, ${skill.emphasis_color}55 45%, transparent 75%)`;
+        // Transición de aura suave al cambiar de habilidad
+        if (window.setAuraGradient) {
+            const color = skill.emphasis_color;
+            const gradient = `radial-gradient(circle, ${color}DD 0%, ${color}55 45%, transparent 75%)`;
             window.setAuraGradient(gradient);
         }
     };
 
     const selectSkill = (skillKey, typeSkill) => {
+        if (!data.skills[typeSkill] || !data.skills[typeSkill][skillKey]) return;
+
         currentSkillKey = skillKey;
         currentType = typeSkill;
 
-        // Actualizar clases y roles activos en el dock
+        // Actualizar estado activo en el Dock
         const dockItems = dockContainer.querySelectorAll(".gj\\:skills\\:dock-item");
-        dockItems.forEach((item) => {
-            const isMatch = item.getAttribute("data-item") === skillKey;
-            item.setAttribute("aria-selected", isMatch ? "true" : "false");
+        dockItems.forEach((btn) => {
+            const isMatch = btn.getAttribute("data-item") === skillKey;
+            btn.classList.toggle("gj:skills:dock-item-active", isMatch);
+            btn.setAttribute("aria-selected", isMatch ? "true" : "false");
+
             if (isMatch) {
-                item.classList.add("gj:skills:dock-item-active");
-                if (dockContainer) {
-                    const containerWidth = dockContainer.clientWidth;
-                    const itemLeft = item.offsetLeft;
-                    const itemWidth = item.clientWidth;
-                    dockContainer.scrollTo({
-                        left: itemLeft - (containerWidth / 2) + (itemWidth / 2),
-                        behavior: "smooth"
-                    });
-                }
-            } else {
-                item.classList.remove("gj:skills:dock-item-active");
+                btn.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
             }
         });
 
-        renderHoloCard(skillKey, typeSkill);
+        // Re-renderizar tarjeta central con efecto de salida/entrada fluido
+        holoCard.classList.add("gj:skills:holo-transition");
+        setTimeout(() => {
+            renderHoloCard(skillKey, typeSkill);
+            holoCard.classList.remove("gj:skills:holo-transition");
+        }, 120);
     };
 
     const navigateSkill = (direction) => {
@@ -158,48 +219,33 @@ document.addEventListener("DOMContentLoaded", () => {
         if (nextIndex >= keys.length) nextIndex = 0;
         if (nextIndex < 0) nextIndex = keys.length - 1;
 
+        audioEngine.playLaserClick();
         selectSkill(keys[nextIndex], currentType);
     };
 
-    // Parallax 3D Tilt en la tarjeta central
-    if (stage && holoCard) {
-        stage.addEventListener("mousemove", (e) => {
-            if (window.innerWidth <= 768) return;
-            const rect = holoCard.getBoundingClientRect();
-            const cardCenterX = rect.left + rect.width / 2;
-            const cardCenterY = rect.top + rect.height / 2;
-            const mouseX = e.clientX - cardCenterX;
-            const mouseY = e.clientY - cardCenterY;
-
-            const rotateX = (-mouseY / (rect.height / 2)) * 6;
-            const rotateY = (mouseX / (rect.width / 2)) * 6;
-
-            holoCard.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
-        });
-
-        stage.addEventListener("mouseleave", () => {
-            holoCard.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg)";
-        });
-    }
-
-    // Navegación con flechas del escenario
+    // Flechas de navegación en el escenario
     if (stagePrevBtn) {
-        stagePrevBtn.addEventListener("click", () => navigateSkill("prev"));
+        stagePrevBtn.addEventListener("click", () => {
+            audioEngine.playLaserClick();
+            navigateSkill("prev");
+        }, { signal });
     }
     if (stageNextBtn) {
-        stageNextBtn.addEventListener("click", () => navigateSkill("next"));
+        stageNextBtn.addEventListener("click", () => {
+            audioEngine.playLaserClick();
+            navigateSkill("next");
+        }, { signal });
     }
 
     // Navegación con teclado (← / →)
     window.addEventListener("keydown", (e) => {
-        // Ignorar si el usuario está escribiendo en un input o textarea
         if (["INPUT", "TEXTAREA"].includes(document.activeElement?.tagName)) return;
         if (e.key === "ArrowLeft") {
             navigateSkill("prev");
         } else if (e.key === "ArrowRight") {
             navigateSkill("next");
         }
-    });
+    }, { signal });
 
     // Desplazamiento horizontal con la rueda del mouse en el Dock
     if (dockContainer) {
@@ -208,7 +254,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 e.preventDefault();
                 dockContainer.scrollLeft += e.deltaY;
             }
-        }, { passive: false });
+        }, { signal, passive: false });
     }
 
     // Gestos táctiles Swipe en móvil
@@ -217,7 +263,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (stage) {
         stage.addEventListener("touchstart", (e) => {
             touchStartX = e.changedTouches[0].screenX;
-        }, { passive: true });
+        }, { signal, passive: true });
 
         stage.addEventListener("touchend", (e) => {
             touchEndX = e.changedTouches[0].screenX;
@@ -229,7 +275,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     navigateSkill("prev");
                 }
             }
-        }, { passive: true });
+        }, { signal, passive: true });
     }
 
     // Selector de Categoría (Pestañas Técnicas / Blandas)
@@ -237,6 +283,9 @@ document.addEventListener("DOMContentLoaded", () => {
         navList.addEventListener("click", (e) => {
             const tabBtn = e.target.closest(".gj\\:skills\\:tab-btn");
             if (!tabBtn) return;
+
+            audioEngine.playLaserClick();
+            hideTooltip();
 
             const allTabs = navList.querySelectorAll(".gj\\:skills\\:tab-btn");
             allTabs.forEach((btn) => {
@@ -254,19 +303,67 @@ document.addEventListener("DOMContentLoaded", () => {
 
             renderDockItems(typeKey);
             renderHoloCard(currentSkillKey, typeKey);
-        });
+        }, { signal });
     }
 
-    // Clic en items del dock
+    // Interacciones del dock (clic, hover, focus y scroll para el tooltip flotante)
     if (dockContainer) {
         dockContainer.addEventListener("click", (e) => {
             const item = e.target.closest(".gj\\:skills\\:dock-item");
             if (!item) return;
 
+            audioEngine.playNavPulse();
             const itemKey = item.getAttribute("data-item");
             const typeKey = item.getAttribute("data-type");
             selectSkill(itemKey, typeKey);
-        });
+        }, { signal });
+
+        dockContainer.addEventListener("pointerover", (e) => {
+            const item = e.target.closest(".gj\\:skills\\:dock-item");
+            if (item) {
+                showTooltip(item);
+            }
+        }, { signal });
+
+        dockContainer.addEventListener("pointerout", (e) => {
+            const related = e.relatedTarget;
+            if (!related || !dockContainer.contains(related)) {
+                hideTooltip();
+            } else {
+                const nextItem = related.closest(".gj\\:skills\\:dock-item");
+                if (nextItem) {
+                    showTooltip(nextItem);
+                } else {
+                    hideTooltip();
+                }
+            }
+        }, { signal });
+
+        dockContainer.addEventListener("focusin", (e) => {
+            const item = e.target.closest(".gj\\:skills\\:dock-item");
+            if (item) {
+                showTooltip(item);
+            }
+        }, { signal });
+
+        dockContainer.addEventListener("focusout", (e) => {
+            const related = e.relatedTarget;
+            if (!related || !dockContainer.contains(related)) {
+                hideTooltip();
+            }
+        }, { signal });
+
+        dockContainer.addEventListener("scroll", () => {
+            if (currentTooltipTarget) {
+                positionTooltip(currentTooltipTarget);
+            }
+        }, { signal, passive: true });
+
+        window.addEventListener("resize", () => {
+            if (currentTooltipTarget) {
+                positionTooltip(currentTooltipTarget);
+            }
+        }, { signal, passive: true });
     }
 
     // Inicializar Aura Ambiental inmediata
@@ -275,4 +372,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const gradient = `radial-gradient(circle, ${color}DD 0%, ${color}55 45%, transparent 75%)`;
         window.setAuraGradient(gradient);
     }
-});
+};
+
+document.addEventListener("astro:page-load", initSkills);

@@ -485,6 +485,7 @@
 
 /* Dock Flotante Estilo macOS / Cyber */
 .gj\:skills\:dock-wrapper {
+    position: relative;
     width: 100%;
     max-width: 820px;
     display: flex;
@@ -550,11 +551,25 @@
     box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
 }
 
+:root[dark-mode="false"] .gj\:skills\:dock-item:hover,
+:root:not([dark-mode="true"]) .gj\:skills\:dock-item:hover {
+    border-color: #4F46E5;
+    background: rgba(99, 102, 241, 0.12);
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.25);
+}
+
 .gj\:skills\:dock-item-active {
     border-color: #00F0FF !important;
     background: rgba(99, 102, 241, 0.25) !important;
     transform: translateY(-4px);
     box-shadow: 0 0 16px #00F0FF;
+}
+
+:root[dark-mode="false"] .gj\:skills\:dock-item-active,
+:root:not([dark-mode="true"]) .gj\:skills\:dock-item-active {
+    border-color: #4F46E5 !important;
+    background: rgba(99, 102, 241, 0.15) !important;
+    box-shadow: 0 0 14px rgba(79, 70, 229, 0.3) !important;
 }
 
 .gj\:skills\:dock-item-active::after {
@@ -568,6 +583,12 @@
     border-radius: 2px;
     background-color: #00F0FF;
     box-shadow: 0 0 8px #00F0FF;
+}
+
+:root[dark-mode="false"] .gj\:skills\:dock-item-active::after,
+:root:not([dark-mode="true"]) .gj\:skills\:dock-item-active::after {
+    background-color: #4F46E5;
+    box-shadow: 0 0 8px rgba(79, 70, 229, 0.4);
 }
 
 .gj\:skills\:dock-svg {
@@ -584,16 +605,16 @@
     color: var(--dock-accent, #00F0FF);
 }
 
-/* Tooltip Estilizado Cyber HUD */
+/* Tooltip Estilizado Cyber HUD (Flotante) */
 .gj\:skills\:dock-tooltip {
     position: absolute;
-    top: -34px;
-    left: 50%;
+    top: -26px;
+    left: 0;
     transform: translateX(-50%) translateY(4px);
     background: rgba(10, 11, 18, 0.95);
-    border: 1px solid rgba(0, 240, 255, 0.4);
+    border: 1px solid var(--dock-tooltip-accent, rgba(0, 240, 255, 0.4));
     border-radius: 4px;
-    color: #00F0FF;
+    color: var(--dock-tooltip-accent, #00F0FF);
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     font-size: 11px;
     font-weight: 700;
@@ -603,7 +624,8 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 8px rgba(0, 240, 255, 0.2);
     pointer-events: none;
     opacity: 0;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    visibility: hidden;
+    transition: opacity 0.15s ease, transform 0.15s ease, left 0.12s cubic-bezier(0.2, 0, 0, 1);
     z-index: 30;
 }
 
@@ -615,14 +637,28 @@
     transform: translateX(-50%) rotate(45deg);
     width: 6px;
     height: 6px;
-    background-color: var(--gj-second-bg);
-    border-right: 1px solid var(--gj-border);
-    border-bottom: 1px solid var(--gj-border);
+    background-color: rgba(10, 11, 18, 0.95);
+    border-right: 1px solid var(--dock-tooltip-accent, rgba(0, 240, 255, 0.4));
+    border-bottom: 1px solid var(--dock-tooltip-accent, rgba(0, 240, 255, 0.4));
 }
 
-.gj\:skills\:dock-item:hover .gj\:skills\:dock-tooltip,
-.gj\:skills\:dock-item:focus-visible .gj\:skills\:dock-tooltip {
+:root[dark-mode="false"] .gj\:skills\:dock-tooltip,
+:root:not([dark-mode="true"]) .gj\:skills\:dock-tooltip {
+    background: rgba(255, 255, 255, 0.96);
+    border-color: rgba(99, 102, 241, 0.35);
+    color: #4F46E5;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 0 8px rgba(99, 102, 241, 0.15);
+}
+
+:root[dark-mode="false"] .gj\:skills\:dock-tooltip::after,
+:root:not([dark-mode="true"]) .gj\:skills\:dock-tooltip::after {
+    background-color: rgba(255, 255, 255, 0.96);
+    border-color: rgba(99, 102, 241, 0.35);
+}
+
+.gj\:skills\:dock-tooltip.gj\:skills\:dock-tooltip-visible {
     opacity: 1;
+    visibility: visible;
     transform: translateX(-50%) translateY(0);
 }
 
@@ -695,7 +731,25 @@
     }
 
     .gj\:skills\:dock-tooltip {
-        display: none;
+        display: none !important;
+    }
+
+    .gj\:skills\:tab-btn {
+        padding: 6px 12px;
+        font-size: 11.5px;
+    }
+}
+
+@media only screen and (max-width: 440px) {
+    .gj\:skills\:tabs-pill {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .gj\:skills\:tab-btn {
+        padding: 6px 8px;
+        font-size: 10.5px;
+        column-gap: 5px;
     }
 }
 
