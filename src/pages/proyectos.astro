@@ -84,7 +84,7 @@ const projectImages = import.meta.glob<{ default: ImageMetadata }>("../assets/im
             </header>
 
             <!-- Escenario 3D Depth Stack / Matriz Cuadrícula -->
-            <main class="gj:projects:stage" id="gjProjectsStage" data-view-mode="deck" aria-label="Galería de proyectos">
+            <section class="gj:projects:stage" id="gjProjectsStage" data-view-mode="deck" aria-label="Galería de proyectos">
                 <!-- Flecha Anterior -->
                 <button class="gj:projects:arrow gj:projects:arrow-prev" id="deckPrevBtn" type="button" aria-label="Proyecto anterior">
                     <span class="gj:layout:svg-wrapper">
@@ -99,13 +99,36 @@ const projectImages = import.meta.glob<{ default: ImageMetadata }>("../assets/im
                         const imageModule = projectImages[imgPath]?.default;
                         const bannerSrc = imageModule ? imageModule.src : `/img/projects/${key}/${project.screenshot}.png`;
 
+                        // Posicionamiento 3D inicial en SSR para renderizado inmediato sin saltos ni animaciones de carga
+                        const isActive = index === 0;
+                        let initialTransform = "translate3d(0, 0, 0) scale(1) rotateY(0deg)";
+                        let initialOpacity = "1";
+                        let initialFilter = "none";
+                        let initialZIndex = "25";
+                        let initialPointerEvents = "auto";
+
+                        if (!isActive) {
+                            const diff = index;
+                            const offsetX = Math.min(diff * 38, 160);
+                            const offsetY = diff * -10;
+                            const offsetZ = -diff * 75;
+                            const scale = Math.max(0.68, 1 - diff * 0.07);
+                            const opacity = Math.max(0, 1 - diff * 0.24);
+                            const blur = diff * 2.2;
+                            initialTransform = `translate3d(${offsetX}px, ${offsetY}px, ${offsetZ}px) scale(${scale})`;
+                            initialOpacity = `${opacity}`;
+                            initialFilter = `blur(${blur}px) grayscale(35%)`;
+                            initialZIndex = `${20 - diff}`;
+                            initialPointerEvents = "auto";
+                        }
+
                         return (
                             <article 
-                                class={`gj:projects:card ${index === 0 ? "gj:projects:card-active" : ""}`}
+                                class={`gj:projects:card ${isActive ? "gj:projects:card-active" : ""}`}
                                 data-id-project={key}
                                 data-index={index}
                                 data-img-src={bannerSrc}
-                                style={`--brand-color: ${project.brand_color}; --card-order: ${index};`}
+                                style={`--brand-color: ${project.brand_color}; --card-order: ${index}; transform: ${initialTransform}; opacity: ${initialOpacity}; filter: ${initialFilter}; z-index: ${initialZIndex}; pointer-events: ${initialPointerEvents};`}
                                 role="region"
                                 aria-label={`Proyecto ${project.title}`}
                             >
@@ -182,7 +205,7 @@ const projectImages = import.meta.glob<{ default: ImageMetadata }>("../assets/im
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
                     </span>
                 </button>
-            </main>
+            </section>
 
             <!-- Barra de Miniaturas Inferior (Quick Jump Dock) -->
             <nav class="gj:projects:dock-wrapper" id="gjDeckDockWrapper" aria-label="Navegación rápida de proyectos">

@@ -198,8 +198,14 @@ const initSkills = () => {
             btn.classList.toggle("gj:skills:dock-item-active", isMatch);
             btn.setAttribute("aria-selected", isMatch ? "true" : "false");
 
-            if (isMatch) {
-                btn.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+            if (isMatch && dockContainer) {
+                const dockLeft = btn.offsetLeft;
+                const dockWidth = btn.offsetWidth;
+                const containerWidth = dockContainer.clientWidth;
+                dockContainer.scrollTo({
+                    left: dockLeft - (containerWidth / 2) + (dockWidth / 2),
+                    behavior: "smooth"
+                });
             }
         });
 

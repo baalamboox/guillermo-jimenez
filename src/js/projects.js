@@ -155,8 +155,16 @@ const initProjects = () => {
             thumb.classList.toggle("gj:projects:dock-item-active", isActive);
             thumb.setAttribute("aria-selected", isActive ? "true" : "false");
 
-            if (isActive) {
-                thumb.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+            if (isActive && !isInitial && thumbnailsContainer) {
+                // Scroll horizontal ÚNICAMENTE dentro del contenedor del dock
+                // NUNCA usar scrollIntoView porque desplaza el contenedor vertical de la página o ventana
+                const thumbLeft = thumb.offsetLeft;
+                const thumbWidth = thumb.offsetWidth;
+                const containerWidth = thumbnailsContainer.clientWidth;
+                thumbnailsContainer.scrollTo({
+                    left: thumbLeft - (containerWidth / 2) + (thumbWidth / 2),
+                    behavior: "smooth"
+                });
             }
         });
 
@@ -574,10 +582,21 @@ const initProjects = () => {
         }, { signal, passive: false });
     }
 
+    // Garantizar que el contenedor principal de la vista comience siempre en el tope (sin auto-scroll residual)
+    const mainContent = document.getElementById("main-content");
+    if (mainContent) {
+        mainContent.scrollTop = 0;
+    }
+    if (thumbnailsContainer) {
+        thumbnailsContainer.scrollLeft = 0;
+    }
+
     // Inicialización del Deck (posicionamiento inicial estático sin animación ni salto)
     updateDeck(0, true);
     requestAnimationFrame(() => {
-        deck.classList.add("gj:projects:deck-ready");
+        requestAnimationFrame(() => {
+            deck.classList.add("gj:projects:deck-ready");
+        });
     });
 };
 
