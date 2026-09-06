@@ -111,7 +111,7 @@ const initSkills = () => {
                             aria-label="${item.title}">
                         <span class="gj:skills:dock-glow" aria-hidden="true"></span>
                         <span class="gj:layout:svg-wrapper gj:skills:dock-svg">
-                            <svg><use href="./src/assets/icons/gj.svg#${item.icon}"></use></svg>
+                            <svg><use href="/icons/gj.svg#${item.icon}"></use></svg>
                         </span>
                     </button>
                 `;
@@ -144,7 +144,7 @@ const initSkills = () => {
                 <div class="gj:skills:holo-icon-wrapper" style="--icon-accent: ${skill.emphasis_color};">
                     <div class="gj:skills:holo-icon-ring" aria-hidden="true"></div>
                     <span class="gj:layout:svg-wrapper gj:skills:holo-svg-wrapper">
-                        <svg class="gj:skills:holo-icon"><use href="./src/assets/icons/gj.svg#${skill.icon}"></use></svg>
+                        <svg class="gj:skills:holo-icon"><use href="/icons/gj.svg#${skill.icon}"></use></svg>
                     </span>
                 </div>
 
