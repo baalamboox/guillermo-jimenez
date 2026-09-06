@@ -1,0 +1,9 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: guillermo-jimenez-app
+    ports:
+      - "127.0.0.1:9002:80"
+    restart: unless-stopped
